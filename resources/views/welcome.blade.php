@@ -24,16 +24,8 @@
 
 <main class="flex-grow flex items-center justify-center">
         <div class="text-center fade-in" id="welcome-text">
-            <h2 class="text-6xl font-bold text-green-600">Welcome di Inventaris</h2>
+            <h2 class="text-6xl font-bold text-green-600">Welcome To Inventaris</h2>
             <p class="mt-4 text-lg text-gray-700">Kelola dan pantau inventaris barang sekolah dengan mudah.</p>
-            <div class="mt-6">
-                <a href="{{ route('login') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    Login
-                </a>
-                <a href="{{ route('register') }}" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                    Register
-                </a>
-            </div>
         </div>
     </main>
 
