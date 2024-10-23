@@ -82,7 +82,7 @@
 <title>Kartu Identitas Guru</title>
 
 <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
-        <h1 class="text-2xl font-bold mb-6 text-center">Daftar Ruangan Sekolah</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">Daftar Guru Sekolah</h1>
 
         <div class="button-container mt-4">
       <a href="{{ url('admin/data/create') }}" class="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2 ">

@@ -82,12 +82,16 @@
                 <input type="text" id="name" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama Anda" required>
             </div>
             <div class="mb-6">
-                <label for="email" class="block text-gray-700 text-sm font-semibold">Email</label>
-                <input type="email" id="email" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan email Anda" required>
+                <label for="text" class="block text-gray-700 text-sm font-semibold">Mapel</label>
+                <input type="text" id="text" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan Mapel Anda" required>
             </div>
             <div class="mb-6">
-                <label for="password" class="block text-gray-700 text-sm font-semibold">Password</label>
-                <input type="password" id="password" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan password" required>
+                <label for="text" class="block text-gray-700 text-sm font-semibold">Barang/Tempat</label>
+                <input type="text" id="text" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pilih Barang/Tempat" required>
+            </div>
+            <div class="mb-6">
+                <label for="time" class="block text-gray-700 text-sm font-semibold">jam Pelajaran</label>
+                <input type="time" id="time" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pilih Jam Pelajaran" required>
             </div>
             <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200">
                 Kirim
