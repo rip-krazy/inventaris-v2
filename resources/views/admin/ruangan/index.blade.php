@@ -113,7 +113,7 @@
                     <form action="{{ route('ruangan.destroy', $ruangan) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600">Delete</button>
+                        <button type="submit" class="text-red-600 ml-2">Hapus</button>
                     </form>
                 </td>
             </tr>
