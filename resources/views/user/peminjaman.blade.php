@@ -74,29 +74,36 @@
    </div>
 </aside>
 
-<div class="bg-white p-10 rounded-lg shadow-lg w-full">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Form Input</h2>
-        <form>
-            <div class="mb-6">
-                <label for="name" class="block text-gray-700 text-sm font-semibold">Nama</label>
-                <input type="text" id="name" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama Anda" required>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-20 my-4">
+        <h1 class="text-2xl font-bold mb-4">User Input Form</h1>
+        <form id="userInputForm" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Nama:</label>
+                <input type="text" id="name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
             </div>
-            <div class="mb-6">
-                <label for="text" class="block text-gray-700 text-sm font-semibold">Mapel</label>
-                <input type="text" id="text" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan Mapel Anda" required>
+
+            <div>
+                <label for="mapel" class="block text-sm font-medium text-gray-700">Mapel:</label>
+                <input type="text" id="mapel" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
             </div>
-            <div class="mb-6">
-                <label for="text" class="block text-gray-700 text-sm font-semibold">Barang/Tempat</label>
-                <input type="text" id="text" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pilih Barang/Tempat" required>
+
+            <div>
+                <label for="barangTempat" class="block text-sm font-medium text-gray-700">Barang/Tempat:</label>
+                <input type="text" id="barangTempat" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
             </div>
-            <div class="mb-6">
-                <label for="time" class="block text-gray-700 text-sm font-semibold">jam Pelajaran</label>
-                <input type="time" id="time" class="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pilih Jam Pelajaran" required>
+
+            <div>
+                <label for="jam" class="block text-sm font-medium text-gray-700">Jam:</label>
+                <input type="time" id="jam" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
             </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200">
-                Kirim
-            </button>
+
+            <button type="submit" class="w-full bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700">Submit</button>
         </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
     </div>
 
 

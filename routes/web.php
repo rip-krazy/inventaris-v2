@@ -39,8 +39,8 @@ Route::get('admin/pengguna', function () {
     return view('admin/pengguna');
 });
 
-Route::get('admin/persetujuan', function () {
-    return view('admin/persetujuan');
+Route::get('admin/Persetujuan/persetujuan', function () {
+    return view('admin/Persetujuan/persetujuan');
 });
 
 Route::get('user/du', function () {

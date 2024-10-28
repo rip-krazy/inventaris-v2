@@ -120,9 +120,28 @@
             @endforeach
         </tbody>
     </table>
-</div>
-</body>
-</html>
+    <!-- Pagination Controls -->
+   <div class="mt-6 flex justify-between items-center">
+       <div>
+           @if($ruangan->onFirstPage())
+               <span class="text-gray-500">Previous</span>
+           @else
+               <a href="{{ $ruangan->previousPageUrl() }}" class="text-blue-600">Previous</a>
+           @endif
+       </div>
 
+       <div class="flex items-center">
+           <span class="mx-2">Page {{ $ruangan->currentPage() }} of {{ $ruangan->lastPage() }}</span>
+       </div>
+
+       <div>
+           @if($ruangan->hasMorePages())
+               <a href="{{ $ruangan->nextPageUrl() }}" class="text-blue-600">Next</a>
+           @else
+               <span class="text-gray-500">Next</span>
+           @endif
+       </div>
+   </div>
+</div>
 
 @endsection
