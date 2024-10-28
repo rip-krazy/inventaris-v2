@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\RuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +26,11 @@ Route::get('admin/dashboard', function () {
 
 
 // Route data
-
-Route::get('admin/index', function () {
-    return view('admin/index');
-});
+Route::resource('barangs', BarangController::class);
 
 // Route Ruangan
 
-Route::get('admin/ruangan', function () {
-    return view('admin/ruangan');
-});
+Route::resource('ruangan', RuanganController::class);
 
 // Route user
 

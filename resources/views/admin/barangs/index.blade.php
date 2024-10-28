@@ -23,21 +23,19 @@
                </a>
             </li>
             <li>
-               <a href="{{ url('admin\index') }}" class="flex items-center p-1 ml-5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <a href="{{ url('barangs') }}" class="flex items-center p-1 ml-5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                   <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                      <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
                   </svg>
                   <span class="flex-1 m-3 whitespace-nowrap">Data Barang</span>
-                  <span class="inline-flex items-center justify-center px-2 m-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
                </a>
             </li>
             <li>
-               <a href="{{ url('admin\ruangan') }}" class="flex items-center p-1 ml-5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <a href="{{ url('ruangan') }}" class="flex items-center p-1 ml-5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                   <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                      <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
                   </svg>
                   <span class="flex-1 m-3 whitespace-nowrap">Ruangan</span>
-                  <span class="inline-flex items-center justify-center w-3 h-3 p-1 mr-6 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                </a>
             </li>
             <li>
@@ -77,68 +75,54 @@
          </ul>
       </div>
    </aside>
-   <title>Data Barang</title>
 
-<body class="bg-green-50 p-6">
+<title>Data Barang</title>
 
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
-        <h1 class="text-2xl font-bold mb-6 text-center">Data Barang</h1>
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+   <h1 class="text-4xl font-bold mb-6 text-center">Data Barang</h1>
 
-        <div class="button-container mt-4">
-      <a href="{{ url('admin/data/create') }}" class="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ">
-         Tambah Data
-      </a>
+   <div class="button-container mt-4">
+       <a href="{{ route('barangs.create') }}" class="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+           Tambah Data
+       </a>
    </div>
-        
-        <table class="min-w-full mt-2 bg-white border border-gray-300">
-            <thead>
-                <tr class="bg-green-200 text-gray-600">
-                    <th class="py-4 px-4 border-b text-center">Nama Barang</th>
-                    <th class="py-4 px-4 border-b text-center">Kode Barang</th>
-                    <th class="py-4 px-4 border-b text-center">Kondisi Barang</th>
-                    <th class="py-4 px-4 border-b text-center">Jumlah Barang</th>
-                    <th class="py-4 px-4 border-b text-center">Lokasi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="hover:bg-green-100">
-                    <td class="py-4 px-4 border-b text-center">Laptop</td>
-                    <td class="py-4 px-4 border-b text-center">LB001</td>
-                    <td class="py-4 px-4 border-b text-center">Baik</td>
-                    <td class="py-4 px-4 border-b text-center">10</td>
-                    <td class="py-4 px-4 border-b text-center">Ruang 101</td>
-                </tr>
-                <tr class="hover:bg-green-100">
-                    <td class="py-4 px-4 border-b text-center">Proyektor</td>
-                    <td class="py-4 px-4 border-b text-center">PR002</td>
-                    <td class="py-4 px-4 border-b text-center">Rusak</td>
-                    <td class="py-4 px-4 border-b text-center">5</td>
-                    <td class="py-4 px-4 border-b text-center">Ruang 102</td>
-                </tr>
-                <tr class="hover:bg-green-100">
-                    <td class="py-4 px-4 border-b text-center">Meja</td>
-                    <td class="py-4 px-4 border-b text-center">MJ003</td>
-                    <td class="py-4 px-4 border-b text-center">Baik</td>
-                    <td class="py-4 px-4 border-b text-center">20</td>
-                    <td class="py-4 px-4 border-b text-center">Ruang 103</td>
-                </tr>
-                <tr class="hover:bg-green-100">
-                    <td class="py-4 px-4 border-b text-center">Kursi</td>
-                    <td class="py-4 px-4 border-b text-center">KR004</td>
-                    <td class="py-4 px-4 border-b text-center">Baik</td>
-                    <td class="py-4 px-4 border-b text-center">15</td>
-                    <td class="py-4 px-4 border-b text-center">Ruang 104</td>
-                </tr>
-                <tr class="hover:bg-green-100">
-                    <td class="py-4 px-4 border-b text-center">Whiteboard</td>
-                    <td class="py-4 px-4 border-b text-center">WB005</td>
-                    <td class="py-4 px-4 border-b text-center">Baik</td>
-                    <td class="py-4 px-4 border-b text-center">8</td>
-                    <td class="py-4 px-4 border-b text-center">Ruang 105</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-   
+
+   @if(session('success'))
+       <div class="mt-4 text-green-600">
+           {{ session('success') }}
+       </div>
+   @endif
+
+   <table class="min-w-full mt-2 bg-white border border-gray-300">
+       <thead>
+           <tr class="bg-green-200 text-gray-600">
+               <th class="py-4 px-8 border-b text-center">Nama Barang</th>
+               <th class="py-4 px-8 border-b text-center">Kode Barang</th>
+               <th class="py-4 px-8 border-b text-center">Kondisi Barang</th>
+               <th class="py-4 px-8 border-b text-center">Jumlah Barang</th>
+               <th class="py-4 px-8 border-b text-center">Lokasi</th>
+               <th class="py-4 px-8 border-b text-center">Aksi</th>
+           </tr>
+       </thead>
+       <tbody>
+           @foreach($barangs as $barang)
+               <tr class="hover:bg-green-100">
+                   <td class="py-4 px-8 border-b text-center">{{ $barang->nama_barang }}</td>
+                   <td class="py-4 px-8 border-b text-center">{{ $barang->kode_barang }}</td>
+                   <td class="py-4 px-8 border-b text-center">{{ $barang->kondisi_barang }}</td>
+                   <td class="py-4 px-8 border-b text-center">{{ $barang->jumlah_barang }}</td>
+                   <td class="py-4 px-8 border-b text-center">{{ $barang->lokasi }}</td>
+                   <td class="py-4 px-8 border-b text-center">
+                       <a href="{{ route('barangs.edit', $barang) }}" class="text-blue-500 hover:underline">Edit</a>
+                       <form action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline">
+                           @csrf
+                           @method('DELETE')
+                           <button type="submit" class="text-red-500 hover:underline ml-2">Hapus</button>
+                       </form>
+                   </td>
+               </tr>
+           @endforeach
+       </tbody>
+   </table>
 </div>
 @endsection
