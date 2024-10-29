@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\peminjaman;
 
 class PeminjamanController extends Controller
 {
@@ -12,7 +13,7 @@ class PeminjamanController extends Controller
     public function index()
     {
         $pendingApprovals = peminjaman::all(); // Fetch all approvals
-        return view('user/peminjaman', compact('pendingApprovals')); // Pass them to the view
+        return view('user/peminjaman', compact('pendingApprovals'));
     }
 
     /**

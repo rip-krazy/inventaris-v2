@@ -58,10 +58,8 @@ Route::get('user/ru', function () {
     return view('user/ru');
 });
 
-Route::get('user/peminjaman', function () {
-    return view('user/peminjaman');
-});
-
+Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+Route::post('/persetujuan', [PeminjamanController::class, 'store'])->name('persetujuan.store');
 
 
 // Rute untuk login
