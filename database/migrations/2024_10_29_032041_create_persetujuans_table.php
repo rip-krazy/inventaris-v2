@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('persetujuans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('mapel');
+            $table->string('barangtempat');
+            $table->string('jam');
             $table->timestamps();
         });
     }

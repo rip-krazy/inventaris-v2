@@ -12,7 +12,8 @@ class PersetujuanController extends Controller
      */
     public function index()
     {
-        //
+        $pendingApprovals = persetujuan::all(); // Fetch all approvals
+        return view('your_view_name', compact('pendingApprovals')); // Pass them to the view
     }
 
     /**
@@ -28,7 +29,11 @@ class PersetujuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['nama' => 'required|string|max:255']);
+
+        persetujuan::create($request->only('nama'));
+
+        return redirect()->back()->with('success', 'Approval added!');
     }
 
     /**
