@@ -5,6 +5,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PersetujuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +38,13 @@ Route::resource('ruangan', RuanganController::class);
 
 Route::resource('pengguna', PenggunaController::class);
 
-Route::get('admin/Persetujuan/persetujuan', function () {
-    return view('admin/Persetujuan/persetujuan');
-});
+// Route Persetujuan
+
+Route::resource('persetujuan', PersetujuanController::class);
+
+Route::post('/persetujuan', [PersetujuanController::class, 'store'])->name('persetujuan.store');
+
+/////////////////////////////////////////////// Route User /////////////////////////////////////////////////////////////////////////////
 
 Route::get('user/du', function () {
     return view('user/du');
@@ -53,10 +58,8 @@ Route::get('user/ru', function () {
     return view('user/ru');
 });
 
-Route::get('user/peminjaman', function () {
-    return view('user/peminjaman');
-});
-
+Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+Route::post('/persetujuan', [PeminjamanController::class, 'store'])->name('persetujuan.store');
 
 
 // Rute untuk login

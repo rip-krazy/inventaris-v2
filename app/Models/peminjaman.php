@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class peminjaman extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nama', 'mapel', 'barangtempat', 'jam']; // Adjust according to your fields
 }

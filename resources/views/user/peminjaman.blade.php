@@ -7,34 +7,44 @@
 <body class="bg-gray-100 p-6">
     <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-20 my-4">
         <h1 class="text-2xl font-bold mb-4">User Input Form</h1>
-        <form id="userInputForm" class="space-y-4">
+        <form action="{{ route('persetujuan.store') }}" method="POST">
+            @csrf
+            <input type="text" name="nama" placeholder="Enter approval name" required>
+            <ul id="pendingList" class="list-disc pl-5 text-gray-700">
+                @foreach($pendingApprovals as $approval)
+                    <li>{{ $approval->nama }}</li>
+                @endforeach
+            </ul>
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Nama:</label>
-                <input type="text" id="name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
+                <input type="text" name="mapel" placeholder="Enter approval Mapel" required>
+                <ul class="list-disc pl-5 text-gray-700">
+                    @foreach($pendingApprovals as $approval)
+                        <li>{{ $approval->mapel }}</li>
+                    @endforeach
+                </ul>
             </div>
-
             <div>
-                <label for="mapel" class="block text-sm font-medium text-gray-700">Mapel:</label>
-                <input type="text" id="mapel" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
+                <input type="text" name="barangtempat" placeholder="Enter approval barang/tempat" required>
+                <ul class="list-disc pl-5 text-gray-700">
+                    @foreach($pendingApprovals as $approval)
+                        <li>{{ $approval->barangtempat }}</li>
+                    @endforeach
+                </ul>
             </div>
-
             <div>
-                <label for="barangTempat" class="block text-sm font-medium text-gray-700">Barang/Tempat:</label>
-                <input type="text" id="barangTempat" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
+                <input type="time" name="jam" required>
+                <ul class="list-disc pl-5 text-gray-700">
+                    @foreach($pendingApprovals as $approval)
+                        <li>{{ $approval->jam }}</li>
+                    @endforeach
+                </ul>
             </div>
-
-            <div>
-                <label for="jam" class="block text-sm font-medium text-gray-700">Jam:</label>
-                <input type="time" id="jam" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-500">
-            </div>
-
             <button type="submit" class="w-full bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700">Submit</button>
         </form>
     </div>
-
+</div>
     <script src="app.js"></script>
 </body>
-    </div>
 
 
 
