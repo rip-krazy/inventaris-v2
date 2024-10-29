@@ -35,8 +35,8 @@ Route::resource('ruangan', RuanganController::class);
 
 // Route user
 
-Route::get('admin/pengguna', function () {
-    return view('admin/pengguna');
+Route::get('admin/pengguna/pengguna', function () {
+    return view('admin/pengguna/pengguna');
 });
 
 Route::get('admin/Persetujuan/persetujuan', function () {
