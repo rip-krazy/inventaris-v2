@@ -2,63 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $penggunas = Pengguna::all();
+        $penggunas = Pengguna::paginate(2); 
+        return view('admin.pengguna.index', compact('penggunas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.pengguna.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:penggunas',
+            'password' => 'required|unique:penggunas',
+            'mapel' => 'required',
+        ]);
+        
+        Pengguna::create($request->all());
+        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Pengguna $pengguna)
     {
-        //
+        return view('admin.pengguna.edit', compact('pengguna'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Pengguna $pengguna)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:penggunas,username,' . $pengguna->id,
+            'photo' => 'nullable|image',
+            'mapel' => 'required',
+        ]);
+        
+        $pengguna->update($request->all());
+
+        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil diperbarui');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Pengguna $pengguna)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $pengguna->delete();
+        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil dihapus');
     }
 }
