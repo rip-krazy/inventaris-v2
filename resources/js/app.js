@@ -9,9 +9,9 @@ let pendingApprovals = [];
 userInputForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const name = document.getElementById('name').value;
+    const name = document.getElementById('nama').value;
     const mapel = document.getElementById('mapel').value;
-    const barangTempat = document.getElementById('barangTempat').value;
+    const barangTempat = document.getElementById('barangtempat').value;
     const jam = document.getElementById('jam').value;
 
     const newEntry = { name, mapel, barangTempat, jam, status: 'Pending' };
