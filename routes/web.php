@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\PenggunaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,7 @@ Route::resource('barangs', BarangController::class);
 
 // Route Ruangan
 
-Route::get('admin/ruangan', function () {
-    return view('admin/ruangan');
-});
+Route::resource('ruangan', RuanganController::class);
 
 // Route user
 
@@ -39,8 +39,8 @@ Route::get('admin/pengguna', function () {
     return view('admin/pengguna');
 });
 
-Route::get('admin/persetujuan', function () {
-    return view('admin/persetujuan');
+Route::get('admin/Persetujuan/persetujuan', function () {
+    return view('admin/Persetujuan/persetujuan');
 });
 
 Route::get('user/du', function () {
