@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\persetujuan;
 use Illuminate\Http\Request;
 
-class PersetujuanController extends Controller
+class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $pendingApprovals = peminjaman::all(); // Fetch all approvals
+        return view('user/peminjaman', compact('pendingApprovals')); // Pass them to the view
     }
 
     /**
@@ -28,7 +28,16 @@ class PersetujuanController extends Controller
      */
     public function store(Request $request)
     {
-       //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'mapel' => 'required|string|max:255',
+            'barangtempat' => 'required|string|max:255',
+            'jam' => 'required|date_format:H:i',
+        ]);
+
+        Persetujuan::create($request->only('nama', 'mapel', 'barangtempat', 'jam'));
+
+        return redirect()->back()->with('success', 'Approval added!');
     }
 
     /**
