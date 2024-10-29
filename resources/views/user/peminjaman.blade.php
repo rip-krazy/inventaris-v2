@@ -80,19 +80,34 @@
         <form action="{{ route('persetujuan.store') }}" method="POST">
     @csrf
     <input type="text" name="nama" placeholder="Enter approval name" required>
-    <button type="submit">Submit</button>
-         </form>
+      <ul id="pendingList" class="list-disc pl-5 text-gray-700">
+      @foreach($pendingApprovals as $approval)
+        <li>{{ $approval->nama }}</li>
+       @endforeach
+      </ul>
             <div>
-            <input type="text" name="mapel" placeholder="Enter approval Mapel" required>
-            <button type="submit">Submit</button>
+   <input type="text" name="mapel" placeholder="Enter approval Mapel" required>
+      <ul id="pendingList" class="list-disc pl-5 text-gray-700">
+         @foreach($pendingApprovals as $approval)
+            <li>{{ $approval->mapel }}</li>
+         @endforeach
+      </ul>
             </div>   
             <div>
-            <input type="text" name="barangtempat" placeholder="Enter approval barang/tempat" required>
-            <button type="submit">Submit</button>
+   <input type="text" name="barangtempat" placeholder="Enter approval barang/tempat" required>
+      <ul id="pendingList" class="list-disc pl-5 text-gray-700">
+         @foreach($pendingApprovals as $approval)
+            <li>{{ $approval->barangtempat }}</li>
+         @endforeach
+      </ul>
             </div>
             <div>
-            <input type="time" name="jam" placeholder="Enter approval jam" required>
-            <button type="submit">Submit</button>
+   <input type="time" name="jam" placeholder="Enter approval jam" required>
+      <ul id="pendingList" class="list-disc pl-5 text-gray-700">
+         @foreach($pendingApprovals as $approval)
+            <li>{{ $approval->jam }}</li>
+         @endforeach
+      </ul>
             </div>
             <button type="submit" class="w-full bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700">Submit</button>
         </form>
