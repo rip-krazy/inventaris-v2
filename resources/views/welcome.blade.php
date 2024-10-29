@@ -47,4 +47,4 @@
     </script>
 
 </body>
-@endsection
+</html>

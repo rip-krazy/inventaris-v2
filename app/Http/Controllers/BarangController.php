@@ -10,7 +10,7 @@ class BarangController extends Controller
     public function index()
     {
         $barangs = Barang::all();
-        $barangs = Barang::paginate(2); // Adjust the number as needed
+        $barangs = Barang::paginate(3); // Adjust the number as needed
         return view('admin.barangs.index', compact('barangs'));
     }
 
