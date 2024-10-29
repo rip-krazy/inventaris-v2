@@ -84,7 +84,12 @@
         </div>
     </div>
 
+    <body class="bg-gray-100 p-6">
+    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-20 my-4">
+        <h1 class="text-2xl font-bold mb-4">Approved Permission</h1>
+        
     <script src="app.js"></script>
+</body>
 
 
 @endsection
