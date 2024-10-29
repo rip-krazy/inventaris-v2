@@ -39,6 +39,10 @@ Route::get('admin/pengguna/pengguna', function () {
     return view('admin/pengguna/pengguna');
 });
 
+// Route Persetujuan
+
+Route::resource('persetujuan', PersetujuanController::class);
+
 Route::get('admin/Persetujuan/persetujuan', function () {
     return view('admin/Persetujuan/persetujuan');
 });
