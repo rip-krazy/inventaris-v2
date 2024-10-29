@@ -29,9 +29,14 @@ class PersetujuanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['nama' => 'required|string|max:255']);
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'mapel' => 'required|string|max:255',
+            'barangtempat' => 'required|string|max:255',
+            'jam' => 'required|date_format:H:i',
+        ]);
 
-        persetujuan::create($request->only('nama'));
+        Persetujuan::create($request->only('nama', 'mapel', 'barangtempat', 'jam'));
 
         return redirect()->back()->with('success', 'Approval added!');
     }
