@@ -18,5 +18,4 @@
     <script src="app.js"></script>
 </body>
 
-
 @endsection
