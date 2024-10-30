@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\DbController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,14 +43,10 @@ Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('persetujuan', PersetujuanController::class);
 
-
+Route::resource('db', DbController::class);
 
 Route::get('user/du', function () {
     return view('user/du');
-});
-
-Route::get('user/db', function () {
-    return view('user/db');
 });
 
 Route::get('user/ru', function () {
