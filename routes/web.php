@@ -42,9 +42,7 @@ Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('persetujuan', PersetujuanController::class);
 
-Route::post('/persetujuan', [PersetujuanController::class, 'store'])->name('persetujuan.store');
 
-/////////////////////////////////////////////// Route User /////////////////////////////////////////////////////////////////////////////
 
 Route::get('user/du', function () {
     return view('user/du');
