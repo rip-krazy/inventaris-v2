@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\DbController;
+use App\Http\Controllers\RuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::resource('barangs', BarangController::class);
 
 // Route Ruangan
 
-Route::resource('ruangan', RuanganController::class);
+Route::resource('ruang', RuangController::class);
 
 // Route user
 
@@ -43,15 +44,14 @@ Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('persetujuan', PersetujuanController::class);
 
-Route::resource('db', DbController::class);
-
 Route::get('user/du', function () {
     return view('user/du');
 });
 
-Route::get('user/ru', function () {
-    return view('user/ru');
-});
+Route::resource('db', DbController::class);
+
+Route::resource('ru', RuController::class);
+
 
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 Route::post('/persetujuan', [PeminjamanController::class, 'store'])->name('persetujuan.store');
