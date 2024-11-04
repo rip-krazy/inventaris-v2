@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\peminjaman;
 
 class PeminjamanController extends Controller
@@ -12,9 +13,10 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $pendingApprovals = peminjaman::all(); // Fetch all approvals
-        return view('user/peminjaman', compact('pendingApprovals'));
+        $pendingApprovals = Session::get('pending_approvals', []);
+        return view('user.peminjaman.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -27,19 +29,32 @@ class PeminjamanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function submit(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'mapel' => 'required|string|max:255',
-            'barangtempat' => 'required|string|max:255',
-            'jam' => 'required|date_format:H:i',
+            'nama' => 'required|string',
+            'mapel' => 'required|string',
+            'barangtempat' => 'required|string',
+            'jam' => 'required|string',
         ]);
-
-        Persetujuan::create($request->only('nama', 'mapel', 'barangtempat', 'jam'));
-
-        return redirect()->back()->with('success', 'Approval added!');
+    
+        $newEntry = [
+            'name' => $request->nama,
+            'mapel' => $request->mapel,
+            'barangTempat' => $request->barangtempat,
+            'jam' => $request->jam,
+            'status' => 'Pending'
+        ];
+    
+        // Store the new entry in the session
+        $pendingApprovals = Session::get('pending_approvals', []);
+        $pendingApprovals[] = $newEntry;
+        Session::put('pending_approvals', $pendingApprovals);
+    
+        return redirect()->route('peminjaman.index'); // Redirect to the form or approval list
     }
+    
+    
 
     /**
      * Display the specified resource.
