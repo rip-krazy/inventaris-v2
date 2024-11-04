@@ -41,7 +41,7 @@ Route::resource('pengguna', PenggunaController::class);
 
 // Route Persetujuan
 
-Route::resource('persetujuan', PersetujuanController::class);
+Route::resource('Persetujuan', PersetujuanController::class);
 
 Route::resource('db', DbController::class);
 
