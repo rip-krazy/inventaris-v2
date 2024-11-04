@@ -60,6 +60,11 @@ Route::resource('ru', RuController::class);
 Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 Route::post('/peminjaman/submit', [PeminjamanController::class, 'submit'])->name('peminjaman.submit');
+Route::get('/pending', [PeminjamanController::class, 'pending'])->name('pending');
+
+Route::get('/pending', function () {
+    return view('user.peminjaman.pending'); // Adjust the path according to your folder structure
+})->name('pending');
 
 
 

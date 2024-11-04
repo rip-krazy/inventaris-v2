@@ -17,9 +17,14 @@ class ApprovalController extends Controller
     {
         $pendingApprovals = Session::get('pending_approvals', []);
         if (isset($pendingApprovals[$index])) {
+            // Mark as approved
             $pendingApprovals[$index]['status'] = 'Approved';
-            Session::put('pending_approvals', $pendingApprovals);
+            // Optionally log the approval or do something else
         }
+        // Remove the entry after approval
+        unset($pendingApprovals[$index]);
+        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index the array
+        Session::flash('notification', 'Request approved successfully!');
         return redirect()->route('approvals.index');
     }
 
@@ -27,9 +32,14 @@ class ApprovalController extends Controller
     {
         $pendingApprovals = Session::get('pending_approvals', []);
         if (isset($pendingApprovals[$index])) {
+            // Mark as rejected
             $pendingApprovals[$index]['status'] = 'Rejected';
-            Session::put('pending_approvals', $pendingApprovals);
+            // Optionally log the rejection or do something else
         }
+        // Remove the entry after rejection
+        unset($pendingApprovals[$index]);
+        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index the array
+        Session::flash('notification', 'Request rejected successfully!');
         return redirect()->route('approvals.index');
     }
 }

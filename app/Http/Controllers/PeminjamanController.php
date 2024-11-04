@@ -17,18 +17,6 @@ class PeminjamanController extends Controller
         return view('user.peminjaman.index');
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function submit(Request $request)
     {
         $request->validate([
@@ -51,40 +39,11 @@ class PeminjamanController extends Controller
         $pendingApprovals[] = $newEntry;
         Session::put('pending_approvals', $pendingApprovals);
     
-        return redirect()->route('peminjaman.index'); // Redirect to the form or approval list
-    }
-    
-    
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('pending'); // Redirect to the form or approval list
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function pending()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('user.peminjaman.pending'); // This returns the pending view
     }
 }

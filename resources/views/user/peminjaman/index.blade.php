@@ -7,6 +7,14 @@
 <body class="bg-gray-100 p-6">
     <div class="max-w-full mx-auto bg-white rounded-lg shadow-md p-6 mt-10 sm:px-6">
         <h1 class="text-2xl font-bold text-center mb-6 text-gray-700">User Input Form</h1>
+
+        <!-- Notification Section -->
+        @if(session('notification'))
+            <div class="bg-green-500 text-white p-4 rounded mb-6 text-center">
+                {{ session('notification') }}
+            </div>
+        @endif
+
         <form action="{{ route('peminjaman.submit') }}" method="POST">
             @csrf
             <div class="mb-12">
