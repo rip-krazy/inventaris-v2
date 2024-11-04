@@ -1,10 +1,10 @@
 @extends('main')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
-    <h1 class="text-2xl font-bold mb-6 text-center">Tambah Ruangan</h1>
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+    <h1 class="text-2xl font-bold mb-6 text-center">Tambah Data Ruang</h1>
 
-    <form action="{{ route('ruangan.store') }}" method="POST">
+    <form action="{{ route('ruang.store') }}" method="POST">
         @csrf
         <div class="mb-4">
             <label for="name" class="block text-gray-700">Nama Ruangan</label>
