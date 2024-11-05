@@ -48,6 +48,28 @@
     </table>
     <!-- Pagination Controls -->
    <div class="mt-6 flex justify-between items-center">
+<<<<<<< HEAD:resources/views/admin/ruangan/index.blade.php
+        <div>
+            @if($ruangan->onFirstPage())
+                <span class="text-gray-500">Previous</span>
+            @else
+                <a href="{{ $ruangan->previousPageUrl() }}" class="text-blue-600">Previous</a>
+            @endif
+        </div>
+
+        <div class="flex items-center">
+            <span class="mx-2">Page {{ $ruangan->currentPage() }} of {{ $ruangan->lastPage() }}</span>
+        </div>
+
+        <div>
+            @if($ruangan->hasMorePages())
+                <a href="{{ $ruangan->nextPageUrl() }}" class="text-blue-600">Next</a>
+            @else
+                <span class="text-gray-500">Next</span>
+            @endif
+        </div>
+    </div>
+=======
        <div>
            @if($ruangs->onFirstPage())
                <span class="text-gray-500">Previous</span>
@@ -68,6 +90,6 @@
            @endif
        </div>
    </div>
+>>>>>>> b26db9b2880b925c607e78ef7b2437bc3dd6a0c0:resources/views/admin/ruang/index.blade.php
 </div>
-
 @endsection
