@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\DbController;
+use App\Http\Controllers\RuController;
+use App\Http\Controllers\ApprovalController;
+use App\Http\Controllers\PeminjamanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +36,7 @@ Route::resource('barangs', BarangController::class);
 
 // Route Ruangan
 
-Route::resource('ruangan', RuanganController::class);
+Route::resource('ruang', RuangController::class);
 
 // Route user
 
@@ -41,20 +44,28 @@ Route::resource('pengguna', PenggunaController::class);
 
 // Route Persetujuan
 
-Route::resource('persetujuan', PersetujuanController::class);
 
-Route::resource('db', DbController::class);
+Route::get('/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
+Route::get('/approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
+Route::get('/approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
 
 Route::get('user/du', function () {
     return view('user/du');
 });
 
-Route::get('user/ru', function () {
-    return view('user/ru');
-});
+Route::resource('db', DbController::class);
 
+Route::resource('ru', RuController::class);
+
+Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
-Route::post('/persetujuan', [PeminjamanController::class, 'store'])->name('persetujuan.store');
+Route::post('/peminjaman/submit', [PeminjamanController::class, 'submit'])->name('peminjaman.submit');
+Route::get('/pending', [PeminjamanController::class, 'pending'])->name('pending');
+
+Route::get('/pending', function () {
+    return view('user.peminjaman.pending'); // Adjust the path according to your folder structure
+})->name('pending');
+
 
 
 // Rute untuk login

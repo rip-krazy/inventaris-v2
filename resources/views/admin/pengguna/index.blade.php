@@ -14,35 +14,35 @@
          </div>
       @endif
    
-       <table class="min-w-full mt-4 bg-white shadow-md rounded">
-           <thead>
-               <tr class="bg-green-200 text-gray-600">
-                   <th class="px-12 py-4">Name</th>
-                   <th class="px-12 py-4">Username</th>
-                   <th class="px-12 py-4">Password</th> <!-- Mengubah Foto menjadi Password -->
-                   <th class="px-12 py-4">Mapel</th>
-                   <th class="px-12 py-4">Action</th>
-               </tr>
-           </thead>
-           <tbody>
-           @foreach ($penggunas as $pengguna)
+      <table class="min-w-full mt-2 bg-white border border-gray-300">
+       <thead>
+           <tr class="bg-green-200 text-gray-600">
+               <th class="py-4 px-12 border-b text-center">Nama</th>
+               <th class="py-4 px-12 border-b text-center">Username</th>
+               <th class="py-4 px-12 border-b text-center">Password </th>
+               <th class="py-4 px-12 border-b text-center">Mapel </th>
+               <th class="py-4 px-12 border-b text-center">Aksi</th>
+           </tr>
+       </thead>
+       <tbody>
+           @foreach($penggunas as $pengguna)
                <tr class="hover:bg-green-100">
-                   <td class="border px-4 py-4">{{ $pengguna->name }}</td>
-                   <td class="text-center border px-4 py-4">{{ $pengguna->username }}</td>
-                   <td class="text-center border px-4 py-4">{{ $pengguna->password }}</td> <!-- Menampilkan simbol untuk password -->
-                   <td class="text-center border px-4 py-4">{{ $pengguna->mapel }}</td>
-                   <td class="text-center border px-4 py-4">
-                       <a href="{{ route('pengguna.edit', $pengguna->id) }}" class="text-center text-blue-600">Edit</a>
-                       <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST" style="display:inline;">
-                           @csrf
-                           @method('DELETE')
-                           <button type="submit" class="text-center text-red-600">Delete</button>
-                       </form>
+                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->name }}</td>
+                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->username }}</td>
+                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->password }}</td>
+                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->mapel }}</td>
+                   <td class="py-4 px-12 border-b text-center">
+                        <a href="{{ route('pengguna.edit', $pengguna->id) }}" class="text-center text-blue-600">Edit</a>
+                            <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-center text-red-600">Delete</button>
+                            </form>
                    </td>
                </tr>
-            @endforeach
-           </tbody>
-       </table>
+           @endforeach
+       </tbody>
+   </table>
        <!-- Pagination Controls -->
    <div class="mt-6 flex justify-between items-center">
       <div>
