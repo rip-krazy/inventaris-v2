@@ -7,11 +7,29 @@ use Illuminate\Http\Request;
 
 class RuangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+<<<<<<< HEAD
         $ruangs = Ruang::all();
         $ruangs = Ruang::paginate(10);
         return view('admin.ruang.index', compact('ruangs'));
+=======
+        $search = $request->input('search');  // Ambil input pencarian
+
+        // Cek apakah ada pencarian
+        if ($search) {
+            // Jika ada, cari berdasarkan nama_barang, kode_barang, atau kondisi_barang
+            $ruangs = Ruang::where('name', 'like', '%' . $search . '%')
+                             ->orWhere('description', 'like', '%' . $search . '%')
+                             ->paginate(10); // Atur jumlah barang per halaman
+        } else {
+            // Jika tidak ada pencarian, ambil semua Ruang dengan paginasi
+            $ruangs = Ruang::paginate(10);
+        }
+    
+        // Kirim data barang dan query pencarian ke view
+        return view('admin.ruang.index', compact('ruangs', 'search'));
+>>>>>>> 040ed90dc43c5e0de58a3c5df42825b8be5e0914
     }
 
     public function create()
@@ -54,4 +72,12 @@ class RuangController extends Controller
 
         return redirect()->route('ruang.index')->with('success', 'Data ruang berhasil dihapus.');
     }
+
+    // RuangController: App\Http\Controllers\RuangController.php
+    public function details(Ruang $ruang)
+    {
+        $barangs = $ruang->barangs; // Get items in this room
+        return view('admin.ruang.details', compact('ruang', 'barangs'));
+    }
+
 }
