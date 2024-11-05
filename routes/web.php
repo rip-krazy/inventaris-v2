@@ -33,10 +33,12 @@ Route::get('admin/dashboard', function () {
 
 // Route data
 Route::resource('barangs', BarangController::class);
+Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index');
 
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
 // routes/web.php
 Route::get('/ruang/{ruang}/details', [RuangController::class, 'details'])->name('ruang.details');
@@ -45,6 +47,7 @@ Route::get('/ruang/{ruang}/details', [RuangController::class, 'details'])->name(
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
+Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
 // Route Persetujuan
 
