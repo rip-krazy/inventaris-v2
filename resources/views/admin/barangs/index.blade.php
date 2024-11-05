@@ -1,12 +1,20 @@
-@extends ('main')
-@section ('content')
+@extends('main')
 
+@section('content')
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <title>Data Barang</title>
 
 <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
    <h1 class="text-4xl font-bold mb-6 text-center">Data Barang</h1>
+
+   <!-- Form Pencarian -->
+   <div class="mb-6">
+    <form action="{{ route('barangs.index') }}" method="GET" class="flex items-center space-x-4">
+        <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Barang..." class="px-4 py-2 border rounded-lg w-80" />
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Cari</button>
+    </form>
+</div>
 
    <div class="button-container mt-4">
        <a href="{{ route('barangs.create') }}" class="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -52,6 +60,7 @@
            @endforeach
        </tbody>
    </table>
+
    <!-- Pagination Controls -->
    <div class="mt-6 flex justify-between items-center">
        <div>
@@ -75,4 +84,5 @@
        </div>
    </div>
 </div>
+
 @endsection

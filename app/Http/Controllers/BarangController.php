@@ -7,12 +7,27 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $barangs = Barang::all();
-        $barangs = Barang::paginate(1); // Adjust the number as needed
-        return view('admin.barangs.index', compact('barangs'));
+
+        $search = $request->input('search');  // Ambil input pencarian
+
+        // Cek apakah ada pencarian
+        if ($search) {
+            // Jika ada, cari berdasarkan nama_barang, kode_barang, atau kondisi_barang
+            $barangs = Barang::where('nama_barang', 'like', '%' . $search . '%')
+                             ->orWhere('kode_barang', 'like', '%' . $search . '%')
+                             ->orWhere('kondisi_barang', 'like', '%' . $search . '%')
+                             ->paginate(10); // Atur jumlah barang per halaman
+        } else {
+            // Jika tidak ada pencarian, ambil semua barang dengan paginasi
+            $barangs = Barang::paginate(10);
+        }
+    
+        // Kirim data barang dan query pencarian ke view
+        return view('admin.barangs.index', compact('barangs', 'search'));
     }
+
 
     public function create()
     {

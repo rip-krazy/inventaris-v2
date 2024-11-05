@@ -33,6 +33,7 @@ Route::get('admin/dashboard', function () {
 
 // Route data
 Route::resource('barangs', BarangController::class);
+Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index');
 
 // Route Ruangan
 
