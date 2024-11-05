@@ -41,7 +41,8 @@
                    <td class="py-4 px-8 border-b text-center">{{ $barang->lokasi }}</td>
                    <td class="py-4 px-8 border-b text-center">
                        <a href="{{ route('barangs.edit', $barang) }}" class="text-blue-500 hover:underline">Edit</a>
-                       <form action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline">
+                       <form action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline" 
+                       onsubmit="return confirm('Apakah Data Akan Dihapus?')">
                            @csrf
                            @method('DELETE')
                            <button type="submit" class="text-red-500 hover:underline ml-2">Hapus</button>

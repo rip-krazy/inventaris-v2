@@ -33,7 +33,8 @@
                    <td class="py-4 px-12 border-b text-center">{{ $pengguna->mapel }}</td>
                    <td class="py-4 px-12 border-b text-center">
                         <a href="{{ route('pengguna.edit', $pengguna->id) }}" class="text-center text-blue-600">Edit</a>
-                            <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST" style="display:inline;"
+                                onsubmit="return confirm('Apakah Data Akan Dihapus?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-center text-red-600">Delete</button>
