@@ -38,6 +38,10 @@ Route::resource('barangs', BarangController::class);
 
 Route::resource('ruang', RuangController::class);
 
+// routes/web.php
+Route::get('/ruang/{ruang}/details', [RuangController::class, 'details'])->name('ruang.details');
+
+
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);

@@ -35,6 +35,7 @@
                 <td class="py-4 px-16 border-b text-center">{{ $ruang->name }}</td>
                 <td class="py-4 px-16 border-b text-center">{{ $ruang->description }}</td>
                 <td class="py-4 px-16 border-b text-center">
+                    <a href="{{ route('ruang.details', $ruang) }}" class="text-blue-600">Detail</a>
                     <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600">Edit</a>
                     <form action="{{ route('ruang.destroy', $ruang) }}" method="POST" class="inline" 
                     onsubmit="return confirm('Apakah Data Akan Dihapus?')">
