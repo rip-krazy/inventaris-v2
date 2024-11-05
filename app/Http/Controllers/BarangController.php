@@ -9,11 +9,10 @@ class BarangController extends Controller
 {
     public function index(Request $request)
     {
-<<<<<<< HEAD
         $barangs = Barang::all();
         $barangs = Barang::paginate(3); // Adjust the number as needed
         return view('admin.barangs.index', compact('barangs'));
-=======
+
 
         $search = $request->input('search');  // Ambil input pencarian
 
@@ -31,7 +30,6 @@ class BarangController extends Controller
     
         // Kirim data barang dan query pencarian ke view
         return view('admin.barangs.index', compact('barangs', 'search'));
->>>>>>> 97163b93f04bb8350eeb0f54e44c557fc22f5ad7
     }
 
 
