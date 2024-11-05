@@ -36,6 +36,7 @@ Route::resource('barangs', BarangController::class);
 
 Route::resource('ruang', RuangController::class);
 
+
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);

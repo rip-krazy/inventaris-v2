@@ -10,7 +10,7 @@ class PenggunaController extends Controller
     public function index()
     {
         $penggunas = Pengguna::all();
-        $penggunas = Pengguna::paginate(1); 
+        $penggunas = Pengguna::paginate(10); 
         return view('admin.pengguna.index', compact('penggunas'));
     }
 

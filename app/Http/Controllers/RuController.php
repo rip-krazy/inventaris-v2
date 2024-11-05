@@ -10,7 +10,7 @@ class RuController extends Controller
     public function index()
     {
         $ruangs = Ruang::all();
-        $ruangs = Ruang::paginate(1);
+        $ruangs = Ruang::paginate(10);
         return view('user.ru.index', compact('ruangs'));
     }
 }
