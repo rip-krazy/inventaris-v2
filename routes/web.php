@@ -38,10 +38,12 @@ Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index')
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
+Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
 // Route Persetujuan
 

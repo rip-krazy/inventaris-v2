@@ -7,11 +7,25 @@ use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $penggunas = Pengguna::all();
-        $penggunas = Pengguna::paginate(1); 
-        return view('admin.pengguna.index', compact('penggunas'));
+         $search = $request->input('search');  // Ambil input pencarian
+
+        // Cek apakah ada pencarian
+        if ($search) {
+            // Jika ada, cari berdasarkan nama_barang, kode_barang, atau kondisi_barang
+            $penggunas = Pengguna::where('name', 'like', '%' . $search . '%')
+                             ->orWhere('username', 'like', '%' . $search . '%')
+                             ->orWhere('password', 'like', '%' . $search . '%')
+                             ->orWhere('mapel', 'like', '%' . $search . '%')
+                             ->paginate(10); // Atur jumlah barang per halaman
+        } else {
+            // Jika tidak ada pencarian, ambil semua barang dengan paginasi
+            $penggunas = Pengguna::paginate(10);
+        }
+    
+        // Kirim data barang dan query pencarian ke view
+        return view('admin.pengguna.index', compact('penggunas', 'search'));
     }
 
     public function create()
