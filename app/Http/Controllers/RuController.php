@@ -10,13 +10,7 @@ class RuController extends Controller
 {
     public function index(Request $request)
     {
-<<<<<<< HEAD
-        $ruangs = Ruang::all();
-        $ruangs = Ruang::paginate(10);
-        return view('user.ru.index', compact('ruangs'));
-=======
         $search = $request->input('search');  // Ambil input pencarian
-
         // Cek apakah ada pencarian
         if ($search) {
             // Jika ada, cari berdasarkan nama_barang, kode_barang, atau kondisi_barang
@@ -30,6 +24,6 @@ class RuController extends Controller
     
         // Kirim data barang dan query pencarian ke view
         return view('user.ru.index', compact('ruangs', 'search'));
->>>>>>> 040ed90dc43c5e0de58a3c5df42825b8be5e0914
+
     }
 }

@@ -19,7 +19,7 @@
                 <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Avatar" class="h-10 w-10 rounded-full border-2 border-white mr-4">
             </button>
             <div id="dropdown" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden">
-                <a href="/profile" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
+                <a href="{{ url('profile') }}" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
                 <a href="/logout" class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg">Logout</a>
             </div>
         </div>

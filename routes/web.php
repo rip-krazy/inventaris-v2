@@ -10,6 +10,7 @@ use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,8 @@ Route::get('/pending', function () {
     return view('user.peminjaman.pending'); // Adjust the path according to your folder structure
 })->name('pending');
 
+
+Route::resource('profile', ProfileController::class);
 
 
 // Rute untuk login
