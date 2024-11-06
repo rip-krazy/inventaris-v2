@@ -15,31 +15,51 @@ class ApprovalController extends Controller
 
     public function approve($index)
     {
+        // Ambil data pending approvals dari session
         $pendingApprovals = Session::get('pending_approvals', []);
+
         if (isset($pendingApprovals[$index])) {
-            // Mark as approved
+            // Tandai sebagai approved
             $pendingApprovals[$index]['status'] = 'Approved';
-            // Optionally log the approval or do something else
         }
-        // Remove the entry after approval
+
+        // Hapus entry yang sudah diapprove
         unset($pendingApprovals[$index]);
-        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index the array
-        Session::flash('notification', 'Request approved successfully!');
-        return redirect()->route('approvals.index');
+
+        // Simpan kembali ke session
+        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
+
+        // Kirim feedback dalam bentuk JSON untuk ditampilkan di pending user
+        return response()->json([
+            'status' => 'Berhasil',
+            'message' => 'Permintaan telah disetujui!',
+            'pendingApprovals' => $pendingApprovals,
+        ]);
     }
 
     public function reject($index)
     {
+        // Ambil data pending approvals dari session
         $pendingApprovals = Session::get('pending_approvals', []);
+
         if (isset($pendingApprovals[$index])) {
-            // Mark as rejected
+            // Tandai sebagai rejected
             $pendingApprovals[$index]['status'] = 'Rejected';
-            // Optionally log the rejection or do something else
         }
-        // Remove the entry after rejection
+
+        // Hapus entry yang sudah ditolak
         unset($pendingApprovals[$index]);
-        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index the array
-        Session::flash('notification', 'Request rejected successfully!');
-        return redirect()->route('approvals.index');
+
+        // Simpan kembali ke session
+        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
+
+        // Kirim feedback dalam bentuk JSON untuk ditampilkan di pending user
+        return response()->json([
+            'status' => 'Gagal',
+            'message' => 'Permintaan ditolak.',
+            'pendingApprovals' => $pendingApprovals,
+        ]);
     }
 }
+
+
