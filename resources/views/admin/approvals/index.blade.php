@@ -1,5 +1,5 @@
-@extends ('main')
-@section ('content')
+@extends('main')
+@section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
@@ -10,12 +10,18 @@
             @foreach ($pendingApprovals as $index => $entry)
                 <li class="flex items-center justify-between bg-gray-50 border border-gray-300 rounded-md p-4 transition duration-200 hover:bg-gray-100">
                     <span class="text-gray-700">
-                        {{ htmlspecialchars("{$entry['name']} - {$entry['mapel']} - {$entry['barangTempat']} - {$entry['jam']} [{$entry['status']}]") }}
+                        {{ "{$entry['name']} - {$entry['mapel']} - {$entry['barangTempat']} - {$entry['jam']} [{$entry['status']}]"}}
                     </span>
                     <div class="flex space-x-2">
-                        <a href="{{ route('approvals.approve', $index) }}" class="bg-green-600 text-white rounded-md px-8 py-1 hover:bg-green-700 transition duration-150">Approve</a>
-                        <a href="{{ route('approvals.reject', $index) }}" class="bg-red-600 text-white rounded-md px-8 py-1 hover:bg-red-700 transition duration-150">Reject</a>
-                    </div>
+                        <form action="{{ route('approvals.approve', $index) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="bg-green-600 text-white rounded-md px-8 py-1 hover:bg-green-700 transition duration-150">Approve</button>
+                        </form>
+                        <form action="{{ route('approvals.reject', $index) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="bg-red-600 text-white rounded-md px-8 py-1 hover:bg-red-700 transition duration-150">Reject</button>
+                        </form>
+                    </div>                    
                 </li>
             @endforeach
         </ul>

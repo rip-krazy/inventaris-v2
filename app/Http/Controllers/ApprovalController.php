@@ -15,31 +15,51 @@ class ApprovalController extends Controller
 
     public function approve($index)
     {
+        // Retrieve pending approvals from the session
         $pendingApprovals = Session::get('pending_approvals', []);
+
+        // Check if the item exists
         if (isset($pendingApprovals[$index])) {
-            // Mark as approved
+            // Mark the item as approved
             $pendingApprovals[$index]['status'] = 'Approved';
-            // Optionally log the approval or do something else
+
+            // Optionally, remove the item from the pending list
+            unset($pendingApprovals[$index]);
+
+            // Update the session with the modified list
+            Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
         }
-        // Remove the entry after approval
-        unset($pendingApprovals[$index]);
-        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index the array
-        Session::flash('notification', 'Request approved successfully!');
-        return redirect()->route('approvals.index');
+
+        // Redirect back to the approvals page with a success message
+        return redirect()->route('approvals.index')->with('message', 'Permintaan telah disetujui!');
     }
 
+    /**
+     * Reject a pending item.
+     *
+     * @param int $index
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function reject($index)
     {
+        // Retrieve pending approvals from the session
         $pendingApprovals = Session::get('pending_approvals', []);
+
+        // Check if the item exists
         if (isset($pendingApprovals[$index])) {
-            // Mark as rejected
+            // Mark the item as rejected
             $pendingApprovals[$index]['status'] = 'Rejected';
-            // Optionally log the rejection or do something else
+
+            // Optionally, remove the item from the pending list
+            unset($pendingApprovals[$index]);
+
+            // Update the session with the modified list
+            Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
         }
-        // Remove the entry after rejection
-        unset($pendingApprovals[$index]);
-        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index the array
-        Session::flash('notification', 'Request rejected successfully!');
-        return redirect()->route('approvals.index');
+
+        // Redirect back to the approvals page with a rejection message
+        return redirect()->route('approvals.index')->with('message', 'Permintaan telah ditolak.');
     }
 }
+
+

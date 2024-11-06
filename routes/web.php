@@ -41,11 +41,6 @@ Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index')
 Route::resource('ruang', RuangController::class);
 Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
-// routes/web.php
-Route::get('/ruang/{ruang}/details', [RuangController::class, 'details'])->name('ruang.details');
-
-
-
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
@@ -54,9 +49,9 @@ Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 // Route Persetujuan
 
 
-Route::get('/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
-Route::get('/approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
-Route::get('/approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
+Route::get('approvals/', [ApprovalController::class, 'index'])->name('approvals.index');
+Route::post('approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
+Route::post('approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
 
 Route::get('user/du', function () {
     return view('user/du');

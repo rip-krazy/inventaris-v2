@@ -39,10 +39,20 @@
         </div>
     </main>
 
+    <!-- Section for 7 small images -->
+    <div class="flex justify-center gap-4 mt-2 mb-8">
+        <img src="/assets/img/pplg.png" alt="Image 1" class="h-10"> <!-- Replace with your small image paths -->
+        <img src="/assets/img/tjkt.png" alt="Image 2" class="h-10">
+        <img src="/assets/img/an.png" alt="Image 3" class="h-10">
+        <img src="/assets/img/perkantoran.png" alt="Image 4" class="h-10">
+        <img src="/assets/img/akl.jpg" alt="Image 5" class="h-10">
+        <img src="/assets/img/br.png" alt="Image 6" class="h-10">
+        <img src="/assets/img/lps.png" alt="Image 7" class="h-10">
+        <img src="/assets/img/dpb.png" alt="Image 7" class="h-10">
+    </div>
+
     <footer class="bg-gray-200 text-center py-4 mt-auto">
         <p class="text-gray-600">© 2024 Inventaris Barang. All rights reserved.</p>
     </footer>
-
-    
 </body>
 </html>

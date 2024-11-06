@@ -23,9 +23,18 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white shadow-lg rounded-lg p-10 text-center max-w-lg">
-        <div class="spinner mx-auto mb-6"></div>
-        <h1 class="text-2xl font-semibold mb-3">Sedang Menunggu...</h1>
-        <p class="text-gray-600">Tunggu sebentar, proses sedang berlangsung.</p>
+        @if (session('status'))
+            <div class="mb-6">
+                <div class="text-xl font-semibold {{ session('status') == 'Berhasil' ? 'text-green-600' : 'text-red-600' }}">
+                    {{ session('status') }}
+                </div>
+                <p class="text-gray-600">{{ session('message') }}</p>
+            </div>
+        @else
+            <div class="spinner mx-auto mb-6"></div>
+            <h1 class="text-2xl font-semibold mb-3">Sedang Menunggu...</h1>
+            <p class="text-gray-600">Tunggu sebentar, proses sedang berlangsung.</p>
+        @endif
     </div>
 </body>
 </html>
