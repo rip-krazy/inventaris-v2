@@ -16,5 +16,5 @@ class Barang extends Model
         'jumlah_barang',
         'lokasi'
     ];
-    
+
 }

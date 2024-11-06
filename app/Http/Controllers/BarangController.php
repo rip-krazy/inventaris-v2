@@ -9,6 +9,7 @@ class BarangController extends Controller
 {
     public function index(Request $request)
     {
+
         $search = $request->input('search');  // Ambil input pencarian
 
         // Cek apakah ada pencarian
@@ -25,6 +26,7 @@ class BarangController extends Controller
     
         // Kirim data barang dan query pencarian ke view
         return view('admin.barangs.index', compact('barangs', 'search'));
+
     }
 
 

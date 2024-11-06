@@ -24,6 +24,7 @@ class RuangController extends Controller
     
         // Kirim data barang dan query pencarian ke view
         return view('admin.ruang.index', compact('ruangs', 'search'));
+
     }
 
     public function create()

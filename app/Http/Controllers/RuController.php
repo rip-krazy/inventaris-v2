@@ -25,5 +25,6 @@ class RuController extends Controller
     
         // Kirim data barang dan query pencarian ke view
         return view('user.ru.index', compact('ruangs', 'search'));
+
     }
 }
