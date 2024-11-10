@@ -4,7 +4,7 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<div class="text">
+<div class="text ml-10">
 <h1 class="text-center mt-10 font-bold mb-8 text-4xl">Halaman Dashboard</h1>
 
 <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
