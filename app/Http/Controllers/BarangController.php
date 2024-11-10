@@ -9,10 +9,6 @@ class BarangController extends Controller
 {
     public function index(Request $request)
     {
-<<<<<<< HEAD
-=======
-
->>>>>>> ca71a344eadfdb8fd5ef6b1f8bb631f0b32c5674
         $search = $request->input('search');  // Ambil input pencarian
 
         // Cek apakah ada pencarian

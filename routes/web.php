@@ -11,6 +11,7 @@ use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,25 +28,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/dashboard', function () {
-    return view('admin/dashboard');
-});
-
+Route::resource('dashboard', DashboardController::class);
 
 // Route data
 Route::resource('barangs', BarangController::class);
-Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index');
 
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
-Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
-
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
-Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
-
 // Route Persetujuan
 
 

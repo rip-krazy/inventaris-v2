@@ -17,7 +17,7 @@
         </div>
         <div class="mb-4">
             <label class="block mb-2">Password</label>
-            <input type="password" name="password" class="w-full border rounded p-2" required>
+            <input type="text" name="password" class="w-full border rounded p-2" required>
         </div>        
         <div class="mb-4">
             <label class="block mb-2">Mapel</label>
