@@ -10,6 +10,7 @@ use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,14 +41,6 @@ Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index')
 Route::resource('ruang', RuangController::class);
 Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
-<<<<<<< HEAD
-=======
-// routes/web.php
-Route::get('/ruang/{ruang}/details', [RuangController::class, 'details'])->name('ruang.details');
-
-
-
->>>>>>> 5e17ed2462d776b784b3716d51795f7772a9493c
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
@@ -78,13 +71,11 @@ Route::get('/pending', function () {
 })->name('pending');
 
 
+// Rute untuk menampilkan form login
+Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
-// Rute untuk login
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+// Rute untuk mengautentikasi (login)
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-// Rute untuk registrasi
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->name('register');
-Route::post('/register', [RegisteredUserController::class, 'store']);
+// Rute untuk logout
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

@@ -13,7 +13,7 @@
             <h1 class="text-xl font-bold text-white">Inventaris Barang</h1>
         </div>
         <div class="flex items-center space-x-6 relative">
-            <span class="text-white">Ilya</span>
+            <span class="text-white">Indra</span>
             <div class="relative">
                 <button id="avatarBtn" class="focus:outline-none">
                     <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Avatar" class="h-10 w-10 rounded-full border-2 border-white mr-4">
