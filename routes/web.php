@@ -10,12 +10,9 @@ use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
-<<<<<<< HEAD
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-=======
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
->>>>>>> 22f86f1f6cc9261141750b0a8e0cf16f5890e22e
+use App\Http\Controllers\PengembalianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,14 +37,12 @@ Route::resource('barangs', BarangController::class);
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
-<<<<<<< HEAD
-Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
-=======
->>>>>>> 22f86f1f6cc9261141750b0a8e0cf16f5890e22e
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
+
+Route::resource('pengembalian', PengembalianController::class);
 // Route Persetujuan
 
 
@@ -73,13 +68,7 @@ Route::get('/pending', function () {
 })->name('pending');
 
 
-<<<<<<< HEAD
-// Rute untuk menampilkan form login
-Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-=======
 Route::resource('profile', ProfileController::class);
-
->>>>>>> 22f86f1f6cc9261141750b0a8e0cf16f5890e22e
 
 // Rute untuk mengautentikasi (login)
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
