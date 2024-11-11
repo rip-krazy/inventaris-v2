@@ -15,50 +15,50 @@ class ApprovalController extends Controller
 
     public function approve($index)
     {
-        // Ambil data pending approvals dari session
+        // Retrieve pending approvals from the session
         $pendingApprovals = Session::get('pending_approvals', []);
 
+        // Check if the item exists
         if (isset($pendingApprovals[$index])) {
-            // Tandai sebagai approved
+            // Mark the item as approved
             $pendingApprovals[$index]['status'] = 'Approved';
+
+            // Optionally, remove the item from the pending list
+            unset($pendingApprovals[$index]);
+
+            // Update the session with the modified list
+            Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
         }
 
-        // Hapus entry yang sudah diapprove
-        unset($pendingApprovals[$index]);
-
-        // Simpan kembali ke session
-        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
-
-        // Kirim feedback dalam bentuk JSON untuk ditampilkan di pending user
-        return response()->json([
-            'status' => 'Berhasil',
-            'message' => 'Permintaan telah disetujui!',
-            'pendingApprovals' => $pendingApprovals,
-        ]);
+        // Redirect back to the approvals page with a success message
+        return redirect()->route('approvals.index')->with('message', 'Permintaan telah disetujui!');
     }
 
+    /**
+     * Reject a pending item.
+     *
+     * @param int $index
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function reject($index)
     {
-        // Ambil data pending approvals dari session
+        // Retrieve pending approvals from the session
         $pendingApprovals = Session::get('pending_approvals', []);
 
+        // Check if the item exists
         if (isset($pendingApprovals[$index])) {
-            // Tandai sebagai rejected
+            // Mark the item as rejected
             $pendingApprovals[$index]['status'] = 'Rejected';
+
+            // Optionally, remove the item from the pending list
+            unset($pendingApprovals[$index]);
+
+            // Update the session with the modified list
+            Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
         }
 
-        // Hapus entry yang sudah ditolak
-        unset($pendingApprovals[$index]);
-
-        // Simpan kembali ke session
-        Session::put('pending_approvals', array_values($pendingApprovals)); // Re-index array
-
-        // Kirim feedback dalam bentuk JSON untuk ditampilkan di pending user
-        return response()->json([
-            'status' => 'Gagal',
-            'message' => 'Permintaan ditolak.',
-            'pendingApprovals' => $pendingApprovals,
-        ]);
+        // Redirect back to the approvals page with a rejection message
+        return redirect()->route('approvals.index')->with('message', 'Permintaan telah ditolak.');
     }
 }
 

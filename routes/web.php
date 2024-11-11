@@ -10,7 +10,12 @@ use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
+<<<<<<< HEAD
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+=======
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+>>>>>>> 22f86f1f6cc9261141750b0a8e0cf16f5890e22e
 
 /*
 |--------------------------------------------------------------------------
@@ -27,31 +32,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/dashboard', function () {
-    return view('admin/dashboard');
-});
-
+Route::resource('dashboard', DashboardController::class);
 
 // Route data
 Route::resource('barangs', BarangController::class);
-Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index');
 
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+<<<<<<< HEAD
 Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
+=======
+>>>>>>> 22f86f1f6cc9261141750b0a8e0cf16f5890e22e
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
-Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
-
 // Route Persetujuan
 
 
-Route::get('/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
-Route::post('approvals/approve/{index}', [ApprovalController::class, 'approve']);
-Route::post('approvals/reject/{index}', [ApprovalController::class, 'reject']);
+Route::get('approvals/', [ApprovalController::class, 'index'])->name('approvals.index');
+Route::post('approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
+Route::post('approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
 
 Route::get('user/du', function () {
     return view('user/du');
@@ -71,8 +73,13 @@ Route::get('/pending', function () {
 })->name('pending');
 
 
+<<<<<<< HEAD
 // Rute untuk menampilkan form login
 Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+=======
+Route::resource('profile', ProfileController::class);
+
+>>>>>>> 22f86f1f6cc9261141750b0a8e0cf16f5890e22e
 
 // Rute untuk mengautentikasi (login)
 Route::post('login', [AuthenticatedSessionController::class, 'store']);

@@ -11,7 +11,7 @@
       <div class="mb-6 justify-between items-center">
            <!-- Form Pencarian -->
            <form action="{{ route('ru.index') }}" method="GET" class=" items-center space-x-4">
-               <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruangan..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
+               <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Barang..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
                <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Cari</button>
            </form>
 

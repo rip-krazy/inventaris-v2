@@ -11,7 +11,6 @@ class RuController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');  // Ambil input pencarian
-
         // Cek apakah ada pencarian
         if ($search) {
             // Jika ada, cari berdasarkan nama_barang, kode_barang, atau kondisi_barang
