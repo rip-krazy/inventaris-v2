@@ -67,12 +67,4 @@ class RuangController extends Controller
 
         return redirect()->route('ruang.index')->with('success', 'Data ruang berhasil dihapus.');
     }
-
-    // RuangController: App\Http\Controllers\RuangController.php
-    public function details(Ruang $ruang)
-    {
-        $barangs = $ruang->barangs; // Get items in this room
-        return view('admin.ruang.details', compact('ruang', 'barangs'));
-    }
-
 }

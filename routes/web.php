@@ -15,6 +15,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
+use App\Http\Controllers\DetailruangController;
 
 
 /*
@@ -44,6 +45,8 @@ Route::resource('ruang', RuangController::class);
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
+
+Route::resource('detailruang', BarangController::class);
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
