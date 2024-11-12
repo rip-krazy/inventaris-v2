@@ -13,6 +13,9 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\PuController;
+use App\Http\Controllers\RaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,13 +45,22 @@ Route::resource('ruang', RuangController::class);
 
 Route::resource('pengguna', PenggunaController::class);
 
-Route::resource('pengembalian', PengembalianController::class);
+// Halaman Pengembalian
+//Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+//Route::post('/pengembalian', [PengembalianController::class, 'store'])->name('pengembalian.store');
 // Route Persetujuan
 
 
-Route::get('approvals/', [ApprovalController::class, 'index'])->name('approvals.index');
-Route::post('approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
-Route::post('approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
+Route::get('/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
+Route::post('/approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
+Route::post('/approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
+
+// Rute untuk melihat daftar pengembalian
+Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+
+// Rute untuk menyetujui permintaan pengembalian
+Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
+
 
 Route::get('user/du', function () {
     return view('user/du');
@@ -61,11 +73,10 @@ Route::resource('ru', RuController::class);
 Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 Route::post('/peminjaman/submit', [PeminjamanController::class, 'submit'])->name('peminjaman.submit');
-Route::get('/pending', [PeminjamanController::class, 'pending'])->name('pending');
 
-Route::get('/pending', function () {
-    return view('user.peminjaman.pending'); // Adjust the path according to your folder structure
-})->name('pending');
+Route::resource('ra', RaController::class);
+
+Route::resource('pu', PuController::class);
 
 
 Route::resource('profile', ProfileController::class);

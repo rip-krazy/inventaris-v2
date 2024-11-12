@@ -34,7 +34,6 @@
                <th class="py-4 px-6 border-b text-center">Kode Barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi Barang</th>
                <th class="py-4 px-6 border-b text-center">Jumlah Barang</th>
-               <th class="py-4 px-6 border-b text-center">Lokasi</th>
                <th class="py-4 px-6 border-b text-center">Aksi</th>
            </tr>
        </thead>
@@ -45,7 +44,6 @@
                    <td class="py-4 px-8 border-b text-center">{{ $barang->kode_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $barang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $barang->jumlah_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">{{ $barang->lokasi }}</td>
                    <td class="py-4 px-8 border-b text-center">
                        <a href="{{ route('barangs.edit', $barang) }}" class="text-blue-500 hover:underline">Edit</a>
                        <form action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline" 

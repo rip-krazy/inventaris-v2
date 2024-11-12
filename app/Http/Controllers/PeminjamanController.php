@@ -37,7 +37,7 @@ class PeminjamanController extends Controller
         Session::put('pending_approvals', $pendingApprovals);
     
         // Redirect ke halaman tunggu
-        return redirect()->route('pending');
+        return redirect()->route('ra.index');
     }
     
 }

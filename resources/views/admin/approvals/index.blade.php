@@ -12,7 +12,7 @@
                     <span class="text-gray-700">
                         {{ "{$entry['name']} - {$entry['mapel']} - {$entry['barangTempat']} - {$entry['jam']} [{$entry['status']}]"}}
                     </span>
-                    <div class="flex space-x-2">
+                    <div class="flex space-x-2 m-2">
                         <form action="{{ route('approvals.approve', $index) }}" method="POST">
                             @csrf
                             <button type="submit" class="bg-green-600 text-white rounded-md px-8 py-1 hover:bg-green-700 transition duration-150">Approve</button>
