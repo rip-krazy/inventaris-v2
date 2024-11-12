@@ -12,6 +12,7 @@ use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PengembalianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,12 @@ Route::resource('barangs', BarangController::class);
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
+
+Route::resource('pengembalian', PengembalianController::class);
 // Route Persetujuan
 
 
@@ -66,13 +70,8 @@ Route::get('/pending', function () {
 
 Route::resource('profile', ProfileController::class);
 
+// Rute untuk mengautentikasi (login)
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-// Rute untuk login
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-
-// Rute untuk registrasi
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->name('register');
-Route::post('/register', [RegisteredUserController::class, 'store']);
+// Rute untuk logout
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

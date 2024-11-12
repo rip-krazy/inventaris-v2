@@ -21,7 +21,7 @@ class PeminjamanController extends Controller
             'barangtempat' => 'required|string',
             'jam' => 'required|string',
         ]);
-
+    
         // Tambahkan permintaan baru ke session
         $newEntry = [
             'name' => $request->nama,
@@ -30,19 +30,16 @@ class PeminjamanController extends Controller
             'jam' => $request->jam,
             'status' => 'Pending',
         ];
-
+    
         // Ambil pending approvals dari session dan simpan
         $pendingApprovals = Session::get('pending_approvals', []);
         $pendingApprovals[] = $newEntry;
         Session::put('pending_approvals', $pendingApprovals);
-
+    
+        // Redirect ke halaman tunggu
         return redirect()->route('pending');
     }
-
-    public function pending()
-    {
-        return view('user.peminjaman.pending');
-    }
+    
 }
 
 
