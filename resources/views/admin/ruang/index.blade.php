@@ -30,28 +30,26 @@
     <table class="min-w-full mt-2 bg-white border border-gray-300">
         <thead>
             <tr class="bg-green-200 text-gray-600">
-                <th class="py-4 px-16 border-b text-center">No</th>
-                <th class="py-4 px-16 border-b text-center">ruang</th>
-                <th class="py-4 px-16 border-b text-center">Keterangan</th>
-                <th class="py-4 px-16 border-b text-center">Aksi</th>
+                <th class="py-4 px-10 border-b text-center">No</th>
+                <th class="py-4 px-10 border-b text-center">ruang</th>
+                <th class="py-4 px-10 border-b text-center">Keterangan</th>
+                <th class="py-4 px-10 border-b text-center">Detail</th>
+                <th class="py-4 px-10 border-b text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($ruangs as $index => $ruang)
             <tr class="hover:bg-green-100">
-                <td class="py-4 px-16 border-b text-center">{{ $index + 1 }}</td>
-                <td class="py-4 px-16 border-b text-center">{{ $ruang->name }}</td>
-                <td class="py-4 px-16 border-b text-center">{{ $ruang->description }}</td>
-                <td class="py-4 px-16 border-b text-center">
-<<<<<<< HEAD
-                    <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600 ml-2">Edit</a>
-                    <form action="{{ route('ruang.destroy', $ruang) }}" method="POST" class="inline">
-=======
-                    <a href="{{ route('ruang.details', $ruang) }}" class="text-blue-600">Detail</a>
+                <td class="py-4 px-10 border-b text-center">{{ $index + 1 }}</td>
+                <td class="py-4 px-10 border-b text-center">{{ $ruang->name }}</td>
+                <td class="py-4 px-10 border-b text-center">{{ $ruang->description }}</td>
+                <td class="py-4 px-10 border-b text-center">
+                    <a href="{{ url('detailruang') }}" class="text-green-600">Detail</a>
+                </td>
+                <td class="py-4 px-10 border-b text-center">
                     <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600">Edit</a>
                     <form action="{{ route('ruang.destroy', $ruang) }}" method="POST" class="inline" 
                     onsubmit="return confirm('Apakah Data Akan Dihapus?')">
->>>>>>> 040ed90dc43c5e0de58a3c5df42825b8be5e0914
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-red-600 ml-2">Hapus</button>

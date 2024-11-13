@@ -27,12 +27,6 @@
             <label class="block text-gray-700">Jumlah Barang</label>
             <input type="number" name="jumlah_barang" value="{{ old('jumlah_barang', $barang->jumlah_barang) }}" class="w-full border border-gray-300 rounded-lg p-2" required>
         </div>
-        
-        <div class="mb-4">
-            <label class="block text-gray-700">Lokasi</label>
-            <input type="text" name="lokasi" value="{{ old('lokasi', $barang->lokasi) }}" class="w-full border border-gray-300 rounded-lg p-2" required>
-        </div>
-        
         <button type="submit" class="w-full text-white bg-blue-600 rounded-lg py-2 hover:bg-blue-700">Update</button>
     </form>
 </div>

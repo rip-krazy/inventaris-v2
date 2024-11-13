@@ -12,10 +12,10 @@
         <span class="text-white font-bold text-xl">Inventaris Barang</span>
     </div>
     <div>
-        <a href="{{ route('login') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        <a href class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             Login
         </a>
-        <a href="{{ route('register') }}" class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+        <a href class="ml-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
             Register
         </a>
     </div>

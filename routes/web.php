@@ -10,6 +10,13 @@ use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\PuController;
+use App\Http\Controllers\RaController;
+use App\Http\Controllers\DetailruangController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,31 +33,37 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/dashboard', function () {
-    return view('admin/dashboard');
-});
-
+Route::resource('dashboard', DashboardController::class);
 
 // Route data
 Route::resource('barangs', BarangController::class);
-Route::get('barangs', [BarangController::class, 'index'])->name('barangs.index');
 
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
-Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
-Route::get('ruangs', [RuangController::class, 'index'])->name('ruangs.index');
 
+Route::resource('detailruang', BarangController::class);
+
+// Halaman Pengembalian
+//Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+//Route::post('/pengembalian', [PengembalianController::class, 'store'])->name('pengembalian.store');
 // Route Persetujuan
 
 
-Route::get('approvals/', [ApprovalController::class, 'index'])->name('approvals.index');
-Route::post('approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
-Route::post('approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
+Route::get('/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
+Route::post('/approvals/approve/{index}', [ApprovalController::class, 'approve'])->name('approvals.approve');
+Route::post('/approvals/reject/{index}', [ApprovalController::class, 'reject'])->name('approvals.reject');
+
+// Rute untuk melihat daftar pengembalian
+Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+
+// Rute untuk menyetujui permintaan pengembalian
+Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
+
 
 Route::get('user/du', function () {
     return view('user/du');
@@ -63,20 +76,16 @@ Route::resource('ru', RuController::class);
 Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 Route::post('/peminjaman/submit', [PeminjamanController::class, 'submit'])->name('peminjaman.submit');
-Route::get('/pending', [PeminjamanController::class, 'pending'])->name('pending');
 
-Route::get('/pending', function () {
-    return view('user.peminjaman.pending'); // Adjust the path according to your folder structure
-})->name('pending');
+Route::resource('ra', RaController::class);
 
+Route::resource('pu', PuController::class);
 
 
-// Rute untuk login
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::resource('profile', ProfileController::class);
 
-// Rute untuk registrasi
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->name('register');
-Route::post('/register', [RegisteredUserController::class, 'store']);
+// Rute untuk mengautentikasi (login)
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+// Rute untuk logout
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

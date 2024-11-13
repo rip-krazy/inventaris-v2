@@ -9,7 +9,6 @@ class BarangController extends Controller
 {
     public function index(Request $request)
     {
-
         $search = $request->input('search');  // Ambil input pencarian
 
         // Cek apakah ada pencarian
@@ -42,7 +41,6 @@ class BarangController extends Controller
             'kode_barang' => 'required|unique:barangs',
             'kondisi_barang' => 'required',
             'jumlah_barang' => 'required|integer',
-            'lokasi' => 'required',
         ]);
 
         Barang::create($request->all());
@@ -61,7 +59,6 @@ class BarangController extends Controller
             'kode_barang' => 'required|unique:barangs,kode_barang,' . $barang->id,
             'kondisi_barang' => 'required',
             'jumlah_barang' => 'required|integer',
-            'lokasi' => 'required',
         ]);
 
         $barang->update($request->all());

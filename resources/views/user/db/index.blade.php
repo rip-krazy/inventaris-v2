@@ -23,7 +23,6 @@
                <th class="py-4 px-6 border-b text-center">Kode Barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi Barang</th>
                <th class="py-4 px-6 border-b text-center">Jumlah Barang</th>
-               <th class="py-4 px-6 border-b text-center">Lokasi</th>
            </tr>
        </thead>
        <tbody>
@@ -33,7 +32,6 @@
                    <td class="py-4 px-8 border-b text-center">{{ $barang->kode_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $barang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $barang->jumlah_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">{{ $barang->lokasi }}</td>
                </tr>
            @endforeach
        </tbody>
