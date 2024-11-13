@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\DuController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
@@ -46,7 +47,7 @@ Route::resource('ruang', RuangController::class);
 
 Route::resource('pengguna', PenggunaController::class);
 
-Route::resource('detailruang', BarangController::class);
+Route::resource('detailruang', DetailruangController::class);
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
@@ -65,9 +66,7 @@ Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pen
 Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
 
 
-Route::get('user/du', function () {
-    return view('user/du');
-});
+Route::resource('du', DuController::class);
 
 Route::resource('db', DbController::class);
 

@@ -22,6 +22,8 @@ class BarangController extends Controller
             // Jika tidak ada pencarian, ambil semua barang dengan paginasi
             $barangs = Barang::paginate(10);
         }
+
+        $totalBarang = Barang::count();
     
         // Kirim data barang dan query pencarian ke view
         return view('admin.barangs.index', compact('barangs', 'search'));

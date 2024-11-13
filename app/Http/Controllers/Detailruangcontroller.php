@@ -2,63 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailRuang;
 use Illuminate\Http\Request;
 
-class Detailruangcontroller extends Controller
+class DetailRuangController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.ruang.detailruang.index');
+        $search = $request->input('search');
+
+        if ($search) {
+            $detailruangs = DetailRuang::where('nama_barang', 'like', '%' . $search . '%')
+                                        ->orWhere('kode_barang', 'like', '%' . $search . '%')
+                                        ->orWhere('kondisi_barang', 'like', '%' . $search . '%')
+                                        ->paginate(10);
+        } else {
+            $detailruangs = DetailRuang::paginate(10);
+        }
+    
+        return view('admin.ruang.detailruang.index', compact('detailruangs', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.ruang.detailruang.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_barang' => 'required',
+            'kode_barang' => 'required|unique:detailruangs',
+            'kondisi_barang' => 'required',
+            'jumlah_barang' => 'required|integer',
+        ]);
+
+        DetailRuang::create($request->all());
+        return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(DetailRuang $detailruang)
     {
-        //
+        return view('admin.ruang.detailruang.edit', compact('detailruang'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, DetailRuang $detailruang)
     {
-        //
+        $request->validate([
+            'nama_barang' => 'required',
+            'kode_barang' => 'required|unique:detailruangs,kode_barang,' . $detailruang->id,
+            'kondisi_barang' => 'required',
+            'jumlah_barang' => 'required|integer',
+        ]);
+
+        $detailruang->update($request->all());
+        return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(DetailRuang $detailruang)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $detailruang->delete();
+        return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil dihapus.');
     }
 }
