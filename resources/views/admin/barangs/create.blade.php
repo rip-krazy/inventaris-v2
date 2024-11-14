@@ -16,7 +16,16 @@
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Kondisi Barang</label>
-            <input type="text" name="kondisi_barang" class="w-full border border-gray-300 rounded-lg p-2" required>
+            <div class="flex items-center space-x-4">
+                <label>
+                    <input type="radio" name="kondisi_barang" value="Baik" required>
+                    <span class="ml-2">Baik</span>
+                </label>
+                <label>
+                    <input type="radio" name="kondisi_barang" value="Rusak" required>
+                    <span class="ml-2">Rusak</span>
+                </label>
+            </div>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Jumlah Barang</label>

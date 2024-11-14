@@ -12,6 +12,8 @@ class DuController extends Controller
     {
         $jumlahPengguna = Pengguna::count(); 
         $totalbarang = Barang::count();
-        return view('user.du.index',compact('jumlahPengguna','totalbarang'));
+        $jumlahBarangBaik = Barang::where('kondisi_barang', 'baik')->count();
+        $jumlahBarangRusak = Barang::where('kondisi_barang', 'rusak')->count();
+        return view('user.du.index',compact('jumlahPengguna','totalbarang','jumlahBarangBaik','jumlahBarangRusak'));
     }
 }

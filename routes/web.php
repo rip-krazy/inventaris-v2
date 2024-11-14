@@ -17,6 +17,7 @@ use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
 use App\Http\Controllers\DetailruangController;
+use App\Http\Controllers\DrController;
 
 
 /*
@@ -71,6 +72,8 @@ Route::resource('du', DuController::class);
 Route::resource('db', DbController::class);
 
 Route::resource('ru', RuController::class);
+
+Route::resource('dr', DrController::class);
 
 Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');

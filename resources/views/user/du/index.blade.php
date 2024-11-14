@@ -9,6 +9,20 @@
 
 <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
   <div class="flex flex-wrap -mx-4">
+    <!-- Card 1 -->
+    <div class="w-full md:w-1/2 xl:w-1/3 p-4">
+      <div class="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-lg">
+          <div class="flex items-center mb-4">
+            <i class="fas fa-users text-2xl text-green-500"></i>
+            <h2 class="ml-4 text-lg font-bold">User</h2>
+            <span class="ml-auto text-gray-600">{{ $jumlahPengguna }}</span> <!-- Tampilkan jumlah pengguna dinamis -->
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-arrow-up text-green-500"></i>
+            <span class="ml-2 text-green-600">User</span>
+          </div>
+      </div>
+    </div>
     <!-- Card 2 -->
     <div class="w-full md:w-1/2 xl:w-1/3 p-4">
       <div class="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-lg">
@@ -73,6 +87,38 @@
         </div>
       </div>
     </div>
+    <div class="w-full md:w-1/2 xl:w-1/3 p-4">
+        <div class="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-lg">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512">
+                <path fill="#ff0000" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                </svg>
+                <h2 class="ml-4 text-lg font-bold">Barang Rusak</h2>
+                <span class="ml-auto text-gray-600">{{ $jumlahBarangRusak }}</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-arrow-down text-red-500"></i>
+                <span class="ml-2 text-red-600">Total</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full md:w-1/2 xl:w-1/3 p-4">
+        <div class="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-lg">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512">
+                <path fill="#107203" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"/>
+                </svg>
+                <h2 class="ml-4 text-lg font-bold">Barang Baik</h2>
+                <span class="ml-auto text-gray-600">{{ $jumlahBarangBaik }}</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-arrow-up text-green-500"></i>
+                <span class="ml-2 text-green-600">Total</span>
+            </div>
+        </div>
+    </div>
+    
   </div>
 </div>
 </div>

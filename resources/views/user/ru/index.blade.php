@@ -8,27 +8,32 @@
     <h1 class="text-2xl font-bold mb-6 text-center">Daftar ruang Sekolah</h1>
 
       <!-- Form Pencarian dan Tombol Tambah Data -->
-      <div class="mb-6 justify-between items-center">
+        <div class="mb-6 justify-between items-center">
            <!-- Form Pencarian -->
            <form action="{{ route('ru.index') }}" method="GET" class=" items-center space-x-4">
                <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Barang..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
                <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Cari</button>
            </form>
+        </div>
 
     <table class="min-w-full mt-2 bg-white border border-gray-300">
         <thead>
             <tr class="bg-green-200 text-gray-600">
-                <th class="py-4 px-20 border-b text-center">No</th>
-                <th class="py-4 px-20 border-b text-center">ruang</th>
-                <th class="py-4 px-20 border-b text-center">Keterangan</th>
+                <th class="py-4 px-16 border-b text-center">No</th>
+                <th class="py-4 px-16 border-b text-center">ruang</th>
+                <th class="py-4 px-16 border-b text-center">Keterangan</th>
+                <th class="py-4 px-16 border-b text-center">Detail</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($ruangs as $index => $ruang)
             <tr class="hover:bg-green-100">
-                <td class="py-4 px-20 border-b text-center">{{ $index + 1 }}</td>
-                <td class="py-4 px-20 border-b text-center">{{ $ruang->name }}</td>
-                <td class="py-4 px-20 border-b text-center">{{ $ruang->description }}</td>
+                <td class="py-4 px-16 border-b text-center">{{ $index + 1 }}</td>
+                <td class="py-4 px-16 border-b text-center">{{ $ruang->name }}</td>
+                <td class="py-4 px-16 border-b text-center">{{ $ruang->description }}</td>
+                <td class="py-4 px-10 border-b text-center">
+                    <a href="{{ url('dr') }}" class="text-green-600">Detail</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

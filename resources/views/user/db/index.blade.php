@@ -9,12 +9,13 @@
    <h1 class="text-4xl font-bold mb-6 text-center">Data Barang</h1>
 
 <!-- Form Pencarian dan Tombol Tambah Data -->
-<div class="mb-6  justify-between items-center">
+        <div class="mb-6  justify-between items-center">
            <!-- Form Pencarian -->
            <form action="{{ route('db.index') }}" method="GET" class=" items-center space-x-4">
                <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Barang..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
                <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Cari</button>
            </form>
+        </div>
 
    <table class="min-w-full mt-2 bg-white border border-gray-300">
        <thead>
