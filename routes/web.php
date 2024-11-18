@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RuangController;
@@ -95,14 +94,3 @@ Route::post('login', [AuthenticatedSessionController::class, 'store']);
 // Rute untuk logout
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-// Routes untuk user biasa
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('dashboard');
-});
-
-// Routes untuk admin
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
-});
-
-require __DIR__.'/auth.php';
