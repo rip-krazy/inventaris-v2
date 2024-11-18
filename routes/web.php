@@ -94,3 +94,4 @@ Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
 // Rute untuk logout
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
