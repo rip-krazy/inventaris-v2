@@ -2,6 +2,7 @@
 
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <title>Data Ruang</title>
 
@@ -32,6 +33,7 @@
                <th class="py-4 px-6 border-b text-center">Kode barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi barang</th>
                <th class="py-4 px-6 border-b text-center">Jumlah barang</th>
+               <th class="py-4 px-6 border-b text-center">QR Code</th>
                <th class="py-4 px-6 border-b text-center">Aksi</th>
            </tr>
        </thead>
@@ -43,9 +45,13 @@
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->jumlah_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">
+                       <!-- Tempat untuk menampilkan QR code -->
+                       <div id="qrcode-{{ $detailruang->id }}" class="inline-block"></div>
+                   </td>
+                   <td class="py-4 px-8 border-b text-center">
                        <a href="{{ route('detailruang.edit', $detailruang) }}" class="text-blue-500 hover:underline">Edit</a>
                        <form action="{{ route('detailruang.destroy', $detailruang) }}" method="POST" class="inline" 
-                       onsubmit="return confirm('Apakah Data Akan Dihapus?')">
+                           onsubmit="return confirm('Apakah Data Akan Dihapus?')">
                            @csrf
                            @method('DELETE')
                            <button type="submit" class="text-red-500 hover:underline ml-2">Hapus</button>
@@ -78,5 +84,14 @@
        </div>
    </div>
 </div>
+
+<script>
+    // Generate QR code for each detailruang
+    @foreach($detailruangs as $detailruang)
+        QRCode.toCanvas(document.getElementById('qrcode-{{ $detailruang->id }}'), "{{ route('detailruang.show', $detailruang->id) }}", function (error) {
+            if (error) console.error(error);
+        });
+    @endforeach
+</script>
 
 @endsection

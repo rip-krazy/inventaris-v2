@@ -64,4 +64,10 @@ class DetailRuangController extends Controller
         $detailruang->delete();
         return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil dihapus.');
     }
+    
+        public function show(DetailRuang $detailruang)
+    {
+        return view('admin.ruang.detailruang.show', compact('detailruang'));
+    }
+
 }
