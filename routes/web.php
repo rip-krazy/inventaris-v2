@@ -49,7 +49,8 @@ Route::resource('ruang', RuangController::class);
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
-Route::get('detailruang/{detailruang}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
+Route::get('/detailruang/{id}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
+
 
 
 // Halaman Pengembalian

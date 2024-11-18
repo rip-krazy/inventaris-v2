@@ -1,8 +1,10 @@
 @extends('main')
 
 @section('content')
+<!-- Include TailwindCSS for styling -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<!-- Use updated QRCode.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@2.0.0/build/qrcode.min.js"></script>
 
 <title>Data Ruang</title>
 
@@ -45,7 +47,7 @@
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->jumlah_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">
-                       <!-- Tempat untuk menampilkan QR code -->
+                       <!-- Tempat untuk menampilkan QR code dalam bentuk canvas -->
                        <div id="qrcode-{{ $detailruang->id }}" class="inline-block"></div>
                    </td>
                    <td class="py-4 px-8 border-b text-center">
@@ -86,12 +88,26 @@
 </div>
 
 <script>
-    // Generate QR code for each detailruang
-    @foreach($detailruangs as $detailruang)
-        QRCode.toCanvas(document.getElementById('qrcode-{{ $detailruang->id }}'), "{{ route('detailruang.show', $detailruang->id) }}", function (error) {
-            if (error) console.error(error);
-        });
-    @endforeach
+    document.addEventListener("DOMContentLoaded", function() {
+        // Loop over all items and generate QR codes for each one
+        @foreach($detailruangs as $detailruang)
+            var url = "{{ route('detailruang.show', $detailruang->id) }}";  // URL for the QR code
+            console.log('Generating QR for URL: ' + url);
+            
+            var qrcodeElement = document.getElementById('qrcode-{{ $detailruang->id }}');
+            
+            if (qrcodeElement) {
+                // Generate the QR Code and render it on the canvas element
+                QRCode.toCanvas(qrcodeElement, url, { width: 150, margin: 3 }, function (error) {
+                    if (error) {
+                        console.error('Error generating QR Code for ID {{ $detailruang->id }}:', error);
+                    } else {
+                        console.log("QR Code generated for ID {{ $detailruang->id }}!");
+                    }
+                });
+            }
+        @endforeach
+    });
 </script>
 
 @endsection
