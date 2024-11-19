@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72108cdb72bd3370493e6477bcc7155ddca7bbee
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf

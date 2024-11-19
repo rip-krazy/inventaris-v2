@@ -46,9 +46,6 @@ Route::resource('ruang', RuangController::class);
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
-Route::get('/detailruang/{id}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
-
-
 
 
 // Halaman Pengembalian
@@ -94,6 +91,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+<<<<<<< HEAD
 
 require __DIR__.'/auth.php';
 
+=======
+require __DIR__.'/auth.php';
+>>>>>>> 72108cdb72bd3370493e6477bcc7155ddca7bbee
