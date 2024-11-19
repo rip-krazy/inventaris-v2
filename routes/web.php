@@ -19,7 +19,6 @@ use App\Http\Controllers\RaController;
 use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,8 +34,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('dashboard', DashboardController::class);
-
 // Route data
 Route::resource('barangs', BarangController::class);
 
@@ -49,6 +46,7 @@ Route::resource('ruang', RuangController::class);
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
+
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
@@ -83,11 +81,20 @@ Route::resource('ra', RaController::class);
 
 Route::resource('pu', PuController::class);
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('profile', ProfileController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Rute untuk mengautentikasi (login)
-Route::post('login', [AuthenticatedSessionController::class, 'store']);
+<<<<<<< HEAD
 
-// Rute untuk logout
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+require __DIR__.'/auth.php';
+
+=======
+require __DIR__.'/auth.php';
+>>>>>>> 72108cdb72bd3370493e6477bcc7155ddca7bbee
