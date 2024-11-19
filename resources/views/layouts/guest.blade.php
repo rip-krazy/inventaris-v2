@@ -15,16 +15,28 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+        <div class="min-h-screen flex items-center justify-end relative mr-32">
+            
+            <!-- Image on the left -->
+            <img src="/assets/img/smk logo.jpg" class="absolute -mt-6 left-60 top-1/2 transform -translate-y-1/2 w-1/4 h-auto" alt="Image">
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <!-- Card Section (Shifted slightly to the right) -->
+            <div class="w-full sm:max-w-md -mt-6 px-10 py-4 justify-center dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg ml-10">
                 {{ $slot }}
             </div>
         </div>
+
+        <!-- Small Images Section (Adjusted to be closer to the large image) -->
+        <div class="flex justify-start gap-4 ml-44 mb-8 -mt-24">
+            <img src="/assets/img/pplg.png" alt="Image 1" class="h-10"> <!-- Replace with your small image paths -->
+            <img src="/assets/img/tjkt.png" alt="Image 2" class="h-10">
+            <img src="/assets/img/an.png" alt="Image 3" class="h-10">
+            <img src="/assets/img/perkantoran.png" alt="Image 4" class="h-10">
+            <img src="/assets/img/akl.jpg" alt="Image 5" class="h-10">
+            <img src="/assets/img/br.png" alt="Image 6" class="h-10">
+            <img src="/assets/img/lps.png" alt="Image 7" class="h-10">
+            <img src="/assets/img/dpb.png" alt="Image 8" class="h-10">
+        </div>
+
     </body>
 </html>

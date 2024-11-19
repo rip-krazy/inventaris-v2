@@ -1,10 +1,9 @@
-<<<<<<< HEAD
+
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-=======
-@extends('main')
->>>>>>> e3c86d8790d1323c7120dfc2e906eedd7f188101
+
+
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
