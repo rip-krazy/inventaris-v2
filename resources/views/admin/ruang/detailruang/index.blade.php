@@ -46,8 +46,11 @@
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->jumlah_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">
-                       <!-- Menampilkan gambar SVG QR Code -->
-                       <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" class="mx-auto" width="50" height="50">
+                       <!-- Membuat QR Code bisa diklik dengan animasi halus -->
+                       <a href="{{ route('detailruang.show', $detailruang->id) }}" target="_blank">
+                           <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" 
+                               class="transition-transform transform hover:scale-105 hover:opacity-80 duration-300 ease-in-out mx-auto" width="50" height="50">
+                       </a>
                    </td>
                    <td class="py-4 px-8 border-b text-center">
                        <a href="{{ route('detailruang.edit', $detailruang) }}" class="text-blue-500 hover:underline">Edit</a>

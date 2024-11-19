@@ -2,10 +2,11 @@
 
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 
 <title>Data Ruang</title>
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Detail Ruang</h1>
 
    <div class="mb-6 flex justify-between items-center">

@@ -3,9 +3,11 @@
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
 
 <body class="bg-gray-100 p-6">
-    <div class="max-w-full mx-auto bg-white rounded-lg shadow-md p-6 mt-10 mb-10 sm:px-6">
+    <div class="max-w-full mx-auto bg-white rounded-lg shadow-md p-6 mt-10 mb-10 sm:px-6 animate__animated animate__fadeIn">
         <h1 class="text-2xl font-bold text-center mb-6 text-gray-700">User Input Form</h1>
 
         <!-- Notification Section -->
