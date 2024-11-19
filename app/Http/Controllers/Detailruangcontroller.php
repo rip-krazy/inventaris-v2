@@ -21,7 +21,7 @@ class DetailRuangController extends Controller
                         ->paginate(10); // Atur jumlah data per halaman
         
         return view('admin.ruang.detailruang.index', compact('detailruangs', 'search'));
-    }    
+    }
 
     public function create()
     {
@@ -65,9 +65,8 @@ class DetailRuangController extends Controller
         return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil dihapus.');
     }
     
-        public function show(DetailRuang $detailruang)
+    public function show(DetailRuang $detailruang)
     {
         return view('admin.ruang.detailruang.show', compact('detailruang'));
     }
-
 }
