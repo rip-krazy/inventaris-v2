@@ -3,12 +3,16 @@
 @section('content')
 <!-- Include TailwindCSS for styling -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
 <!-- Use updated QRCode.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/qrcode@2.0.0/build/qrcode.min.js"></script>
 
+
 <title>Data Ruang</title>
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Detail Ruang</h1>
 
    <div class="mb-6 flex justify-between items-center">
@@ -92,12 +96,10 @@
         // Loop over all items and generate QR codes for each one
         @foreach($detailruangs as $detailruang)
             var url = "{{ route('detailruang.show', $detailruang->id) }}";  // URL for the QR code
-            console.log('Generating QR for URL: ' + url);
             
             var qrcodeElement = document.getElementById('qrcode-{{ $detailruang->id }}');
             
             if (qrcodeElement) {
-                // Generate the QR Code and render it on the canvas element
                 QRCode.toCanvas(qrcodeElement, url, { width: 150, margin: 3 }, function (error) {
                     if (error) {
                         console.error('Error generating QR Code for ID {{ $detailruang->id }}:', error);
