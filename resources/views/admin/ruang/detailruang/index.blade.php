@@ -1,11 +1,18 @@
 @extends('main')
 
 @section('content')
+<!-- Include TailwindCSS for styling -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
+<!-- Use updated QRCode.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@2.0.0/build/qrcode.min.js"></script>
+
 
 <title>Data Ruang</title>
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Detail Ruang</h1>
 
    <div class="mb-6 flex justify-between items-center">
@@ -32,6 +39,7 @@
                <th class="py-4 px-6 border-b text-center">Kode barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi barang</th>
                <th class="py-4 px-6 border-b text-center">Jumlah barang</th>
+               <th class="py-4 px-6 border-b text-center">QR Code</th>
                <th class="py-4 px-6 border-b text-center">Aksi</th>
            </tr>
        </thead>
@@ -43,9 +51,13 @@
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->jumlah_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">
+                       <!-- Tempat untuk menampilkan QR code dalam bentuk canvas -->
+                       <div id="qrcode-{{ $detailruang->id }}" class="inline-block"></div>
+                   </td>
+                   <td class="py-4 px-8 border-b text-center">
                        <a href="{{ route('detailruang.edit', $detailruang) }}" class="text-blue-500 hover:underline">Edit</a>
                        <form action="{{ route('detailruang.destroy', $detailruang) }}" method="POST" class="inline" 
-                       onsubmit="return confirm('Apakah Data Akan Dihapus?')">
+                           onsubmit="return confirm('Apakah Data Akan Dihapus?')">
                            @csrf
                            @method('DELETE')
                            <button type="submit" class="text-red-500 hover:underline ml-2">Hapus</button>
@@ -78,5 +90,26 @@
        </div>
    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Loop over all items and generate QR codes for each one
+        @foreach($detailruangs as $detailruang)
+            var url = "{{ route('detailruang.show', $detailruang->id) }}";  // URL for the QR code
+            
+            var qrcodeElement = document.getElementById('qrcode-{{ $detailruang->id }}');
+            
+            if (qrcodeElement) {
+                QRCode.toCanvas(qrcodeElement, url, { width: 150, margin: 3 }, function (error) {
+                    if (error) {
+                        console.error('Error generating QR Code for ID {{ $detailruang->id }}:', error);
+                    } else {
+                        console.log("QR Code generated for ID {{ $detailruang->id }}!");
+                    }
+                });
+            }
+        @endforeach
+    });
+</script>
 
 @endsection
