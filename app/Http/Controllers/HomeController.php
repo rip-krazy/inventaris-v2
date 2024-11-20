@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function userDashboard()
+   public function index()
+   {
+    if(Auth::id())
     {
-        return view('user.dashboard'); // Buatkan view ini di resources/views/user/dashboard.blade.php
-    }
+        $usertype=Auth()->user()->usertype;
 
-    public function adminDashboard()
-    {
-        return view('admin.dashboard'); // Buatkan view ini di resources/views/admin/dashboard.blade.php
+        if($usertype=='user')
+        {
+            return view('user.du.index');
+        }
+
+        else if($usertype=='admin')
+        {
+            return view('admin.dashboard.index');
+        }
+
+        else
+        {
+            return redirect()->back();
+        }
     }
+   }
 }

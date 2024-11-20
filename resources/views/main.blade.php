@@ -27,7 +27,7 @@
         <form method="POST" action="{{ route('logout') }}">
           @csrf
           <x-dropdown-link :href="route('logout')"
-                           style="font-size: 1rem;"
+                           style="font-size: 1rem;"  class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg"
                            onclick="event.preventDefault(); this.closest('form').submit();">
             {{ __('Log Out') }}
           </x-dropdown-link>
