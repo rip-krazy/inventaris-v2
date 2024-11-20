@@ -40,12 +40,12 @@ Route::resource('barangs', BarangController::class);
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('/ruang/{id}/detailruang', [RuangController::class, 'show'])->name('detailruang');
 
+Route::resource('detailruang', DetailruangController::class);
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
-
-Route::resource('detailruang', DetailruangController::class);
 
 
 // Halaman Pengembalian
@@ -91,10 +91,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-<<<<<<< HEAD
 
 require __DIR__.'/auth.php';
 
-=======
-require __DIR__.'/auth.php';
->>>>>>> 72108cdb72bd3370493e6477bcc7155ddca7bbee
