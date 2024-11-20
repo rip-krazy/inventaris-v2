@@ -40,12 +40,12 @@ Route::resource('barangs', BarangController::class);
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('/ruang/{id}/detailruang', [RuangController::class, 'show'])->name('detailruang');
 
+Route::resource('detailruang', DetailruangController::class);
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
-
-Route::resource('detailruang', DetailruangController::class);
 
 
 // Halaman Pengembalian
