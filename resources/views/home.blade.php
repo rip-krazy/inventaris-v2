@@ -12,18 +12,28 @@
         <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2"> <!-- Increased logo size here -->
         <h1 class="text-xl font-bold text-white">Inventaris Barang</h1> <!-- Increased font size to text-3xl -->
     </div>
-    <div class="flex items-center space-x-6 relative">
-        <span class="text-white">Indra</span>
-        <div class="relative">
-            <button id="avatarBtn" class="focus:outline-none">
-                <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Avatar" class="h-12 w-12 rounded-full border-2 border-white mr-4"> <!-- Increased avatar size here -->
-            </button>
-            <div id="dropdown" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden">
-                <a href="{{ url('profile') }}" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
-                <a href="/logout" class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg">Logout</a>
-            </div>
+    <div class="hidden sm:flex sm:items-center sm:ms-6 relative">
+      <button id="avatarBtn" class="focus:outline-none">
+        <div style="font-size: 1.25rem;" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-200 dark:text-gray-400 bg-transparent dark:bg-gray-800">
+          {{ Auth::user()->name }} 
+          <svg class="w-6 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12,16 6,10 18,10" />
+          </svg>
         </div>
-    </div>
+      </button>
+      <div id="dropdown" 
+           class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
+        <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <x-dropdown-link :href="route('logout')"
+                           style="font-size: 1rem;"  class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg"
+                           onclick="event.preventDefault(); this.closest('form').submit();">
+            {{ __('Log Out') }}
+          </x-dropdown-link>
+        </form>
+      </div>
+    </div>    
 </header>
 
 <div class="flex">

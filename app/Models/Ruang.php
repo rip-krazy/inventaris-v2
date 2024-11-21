@@ -11,10 +11,4 @@ class Ruang extends Model
 
     protected $fillable = ['name', 'description'];
 
-    // Ruang model: App\Models\Ruang.php
-    public function barangs()
-    {
-        return $this->hasMany(Barang::class);
-    }
-
 }
