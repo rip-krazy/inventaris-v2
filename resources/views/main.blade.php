@@ -33,6 +33,7 @@
            class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
         <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
         <form method="POST" action="{{ route('logout') }}">
+<<<<<<< HEAD
          @csrf
          <x-dropdown-link :href="route('logout')"
                            onclick="event.preventDefault();
@@ -41,6 +42,15 @@
              {{ __('Log Out') }}
          </x-dropdown-link>
          </form>
+=======
+          @csrf
+          <x-dropdown-link :href="route('logout')"
+                           style="font-size: 1rem;"  class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg"
+                           onclick="event.preventDefault(); this.closest('form').submit();">
+            {{ __('Log Out') }}
+          </x-dropdown-link>
+        </form>
+>>>>>>> df1a83645d31132e5f5ba3425545d4776dfe790a
       </div>
     </div>    
 </header>
