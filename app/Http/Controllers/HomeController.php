@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pengguna;
+use App\Models\Barang;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -16,12 +18,20 @@ class HomeController extends Controller
 
         if($usertype=='user')
         {
-            return view('user.du.index');
+            $jumlahPengguna = Pengguna::count(); 
+            $totalbarang = Barang::count();
+            $jumlahBarangBaik = Barang::where('kondisi_barang', 'baik')->count();
+            $jumlahBarangRusak = Barang::where('kondisi_barang', 'rusak')->count();
+            return view('user.du.index',compact('jumlahPengguna','totalbarang','jumlahBarangBaik','jumlahBarangRusak'));
         }
 
         else if($usertype=='admin')
         {
-            return view('admin.dashboard.index');
+            $jumlahPengguna = Pengguna::count(); 
+            $totalbarang = Barang::count();
+            $jumlahBarangBaik = Barang::where('kondisi_barang', 'baik')->count();
+            $jumlahBarangRusak = Barang::where('kondisi_barang', 'rusak')->count();
+            return view('admin.dashboard.index', compact('jumlahPengguna','totalbarang','jumlahBarangBaik','jumlahBarangRusak'));
         }
 
         else

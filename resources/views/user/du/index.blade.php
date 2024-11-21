@@ -16,7 +16,7 @@
           <div class="flex items-center mb-4">
             <i class="fas fa-users text-2xl text-green-500"></i>
             <h2 class="ml-4 text-lg font-bold">User</h2>
-            <span class="ml-auto text-gray-600">10</span> <!-- Tampilkan jumlah pengguna dinamis -->
+            <span class="ml-auto text-gray-600">{{ $jumlahPengguna }}</span> <!-- Tampilkan jumlah pengguna dinamis -->
           </div>
           <div class="flex items-center">
             <i class="fas fa-arrow-up text-green-500"></i>
@@ -64,7 +64,7 @@
             <path fill="#0000ff" d="M58.9 42.1c3-6.1 9.6-9.6 16.3-8.7L320 64 564.8 33.4c6.7-.8 13.3 2.7 16.3 8.7l41.7 83.4c9 17.9-.6 39.6-19.8 45.1L439.6 217.3c-13.9 4-28.8-1.9-36.2-14.3L320 64 236.6 203c-7.4 12.4-22.3 18.3-36.2 14.3L37.1 170.6c-19.3-5.5-28.8-27.2-19.8-45.1L58.9 42.1zM321.1 128l54.9 91.4c14.9 24.8 44.6 36.6 72.5 28.6L576 211.6l0 167c0 22-15 41.2-36.4 46.6l-204.1 51c-10.2 2.6-20.9 2.6-31 0l-204.1-51C79 419.7 64 400.5 64 378.5l0-167L191.6 248c27.8 8 57.6-3.8 72.5-28.6L318.9 128l2.2 0z"/>
           </svg>
           <h2 class="ml-4 text-lg font-bold">Total Barang</h2>
-          <span class="ml-auto text-gray-600">5</span>
+          <span class="ml-auto text-gray-600">{{ $totalbarang }}</span>
         </div>
         <div class="flex items-center">
           <i class="fas fa-arrow-up text-green-500"></i>
@@ -95,7 +95,7 @@
                 <path fill="#ff0000" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
                 </svg>
                 <h2 class="ml-4 text-lg font-bold">Barang Rusak</h2>
-                <span class="ml-auto text-gray-600">2</span>
+                <span class="ml-auto text-gray-600">{{ $jumlahBarangRusak }}</span>
             </div>
             <div class="flex items-center">
                 <i class="fas fa-arrow-down text-red-500"></i>
@@ -110,7 +110,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512">
                 <path fill="#107203" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"/>
                 </svg>
-                <h2 class="ml-4 text-lg font-bold">Barang Baik</h2>
+                <h2 class="ml-4 text-lg font-bold">{{ $jumlahBarangBaik }}</h2>
                 <span class="ml-auto text-gray-600">5</span>
             </div>
             <div class="flex items-center">

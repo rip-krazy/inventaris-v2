@@ -39,7 +39,7 @@
 <div class="flex">
     <!-- Button to toggle sidebar -->
     
-    <aside id="default-sidebar" class="w-64 h-screen transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
+    <aside id="default-sidebar" class="w-64 h-full transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
        <div class="h-full px-3 py-4 overflow-y-auto">
        <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
         ☰

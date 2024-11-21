@@ -4,15 +4,6 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="csrf-token" content="{{ csrf_token() }}">
-
-      <title>{{ config('app.name', 'Laravel') }}</title>
-
-      <!-- Fonts -->
-      <link rel="preconnect" href="https://fonts.bunny.net">
-      <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-      <!-- Scripts -->
-      @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
 <body class="bg-gray-100 flex flex-col h-screen">
 <header class="bg-gray-800 shadow p-4 flex justify-between items-center relative">
@@ -33,24 +24,14 @@
            class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
         <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
         <form method="POST" action="{{ route('logout') }}">
-<<<<<<< HEAD
          @csrf
          <x-dropdown-link :href="route('logout')"
                            onclick="event.preventDefault();
                            this.closest('form').submit();"
-                           style="font-size: 1rem;">
+                           style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg">
              {{ __('Log Out') }}
          </x-dropdown-link>
          </form>
-=======
-          @csrf
-          <x-dropdown-link :href="route('logout')"
-                           style="font-size: 1rem;"  class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg"
-                           onclick="event.preventDefault(); this.closest('form').submit();">
-            {{ __('Log Out') }}
-          </x-dropdown-link>
-        </form>
->>>>>>> df1a83645d31132e5f5ba3425545d4776dfe790a
       </div>
     </div>    
 </header>
@@ -65,7 +46,7 @@
       </button>
           <ul class="space-y-2 font-medium">
              <li>
-                <a href="{{ url('dashboard') }}" class="flex items-center mb-6 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="{{ url('home') }}" class="flex items-center mb-6 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                    <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                       <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
                       <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>

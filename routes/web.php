@@ -6,13 +6,11 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
-use App\Http\Controllers\DuController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
@@ -34,8 +32,6 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::resource('dashboard', DashboardController::class);
 
 // Route data
 Route::resource('barangs', BarangController::class);
@@ -66,9 +62,6 @@ Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pen
 
 // Rute untuk menyetujui permintaan pengembalian
 Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
-
-
-Route::resource('du', DuController::class);
 
 Route::resource('db', DbController::class);
 
