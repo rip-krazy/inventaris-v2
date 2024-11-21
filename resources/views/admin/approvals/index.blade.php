@@ -2,7 +2,12 @@
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+<!-- Scripts -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <body class="bg-gray-100 p-6">
     <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 my-10">
         <h2 class="text-2xl font-bold text-gray-800 text-center">Pending Approvals</h2>

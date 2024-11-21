@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Welcome to Inventaris Barang</title>
-</head>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+
+      <title>{{ config('app.name', 'Laravel') }}</title>
+
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.bunny.net">
+      <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+      <!-- Scripts -->
+      @vite(['resources/css/app.css', 'resources/js/app.js'])
+  </head>
 <body class="bg-gray-100 flex flex-col h-screen">
 <header class="bg-gray-800 shadow p-4 flex justify-between items-center relative">
     <div class="flex items-center">
@@ -25,13 +33,14 @@
            class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
         <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
         <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <x-dropdown-link :href="route('logout')"
-                           style="font-size: 1rem;"
-                           onclick="event.preventDefault(); this.closest('form').submit();">
-            {{ __('Log Out') }}
-          </x-dropdown-link>
-        </form>
+         @csrf
+         <x-dropdown-link :href="route('logout')"
+                           onclick="event.preventDefault();
+                           this.closest('form').submit();"
+                           style="font-size: 1rem;">
+             {{ __('Log Out') }}
+         </x-dropdown-link>
+         </form>
       </div>
     </div>    
 </header>
