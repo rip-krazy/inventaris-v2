@@ -12,7 +12,6 @@ use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
@@ -34,8 +33,6 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::resource('dashboard', DashboardController::class);
 
 // Route data
 Route::resource('barangs', BarangController::class);
