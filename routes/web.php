@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\DuController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
@@ -62,6 +63,9 @@ Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pen
 
 // Rute untuk menyetujui permintaan pengembalian
 Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
+
+
+Route::resource('du', DuController::class);
 
 Route::resource('db', DbController::class);
 
