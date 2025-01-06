@@ -18,6 +18,7 @@ use App\Http\Controllers\RaController;
 use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('history', HistoryController::class);
+
+Route::resource('hu', HuController::class);
 
 
 require __DIR__.'/auth.php';
