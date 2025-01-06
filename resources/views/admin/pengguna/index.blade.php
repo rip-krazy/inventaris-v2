@@ -6,7 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 
 <body class="bg-gray-100 p-10">
-   <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+   <div class="max-w-4xl mt-32 mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
        <h1 class="text-4xl font-bold mb-6 text-center">Daftar Pengguna</h1>
 
        <!-- Form Pencarian dan Tombol Tambah Data -->

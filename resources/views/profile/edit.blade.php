@@ -6,15 +6,11 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <div class="py-12 px-48 flex justify-center">
-    <div class="w-full max-w-4xl space-y-6">
+    <div class="w-full max-w-4xl ml-48 mt-20 space-y-6">
         <div class="p-6 bg-white dark:bg-gray-800 shadow rounded-lg">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">{{ __('Update Profile Information') }}</h2>
             <div>
