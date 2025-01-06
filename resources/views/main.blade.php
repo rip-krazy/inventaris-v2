@@ -34,14 +34,40 @@
              {{ __('Log Out') }}
          </x-dropdown-link>
          </form>
+   <header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
+      <div class="flex items-center">
+          <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2">
+          <h1 class="text-xl font-bold text-white">Inventaris Barang</h1>
       </div>
-    </div>    
-</header>
+      <div class="hidden sm:flex sm:items-center sm:ms-6 relative">
+        <button id="avatarBtn" class="focus:outline-none">
+          <div style="font-size: 1.25rem;" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-200 dark:text-gray-400 bg-transparent dark:bg-gray-800">
+            {{ Auth::user()->name }}
+            <svg class="w-6 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12,16 6,10 18,10" />
+            </svg>
+          </div>
+        </button>
+        <div id="dropdown" 
+             class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
+          <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
+          <form method="POST" action="{{ route('logout') }}">
+           @csrf
+           <x-dropdown-link :href="route('logout')"
+                             onclick="event.preventDefault();
+                             this.closest('form').submit();"
+                             style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg">
+               {{ __('Log Out') }}
+           </x-dropdown-link>
+           </form>
+        </div>
+      </div>    
+  </header>  
 
 <div class="flex">
     <!-- Button to toggle sidebar -->
     
-    <aside id="default-sidebar" class="w-64 h-full transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
+    <aside id="default-sidebar" class="w-64 h-full fixed top-20 transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
       <div class="h-full px-3 py-4 overflow-y-auto">
        <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
         ☰

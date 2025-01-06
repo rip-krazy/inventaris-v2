@@ -8,7 +8,7 @@
 <div class="text ml-12">
 <h1 class="text-center mt-10 font-bold mb-8 text-4xl">Halaman Dashboard</h1>
 
-<div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+<div class="max-w-6xl ml-48 mt-10 mx-auto px-4 sm:px-6 md:px-8">
   <div class="flex flex-wrap -mx-4">
     <!-- Card 1 -->
     <div class="w-full md:w-1/2 xl:w-1/3 p-4">

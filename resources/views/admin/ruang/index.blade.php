@@ -5,7 +5,7 @@
 
 <title>Daftar ruang</title>
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+<div class="max-w-6xl mx-auto mt-32 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
     <h1 class="text-2xl font-bold mb-6 text-center">Daftar ruang Sekolah</h1>
 
      <!-- Form Pencarian dan Tombol Tambah Data -->

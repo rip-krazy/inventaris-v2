@@ -5,7 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <body class="bg-gray-100 p-6">
-    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 my-10">
+    <div class="max-w-xl mt-32 mx-auto bg-white rounded-lg shadow-md p-6 my-10">
         <h2 class="text-2xl font-bold text-gray-800 text-center">Pengembalian Tertunda</h2>
 
         <!-- Menampilkan pesan sukses atau gagal setelah admin melakukan aksi -->
