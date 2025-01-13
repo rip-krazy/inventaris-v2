@@ -1,75 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-      <title>Welcome to Inventaris Barang</title>
-  </head>
-<<<<<<< HEAD
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Welcome to Inventaris Barang</title>
+</head>
 <body class="bg-gray-100 flex flex-col h-screen">
-<header class="bg-gray-800 shadow p-4 flex justify-between items-center relative">
+<header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed w-full z-40"> <!-- Added z-40 here -->
     <div class="flex items-center">
-        <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2"> <!-- Increased logo size here -->
-        <h1 class="text-xl font-bold text-white">Inventaris Barang</h1> <!-- Increased font size to text-3xl -->
+        <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2">
+        <h1 class="text-3xl font-bold text-white">Inventaris Barang</h1>
     </div>
-    <div class="hidden sm:flex sm:items-center sm:ms-6 relative">
-      <button id="avatarBtn" class="focus:outline-none">
-        <div style="font-size: 1.25rem;" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-200 dark:text-gray-400 bg-transparent dark:bg-gray-800">
-          {{ Auth::user()->name }} 
-          <svg class="w-6 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="12,16 6,10 18,10" />
-          </svg>
+    <div class="relative">
+        <button id="avatarBtn" class="focus:outline-none flex items-center text-white">
+            <span class="text-lg font-medium mr-2">{{ Auth::user()->name }}</span>
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <polygon points="12,16 6,10 18,10" />
+            </svg>
+        </button>
+        <!-- Improved dropdown positioning and z-index -->
+        <div id="dropdown" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
+            <a href="{{ url('profile') }}" class="block px-4 py-2 hover:bg-gray-200">Profil</a>
+            <a href="{{ url('history') }}" class="block px-4 py-2 hover:bg-gray-200">History</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Log Out</button>
+            </form>
         </div>
-      </button>
-      <div id="dropdown" 
-           class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
-        <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
-      
-        <form method="POST" action="{{ route('logout') }}">
-         @csrf
-         <x-dropdown-link :href="route('logout')"
-                           onclick="event.preventDefault();
-                           this.closest('form').submit();"
-                           style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg">
-             {{ __('Log Out') }}
-         </x-dropdown-link>
-         </form>
-=======
-<body class="bg-gray-100 flex h-screen">
-   <header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed w-full">
-      <div class="flex items-center">
-          <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2">
-          <h1 class="text-3xl font-bold text-white">Inventaris Barang</h1>
->>>>>>> 6bed0132501a9459bb1236a425c41fa634e4eb26
-      </div>
-      <div class="relative">
-          <button id="avatarBtn" class="focus:outline-none flex items-center text-white">
-              <span class="text-lg font-medium mr-2">{{ Auth::user()->name }}</span>
-              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <polygon points="12,16 6,10 18,10" />
-              </svg>
-          </button>
-          <div id="dropdown" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
-              <a href="{{ url('profile') }}" class="block px-4 py-2 hover:bg-gray-200">Profil</a>
-              <a href="{{ url('history') }}" class="block px-4 py-2 hover:bg-gray-200">History</a>
-              <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Log Out</button>
-              </form>
-          </div>
-      </div>
-  </header> 
+    </div>
+</header>
 
-<div class="flex">
+<div class="flex pt-20">
     <!-- Button to toggle sidebar -->
-    
     <aside id="default-sidebar" class="w-64 h-full fixed top-24 transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
-      <div class="h-full px-3 py-4 overflow-y-auto">
-       <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
-        ☰
-      </button>
-          <ul class="space-y-2 font-medium">
+        <div class="h-full px-3 py-4 overflow-y-auto">
+            <button id="toggle-sidebar" class="mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl">
+                ☰
+            </button>
+            <ul class="space-y-2 font-medium">
              <li>
                 <a href="{{ url('home') }}" class="flex items-center mb-6 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                    <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
@@ -130,8 +99,9 @@
                 </a>
              </li>
           </ul>
-       </div>
+        </div>
     </aside>
+    
     @yield('content')
 </div>
 
