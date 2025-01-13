@@ -4,19 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HistoryController extends Controller
+class HuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-<<<<<<< HEAD
-        return view('admin.history.index');
-=======
-         // For now, returning a simple view with a message
-         return view('admin.history.index');
->>>>>>> 0eb883dd5248bf486f0c6f1d4409e4a5ffc78c3a
+        //
     }
 
     /**
