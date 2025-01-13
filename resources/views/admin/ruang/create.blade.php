@@ -5,7 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 
-<div class="w-full max-w-6xl mx-16 bg-white rounded-lg shadow-xl p-10 my-10 animate__animated animate__fadeIn">
+<div class="w-full max-w-4xl mt-32 mx-80 bg-white rounded-lg shadow-xl p-10 my-10 animate__animated animate__fadeIn">
     <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Tambah Data Ruang</h1>
 
     <form action="{{ route('ruang.store') }}" method="POST" class="space-y-6">

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+<div class="max-w-6xl mt-32 mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
     <h1 class="text-2xl font-bold mb-6 text-center">Edit Data Ruang</h1>
 
     <form action="{{ route('ruang.update', $ruang) }}" method="POST">

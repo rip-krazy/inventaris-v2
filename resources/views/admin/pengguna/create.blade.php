@@ -2,7 +2,7 @@
 
 @section('content')
 <body class="bg-gray-100 p-10">
-<div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+<div class="max-w-4xl mt-32 mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
     <h1 class="text-2xl font-bold mb-6">Tambah Pengguna</h1>
     <form action="{{ route('pengguna.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

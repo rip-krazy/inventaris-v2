@@ -18,6 +18,7 @@ use App\Http\Controllers\RaController;
 use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::resource('detailruang', DetailruangController::class);
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
+
+Route::resource('history', HistoryController::class);
 
 
 // Halaman Pengembalian
