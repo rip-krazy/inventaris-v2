@@ -48,6 +48,8 @@ Route::resource('detailruang', DetailruangController::class);
 
 Route::resource('pengguna', PenggunaController::class);
 
+Route::resource('history', HistoryController::class);
+
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
