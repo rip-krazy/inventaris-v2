@@ -34,10 +34,6 @@
              {{ __('Log Out') }}
          </x-dropdown-link>
          </form>
-   <header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
-      <div class="flex items-center">
-          <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2">
-          <h1 class="text-xl font-bold text-white">Inventaris Barang</h1>
       </div>
       <div class="hidden sm:flex sm:items-center sm:ms-6 relative">
         <button id="avatarBtn" class="focus:outline-none">
