@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mx-80 mt-32 p-6">
+<div class="container ml-60 mt-32 p-6">
     <div class="bg-white rounded-lg shadow-lg p-8">
         <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-6">History Page</h1>
         <p class="text-lg text-gray-700 mb-4 text-center">This is where you can view all your historical actions and changes. Below you will find a log of all activities that have been recorded.</p>

@@ -7,7 +7,7 @@
 
 <title>Data Ruang</title>
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+<div class="max-w-4xl ml-72 mt-32 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Detail Ruang</h1>
 
    <div class="mb-6 flex justify-between items-center">
@@ -33,7 +33,6 @@
                <th class="py-4 px-6 border-b text-center">Nama barang</th>
                <th class="py-4 px-6 border-b text-center">Kode barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi barang</th>
-               <th class="py-4 px-6 border-b text-center">Jumlah barang</th>
                <th class="py-4 px-6 border-b text-center">QR Code</th>
                <th class="py-4 px-6 border-b text-center">Aksi</th>
            </tr>
@@ -44,7 +43,6 @@
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->nama_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kode_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">{{ $detailruang->jumlah_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">
                        <!-- Membuat QR Code bisa diklik dengan animasi halus -->
                        <a href="{{ route('detailruang.show', $detailruang->id) }}" target="_blank">

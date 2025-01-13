@@ -34,7 +34,6 @@ class DetailRuangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required|unique:detailruangs',
             'kondisi_barang' => 'required',
-            'jumlah_barang' => 'required|integer',
         ]);
 
         DetailRuang::create($request->all());
@@ -52,7 +51,6 @@ class DetailRuangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required|unique:detailruangs,kode_barang,' . $detailruang->id,
             'kondisi_barang' => 'required',
-            'jumlah_barang' => 'required|integer',
         ]);
 
         $detailruang->update($request->all());
