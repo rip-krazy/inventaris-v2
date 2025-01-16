@@ -12,11 +12,7 @@ class Barang extends Model
     protected $fillable = [
         'nama_barang',
         'kode_barang',
-<<<<<<< HEAD
         'kondisi_barang'
-=======
-        'kondisi_barang',
->>>>>>> ef2c56b9a8688d5dce8d3382a87582642fe2034c
     ];
 
 }

@@ -7,7 +7,7 @@
 
 
 <body class="bg-gray-100 p-6">
-    <div class="max-w-full mx-auto bg-white rounded-lg shadow-md p-6 mt-10 mb-10 sm:px-6 animate__animated animate__fadeIn">
+    <div class="w-full mt-32 ml-72 mr-24 bg-white rounded-lg shadow-md p-6 mt-10 mb-10 sm:px-6 animate__animated animate__fadeIn">
         <h1 class="text-2xl font-bold text-center mb-6 text-gray-700">User Input Form</h1>
 
         <!-- Notification Section -->
@@ -20,7 +20,7 @@
         <form action="{{ route('peminjaman.submit') }}" method="POST">
             @csrf
             <div class="mb-12">
-                <input type="text" name="nama" placeholder="Nama" required class="border border-gray-300 rounded-lg p-4 px-60 w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" name="nama" placeholder="Nama" required class="border border-gray-300 rounded-lg p-4 px-60 w-full text-left focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div class="mb-12">
                 <input type="text" name="mapel" placeholder="Mapel" required class="border border-gray-300 rounded-lg p-4 px-60 w-full text-center  focus:outline-none focus:ring-2 focus:ring-blue-500" />

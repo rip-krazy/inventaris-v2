@@ -7,13 +7,8 @@
 
 <title>Data Ruang</title>
 
-<<<<<<< HEAD
 <div class="max-w-4xl ml-72 mt-32 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Detail Ruang</h1>
-=======
-<div class="max-w-7xl mx-auto bg-white rounded-lg shadow-xl p-10 my-10 animate__animated animate__fadeIn ml-72">
-    <h1 class="text-4xl font-bold mb-6 text-left">Detail Ruang</h1>
->>>>>>> ef2c56b9a8688d5dce8d3382a87582642fe2034c
 
     <!-- Search and Add Button Section -->
     <div class="mb-6 flex justify-between items-center">
@@ -27,7 +22,6 @@
         </a>
     </div>
 
-<<<<<<< HEAD
    <table class="min-w-full mt-2 bg-white border border-gray-300">
        <thead>
            <tr class="bg-green-200 text-gray-600">
@@ -64,13 +58,6 @@
            @endforeach
        </tbody>
    </table>
-=======
-    @if(session('success'))
-        <div class="mt-4 text-green-600 font-semibold">
-            {{ session('success') }}
-        </div>
-    @endif
->>>>>>> ef2c56b9a8688d5dce8d3382a87582642fe2034c
 
     <!-- Data Table -->
     <table class="min-w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">

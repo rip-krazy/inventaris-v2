@@ -6,7 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 
 <body class="bg-gray-100 p-6">
-    <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 my-10 animate__animated animate__fadeIn">
+    <div class="max-w-xl mx-auto mt-32 bg-white rounded-lg shadow-md p-6 my-10 animate__animated animate__fadeIn">
         <h2 class="text-2xl font-bold text-gray-800 text-center">Request Approvals</h2>
         
         <!-- Menampilkan pesan sukses atau gagal setelah admin melakukan aksi -->

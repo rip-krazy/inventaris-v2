@@ -2,17 +2,10 @@
 
 @section('content')
 
-<<<<<<< HEAD
-<div class="container ml-60 mt-32 p-6">
+<div class="container ml-60 mt-4 p-6">
     <div class="bg-white rounded-lg shadow-lg p-8">
         <h1 class="text-3xl font-extrabold text-gray-900 text-center mb-6">History Page</h1>
         <p class="text-lg text-gray-700 mb-4 text-center">This is where you can view all your historical actions and changes. Below you will find a log of all activities that have been recorded.</p>
-=======
-<div class="container mx-auto mt-32 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24">
-    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-4xl mx-auto mb-14">
-        <h1 class="text-4xl font-extrabold text-gray-900 text-left mb-6 text-center">History Page</h1>
-        <p class="text-lg text-gray-600 mb-6 text-left">This is where you can view all your historical actions and changes. Below you will find a log of all activities that have been recorded.</p>
->>>>>>> ef2c56b9a8688d5dce8d3382a87582642fe2034c
 
         <!-- History Card Section -->
         <div class="space-y-6">
