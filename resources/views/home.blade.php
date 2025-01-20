@@ -7,7 +7,7 @@
     <title>Welcome to Inventaris Barang</title>
 </head>
 <body class="bg-gray-100 flex flex-col h-screen">
-<header class="bg-gray-800 shadow p-4 flex justify-between items-center relative">
+<header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
     <div class="flex items-center">
         <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2"> <!-- Increased logo size here -->
         <h1 class="text-xl font-bold text-white">Inventaris Barang</h1> <!-- Increased font size to text-3xl -->
@@ -39,7 +39,7 @@
 <div class="flex">
     <!-- Button to toggle sidebar -->
     
-    <aside id="default-sidebar" class="w-64 h-full transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
+    <aside id="default-sidebar" class="w-64 h-full fixed top-20 transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
        <div class="h-full px-3 py-4 overflow-y-auto">
        <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
         ☰

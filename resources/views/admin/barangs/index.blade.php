@@ -6,7 +6,7 @@
 
 <title>Data Barang</title>
 
-<div class="max-w-6xl mt-32 ml-80 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+<div class="w-screen mr-10 ml-72 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Data Barang</h1>
 
   <!-- Form Pencarian dan Tombol Tambah Data -->
