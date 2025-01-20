@@ -12,13 +12,12 @@ use App\Http\Controllers\RuController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
 use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
-
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,20 +34,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('dashboard', DashboardController::class);
-
 // Route data
 Route::resource('barangs', BarangController::class);
 
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('/ruang/{id}/detailruang', [RuangController::class, 'show'])->name('detailruang');
 
+Route::resource('detailruang', DetailruangController::class);
 // Route user
 
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
+Route::get('detailruang/{detailruang}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
+
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
@@ -83,12 +84,21 @@ Route::resource('ra', RaController::class);
 
 Route::resource('pu', PuController::class);
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('profile', ProfileController::class);
+Route::get('/home', [HomeController::class, 'index']);
 
-// Rute untuk mengautentikasi (login)
-Route::post('login', [AuthenticatedSessionController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Rute untuk logout
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+Route::resource('hu', HuController::class);
+
+
+require __DIR__.'/auth.php';
 

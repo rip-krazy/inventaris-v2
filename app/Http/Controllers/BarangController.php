@@ -38,7 +38,6 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required|unique:barangs',
             'kondisi_barang' => 'required',
-            'jumlah_barang' => 'required|integer',
         ]);
 
         Barang::create($request->all());
@@ -56,7 +55,6 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required|unique:barangs,kode_barang,' . $barang->id,
             'kondisi_barang' => 'required',
-            'jumlah_barang' => 'required|integer',
         ]);
 
         $barang->update($request->all());

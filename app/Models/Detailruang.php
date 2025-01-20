@@ -12,7 +12,6 @@ class Detailruang extends Model
     protected $fillable = [
         'nama_barang',
         'kode_barang',
-        'kondisi_barang',
-        'jumlah_barang'
+        'kondisi_barang'
     ];
 }

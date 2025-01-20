@@ -21,7 +21,7 @@ class DetailRuangController extends Controller
                         ->paginate(10); // Atur jumlah data per halaman
         
         return view('admin.ruang.detailruang.index', compact('detailruangs', 'search'));
-    }    
+    }
 
     public function create()
     {
@@ -34,7 +34,6 @@ class DetailRuangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required|unique:detailruangs',
             'kondisi_barang' => 'required',
-            'jumlah_barang' => 'required|integer',
         ]);
 
         DetailRuang::create($request->all());
@@ -52,7 +51,6 @@ class DetailRuangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required|unique:detailruangs,kode_barang,' . $detailruang->id,
             'kondisi_barang' => 'required',
-            'jumlah_barang' => 'required|integer',
         ]);
 
         $detailruang->update($request->all());
@@ -65,9 +63,8 @@ class DetailRuangController extends Controller
         return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil dihapus.');
     }
     
-        public function show(DetailRuang $detailruang)
+    public function show(DetailRuang $detailruang)
     {
         return view('admin.ruang.detailruang.show', compact('detailruang'));
     }
-
 }

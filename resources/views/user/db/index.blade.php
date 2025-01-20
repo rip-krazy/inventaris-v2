@@ -2,10 +2,11 @@
 @section ('content')
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 
 <title>Data Barang</title>
 
-<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+<div class="w-screen mt-32 ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
    <h1 class="text-4xl font-bold mb-6 text-center">Data Barang</h1>
 
 <!-- Form Pencarian dan Tombol Tambah Data -->
@@ -23,7 +24,6 @@
                <th class="py-4 px-6 border-b text-center">Nama Barang</th>
                <th class="py-4 px-6 border-b text-center">Kode Barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi Barang</th>
-               <th class="py-4 px-6 border-b text-center">Jumlah Barang</th>
            </tr>
        </thead>
        <tbody>
@@ -32,7 +32,6 @@
                    <td class="py-4 px-8 border-b text-center">{{ $barang->nama_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $barang->kode_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $barang->kondisi_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">{{ $barang->jumlah_barang }}</td>
                </tr>
            @endforeach
        </tbody>

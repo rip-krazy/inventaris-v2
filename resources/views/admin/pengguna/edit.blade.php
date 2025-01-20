@@ -1,8 +1,7 @@
 @extends('main')
 
 @section('content')
-<body class="bg-gray-100 p-10">
-<div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mt-32 mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
     <h1 class="text-2xl font-bold mb-6">Edit Pengguna</h1>
     <form action="{{ route('pengguna.update', $pengguna->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -26,5 +25,4 @@
         <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Update</button>
     </form>
 </div>
-</body>
 @endsection

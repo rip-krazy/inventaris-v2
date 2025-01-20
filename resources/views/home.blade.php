@@ -7,29 +7,39 @@
     <title>Welcome to Inventaris Barang</title>
 </head>
 <body class="bg-gray-100 flex flex-col h-screen">
-<header class="bg-gray-800 shadow p-4 flex justify-between items-center relative">
+<header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
     <div class="flex items-center">
         <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2"> <!-- Increased logo size here -->
         <h1 class="text-xl font-bold text-white">Inventaris Barang</h1> <!-- Increased font size to text-3xl -->
     </div>
-    <div class="flex items-center space-x-6 relative">
-        <span class="text-white">Indra</span>
-        <div class="relative">
-            <button id="avatarBtn" class="focus:outline-none">
-                <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Avatar" class="h-12 w-12 rounded-full border-2 border-white mr-4"> <!-- Increased avatar size here -->
-            </button>
-            <div id="dropdown" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden">
-                <a href="{{ url('profile') }}" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
-                <a href="/logout" class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg">Logout</a>
-            </div>
+    <div class="hidden sm:flex sm:items-center sm:ms-6 relative">
+      <button id="avatarBtn" class="focus:outline-none">
+        <div style="font-size: 1.25rem;" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-200 dark:text-gray-400 bg-transparent dark:bg-gray-800">
+          {{ Auth::user()->name }} 
+          <svg class="w-6 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12,16 6,10 18,10" />
+          </svg>
         </div>
-    </div>
+      </button>
+      <div id="dropdown" 
+           class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
+        <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <x-dropdown-link :href="route('logout')"
+                           style="font-size: 1rem;"  class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg"
+                           onclick="event.preventDefault(); this.closest('form').submit();">
+            {{ __('Log Out') }}
+          </x-dropdown-link>
+        </form>
+      </div>
+    </div>    
 </header>
 
 <div class="flex">
     <!-- Button to toggle sidebar -->
     
-    <aside id="default-sidebar" class="w-64 h-screen transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
+    <aside id="default-sidebar" class="w-64 h-full fixed top-20 transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
        <div class="h-full px-3 py-4 overflow-y-auto">
        <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
         ☰
@@ -53,12 +63,12 @@
                     </a>
                  </li>
                  <li>
-                    <a href="{{ url('ru') }}" class="flex items-center p-2 mb-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                       <svg class="flex-shrink-0 w-6 h-6  text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
-                       </svg>
-                       <span class="ml-3 sidebar-text">Ruangan</span>
-                    </a>
+                 <a href="{{ url('ru') }}" class="flex items-center mb-6 p-2  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                 <svg  class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">
+                  <path d="M320 32c0-9.9-4.5-19.2-12.3-25.2S289.8-1.4 280.2 1l-179.9 45C79 51.3 64 70.5 64 92.5L64 448l-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 192 0 32 0 0-32 0-448zM256 256c0 17.7-10.7 32-24 32s-24-14.3-24-32s10.7-32 24-32s24 14.3 24 32zm96-128l96 0 0 352c0 17.7 14.3 32 32 32l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-32 0 0-320c0-35.3-28.7-64-64-64l-96 0 0 64z"/>
+               </svg>
+                   <span class="ml-3 sidebar-text">Ruangan</span>
+                </a>
                  </li>
                  <li>
                     <a href="{{ url('peminjaman') }}" class="flex items-center p-2 mb-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

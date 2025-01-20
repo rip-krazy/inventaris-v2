@@ -28,8 +28,6 @@ class MergeConflictSolutionProvider implements HasSolutionsForThrowable
         if (! str_contains($file, '>>>>>>>')) {
             return false;
         }
-
-        return true;
     }
 
     public function getSolutions(Throwable $throwable): array
