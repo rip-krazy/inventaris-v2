@@ -18,6 +18,8 @@ use App\Http\Controllers\RaController;
 use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HistoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +97,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+// Resource route for the history controller (this will handle CRUD operations for the "history" resource)
+Route::resource('history', HistoryController::class);
+
+// Custom route for showing a specific history day (this is your custom route)
+Route::get('history/{history}', [HistoryController::class, 'show'])->name('history.show');
+
+
+
 
 
 Route::resource('hu', HuController::class);

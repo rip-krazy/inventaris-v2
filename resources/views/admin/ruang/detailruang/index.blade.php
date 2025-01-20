@@ -13,11 +13,11 @@
     <!-- Search and Add Button Section -->
     <div class="mb-6 flex justify-between items-center">
         <form action="{{ route('detailruang.index') }}" method="GET" class="flex items-center space-x-4">
-            <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruang..." class="mt-4 px-4 py-2 border rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Cari</button>
+            <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruang..." class="mt-4 px-4 py-2 border rounded-lg w-80"/>
+            <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg bg-green-600 focus:outline-none focus:ring-2 bg-green-600">Cari</button>
         </form>
 
-        <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 text-white text-green-600 text-green-600 focus:outline-none focus:ring-2 text-green-600">
             Tambah Data
         </a>
     </div>
