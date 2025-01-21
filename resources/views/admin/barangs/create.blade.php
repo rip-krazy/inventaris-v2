@@ -1,6 +1,7 @@
 @extends('main')
 
 @section('content')
+<<<<<<< HEAD
 <!-- TailwindCSS + Animate.css CDN -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
@@ -45,6 +46,40 @@
             </button>
             <p class="text-gray-600 text-xs">Pastikan data sudah lengkap :></p>
         </div>
+=======
+<div class="max-w-7xl mt-32 mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
+    <h1 class="text-2xl font-bold mb-6 text-center">Tambah Data Barang</h1>
+
+    <form action="{{ route('barangs.store') }}" method="POST">
+        @csrf
+        <div class="mb-6">
+            <label class="block text-gray-700">Nama Barang</label>
+            <input type="text" name="nama_barang" class="w-full border border-gray-300 rounded-lg p-3" required>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700">Kode Barang</label>
+            <input type="text" name="kode_barang" class="w-full border border-gray-300 rounded-lg p-3" required>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700">Kondisi Barang</label>
+            <div class="flex items-center space-x-4">
+                <label>
+                    <input type="radio" name="kondisi_barang" value="Baik" required>
+                    <span class="ml-2">Baik</span>
+                </label>
+                <label>
+                    <input type="radio" name="kondisi_barang" value="Rusak" required>
+                    <span class="ml-2">Rusak</span>
+                </label>
+            </div>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700">Jumlah Barang</label>
+            <input type="number" name="jumlah_barang" class="w-full border border-gray-300 rounded-lg p-3" required>
+        </div>
+
+        <button type="submit" class="w-full text-white bg-green-600 rounded-lg py-3">Simpan</button>
+>>>>>>> ad7add809dfdba1cf8a5e389d103ef143737bee9
     </form>
 </div>
 
