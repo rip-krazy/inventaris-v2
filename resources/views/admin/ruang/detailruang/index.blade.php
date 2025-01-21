@@ -17,7 +17,7 @@
             <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg bg-green-600 focus:outline-none focus:ring-2 bg-green-600">Cari</button>
         </form>
 
-        <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 text-white text-green-600 text-green-600 focus:outline-none focus:ring-2 text-green-600">
+        <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 text-white bg-green-600 bg-green-600 rounded-lg focus:outline-none focus:ring-2 bg-green-600">
             Tambah Data
         </a>
     </div>
@@ -58,46 +58,6 @@
            @endforeach
        </tbody>
    </table>
-
-    <!-- Data Table -->
-    <table class="min-w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-        <thead>
-            <tr class="bg-green-100 text-gray-600">
-                <th class="py-4 px-6 border-b text-center">Nama Barang</th>
-                <th class="py-4 px-6 border-b text-center">Kode Barang</th>
-                <th class="py-4 px-6 border-b text-center">Kondisi Barang</th>
-                <th class="py-4 px-6 border-b text-center">Jumlah Barang</th>
-                <th class="py-4 px-6 border-b text-center">QR Code</th>
-                <th class="py-4 px-6 border-b text-center">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($detailruangs as $detailruang)
-                <tr class="hover:bg-green-50">
-                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->nama_barang }}</td>
-                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kode_barang }}</td>
-                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
-                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->jumlah_barang }}</td>
-                    <td class="py-4 px-8 border-b text-center">
-                        <a href="{{ route('detailruang.show', $detailruang->id) }}" target="_blank">
-                            <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" 
-                                class="transition-transform transform hover:scale-110 hover:opacity-80 duration-300 ease-in-out mx-auto" width="50" height="50">
-                        </a>
-                    </td>
-                    <td class="py-4 px-8 border-b text-center">
-                        <a href="{{ route('detailruang.edit', $detailruang) }}" class="text-blue-600 hover:underline">Edit</a>
-                        <form action="{{ route('detailruang.destroy', $detailruang) }}" method="POST" class="inline" 
-                            onsubmit="return confirm('Apakah Data Akan Dihapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:underline ml-2">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
     <!-- Pagination -->
     <div class="mt-6 flex justify-between items-center">
         <div>
