@@ -17,8 +17,13 @@
             <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg bg-green-600 focus:outline-none focus:ring-2 bg-green-600">Cari</button>
         </form>
 
+<<<<<<< HEAD
+        <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 text-white bg-green-600 bg-green-600 rounded-lg focus:outline-none focus:ring-2 bg-green-600">
+            Tambah Data
+=======
         <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 ease-in-out">
     Tambah Data
+>>>>>>> ad7add809dfdba1cf8a5e389d103ef143737bee9
         </a>
     </div>
 
@@ -58,8 +63,11 @@
            @endforeach
        </tbody>
    </table>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> ad7add809dfdba1cf8a5e389d103ef143737bee9
     <!-- Pagination -->
     <div class="mt-6 flex justify-between items-center">
         <div>
