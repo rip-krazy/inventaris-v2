@@ -10,18 +10,19 @@
    <h1 class="text-4xl font-bold mb-6 text-center">Data Barang</h1>
 
   <!-- Form Pencarian dan Tombol Tambah Data -->
-  <div class="mb-6 flex justify-between items-center space-x-4">
-           <!-- Form Pencarian -->
-           <form action="{{ route('barangs.index') }}" method="GET" class="flex items-center space-x-4">
-               <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Barang..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
-               <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Cari</button>
-           </form>
+  <div class="mb-6 flex justify-between items-center gap-4">
+    <!-- Form Pencarian -->
+    <form action="{{ route('barangs.index') }}" method="GET" class="flex items-center space-x-4">
+        <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Barang..." class="px-4 py-2 border rounded-lg w-96 focus:outline-none focus:ring-2 focus:ring-green-500" />
+        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Cari</button>
+    </form>
 
-           <!-- Tombol Tambah Barang -->
-           <a href="{{ route('barangs.create') }}" class="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 ease-in-out">
-               Tambah Barang
-           </a>
-       </div>
+    <!-- Tombol Tambah Barang -->
+    <a href="{{ route('barangs.create') }}" class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+        Tambah Barang
+    </a>
+</div>
+
    @if(session('success'))
        <div class="mt-4 text-green-600">
            {{ session('success') }}

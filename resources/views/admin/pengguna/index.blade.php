@@ -9,19 +9,19 @@
    <div class="w-screen ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn mr-16">
        <h1 class="text-4xl font-bold mb-6 text-center text-gray-800">Daftar Pengguna</h1>
 
-       <!-- Form Pencarian dan Tombol Tambah Data -->
-       <div class="mb-6 flex justify-between items-center">
-           <!-- Form Pencarian -->
-           <form action="{{ route('pengguna.index') }}" method="GET" class="flex items-center space-x-4">
-               <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Pengguna..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
-               <button type="submit" class="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg bg-green-600 focus:outline-none focus:ring-4 focus:ring-blue-300">Cari</button>
-           </form>
+      <!-- Form Pencarian dan Tombol Tambah Data -->
+<div class="mb-6 flex justify-between items-center gap-4">
+    <!-- Form Pencarian -->
+    <form action="{{ route('pengguna.index') }}" method="GET" class="flex items-center space-x-4">
+        <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Pengguna..." class="px-4 py-2 border rounded-lg w-96 focus:outline-none focus:ring-2 focus:ring-green-500" />
+        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Cari</button>
+    </form>
 
-           <!-- Tombol Tambah Pengguna -->
-           <a href="{{ route('pengguna.create') }}" class="mt-4 px-4 py-2 text-white bg-green-600 rounded-lg bg-green-600 focus:outline-none focus:ring-4 focus:ring-blue-300">
-               Tambah Pengguna
-           </a>
-       </div>
+    <!-- Tombol Tambah Pengguna -->
+    <a href="{{ route('pengguna.create') }}" class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+        Tambah Pengguna
+    </a>
+</div>
 
        @if(session('success'))
          <div class="mt-4 text-green-600">
