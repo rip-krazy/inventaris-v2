@@ -33,6 +33,7 @@
       <table class="min-w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-md">
        <thead>
            <tr class="bg-green-200 text-gray-600">
+               <th class="py-4 px-12 border-b text-center">No</th>
                <th class="py-4 px-12 border-b text-center">Nama</th>
                <th class="py-4 px-12 border-b text-center">Username</th>
                <th class="py-4 px-12 border-b text-center">Password</th>
@@ -43,6 +44,7 @@
        <tbody>
            @foreach($penggunas as $pengguna)
                <tr class="hover:bg-green-100 transition-all duration-300">
+                <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>5
                    <td class="py-4 px-12 border-b text-center">{{ $pengguna->name }}</td>
                    <td class="py-4 px-12 border-b text-center">{{ $pengguna->username }}</td>
                    <td class="py-4 px-12 border-b text-center">{{ $pengguna->password }}</td>

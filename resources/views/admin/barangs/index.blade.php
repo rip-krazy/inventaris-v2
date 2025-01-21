@@ -31,6 +31,7 @@
    <table class="min-w-full mt-2 bg-white border border-gray-300">
        <thead>
            <tr class="bg-green-200 text-gray-600">
+               <th class="py-4 px-6 border-b text-center">No</th>
                <th class="py-4 px-6 border-b text-center">Nama Barang</th>
                <th class="py-4 px-6 border-b text-center">Kode Barang</th>
                <th class="py-4 px-6 border-b text-center">Kondisi Barang</th>
@@ -38,22 +39,24 @@
            </tr>
        </thead>
        <tbody>
-           @foreach($barangs as $barang)
-               <tr class="hover:bg-green-100">
-                   <td class="py-4 px-8 border-b text-center">{{ $barang->nama_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">{{ $barang->kode_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">{{ $barang->kondisi_barang }}</td>
-                   <td class="py-4 px-8 border-b text-center">
-                       <a href="{{ route('barangs.edit', $barang) }}" class="text-blue-500 hover:underline">Edit</a>
-                       <form action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline" 
-                       onsubmit="return confirm('Apakah Data Akan Dihapus?')">
-                           @csrf
-                           @method('DELETE')
-                           <button type="submit" class="text-red-500 hover:underline ml-2">Hapus</button>
-                       </form>
-                   </td>
-               </tr>
-           @endforeach
+        @foreach($barangs as $barang)
+        <tr class="hover:bg-green-100">
+            <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
+            <td class="py-4 px-8 border-b text-center">{{ $barang->nama_barang }}</td>
+            <td class="py-4 px-8 border-b text-center">{{ $barang->kode_barang }}</td>
+            <td class="py-4 px-8 border-b text-center">{{ $barang->kondisi_barang }}</td>
+            <td class="py-4 px-8 border-b text-center">
+                <a href="{{ route('barangs.edit', $barang) }}" class="text-blue-500 hover:underline">Edit</a>
+                <form action="{{ route('barangs.destroy', $barang) }}" method="POST" class="inline" 
+                onsubmit="return confirm('Apakah Data Akan Dihapus?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-500 hover:underline ml-2">Hapus</button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+    
        </tbody>
    </table>
 
