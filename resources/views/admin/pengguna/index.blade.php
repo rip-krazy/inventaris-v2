@@ -50,7 +50,7 @@
                 <td class="py-4 px-12 border-b text-center">
                     <div class="flex items-center justify-center">
                         <!-- Teks Password -->
-                        <span class="hidden-password">{{ str_repeat('*', strlen($pengguna->password)) }}</span>
+                        <span class="hidden-password mt-2">{{ str_repeat('*', strlen($pengguna->password)) }}</span>
                         <span class="visible-password hidden">{{ $pengguna->password }}</span>
                         <!-- Tombol Mata -->
                         <button type="button" class="toggle-password ml-2 text-gray-500 focus:outline-none" onclick="togglePassword(this)">

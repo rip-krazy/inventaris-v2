@@ -49,16 +49,29 @@ class PenggunaController extends Controller
         return view('admin.pengguna.edit', compact('pengguna'));
     }
 
-    public function update(Request $request, Pengguna $pengguna)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:penggunas,username,' . $pengguna->id,
-            'photo' => 'nullable|image',
-            'mapel' => 'required',
+            'name' => 'required|string|max:255',
+            'username' => 'required|unique:penggunas,username,' . $id,
+            'mapel' => 'required|string|max:255',
+            'password' => 'nullable|string|min:6|confirmed', // Menambahkan validasi password
         ]);
+
+        $pengguna = Pengguna::findOrFail($id);
         
-        $pengguna->update($request->all());
+        // Jika password diisi, maka update password
+        if ($request->filled('password')) {
+            $pengguna->password = bcrypt($request->password); // Enkripsi password baru
+        }
+        
+        // Update data lainnya
+        $pengguna->name = $request->name;
+        $pengguna->username = $request->username;
+        $pengguna->mapel = $request->mapel;
+
+        // Simpan perubahan
+        $pengguna->save();
 
         return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil diperbarui');
     }
