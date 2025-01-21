@@ -20,7 +20,7 @@
         <form action="{{ route('peminjaman.submit') }}" method="POST">
             @csrf
             <div class="mb-12">
-                <input type="text" name="nama" placeholder="Nama" required class="border border-gray-300 rounded-lg p-4 px-60 w-full text-left focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" name="nama" placeholder="Nama" required class="border border-gray-300 rounded-lg p-4 px-60 w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div class="mb-12">
                 <input type="text" name="mapel" placeholder="Mapel" required class="border border-gray-300 rounded-lg p-4 px-60 w-full text-center  focus:outline-none focus:ring-2 focus:ring-blue-500" />
