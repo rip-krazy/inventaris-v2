@@ -32,7 +32,7 @@
             <input type="number" name="jumlah_barang" class="w-full border border-gray-300 rounded-lg p-2" required>
         </div>
       
-        <button type="submit" class="w-full text-white bg-blue-600 rounded-lg py-2 hover:bg-blue-700">Simpan</button>
+        <button type="submit" class="w-full text-white bg-green-600 rounded-lg py-2 bg-green-600">Simpan</button>
     </form>
 </div>
 @endsection
