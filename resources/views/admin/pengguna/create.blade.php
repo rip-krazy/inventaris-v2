@@ -1,6 +1,9 @@
 @extends('main')
 
 @section('content')
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <body class="bg-gray-100 p-12">
 <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-12 my-10 transform translate-x-4">
     <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-10">Tambah Pengguna</h1>
@@ -23,8 +26,14 @@
             <!-- Password Field -->
             <div>
                 <label class="block text-lg font-semibold text-gray-700 mb-3">Password</label>
-                <input type="password" name="password" class="w-full border border-gray-300 rounded-lg p-5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
-            </div>        
+                <div class="relative">
+                    <input type="password" id="password" name="password" 
+                           class="w-full border border-gray-300 rounded-lg p-5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300" required>
+                    <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 focus:outline-none" onclick="togglePasswordVisibility()">
+                        👁️
+                    </button>
+                </div>
+            </div>                
         
             <!-- Mapel Field -->
             <div>
@@ -40,4 +49,20 @@
     </form>
 </div>
 </body>
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const icon = document.getElementById('toggle-icon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash'); // Mata tertutup
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye'); // Mata terbuka
+        }
+    }
+</script>
 @endsection
