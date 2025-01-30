@@ -47,7 +47,7 @@
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->name }}</td>
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->description }}</td>
                 <td class="py-4 px-8 border-b text-center">
-                    <a href="{{ url('detailruang') }}" class="text-green-600 hover:text-green-800">Detail</a>
+                <a href="{{ route('ruang.item', $ruang) }}" class="text-green-600 hover:text-green-800">Detail</a>
                 </td>
                 <td class="py-4 px-8 border-b text-center">
                     <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
