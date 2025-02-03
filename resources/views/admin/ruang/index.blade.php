@@ -13,8 +13,8 @@
     <div class="mb-6 flex justify-between items-center gap-4">
         <!-- Form Pencarian -->
         <form action="{{ route('ruang.index') }}" method="GET" class="flex items-center space-x-4">
-            <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruangan..." class="px-4 py-2 border rounded-lg w-96 focus:outline-none focus:ring-2  focus:ring-green-500" />
-            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Cari</button>
+            <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruangan..." class="px-4 py-2 border rounded-lg w-96 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Cari</button>
         </form>
 
         <!-- Tombol Tambah Ruangan -->
@@ -47,7 +47,7 @@
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->name }}</td>
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->description }}</td>
                 <td class="py-4 px-8 border-b text-center">
-                    <a href="{{ url('detailruang') }}" class="text-green-600 hover:text-green-800">Detail</a>
+                <a href="{{ route('ruang.item', $ruang) }}" class="text-green-600 hover:text-green-800">Detail</a>
                 </td>
                 <td class="py-4 px-8 border-b text-center">
                     <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600 hover:text-blue-800">Edit</a>

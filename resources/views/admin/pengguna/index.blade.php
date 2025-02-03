@@ -33,6 +33,7 @@
       <table class="min-w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-md">
        <thead>
            <tr class="bg-green-200 text-gray-600">
+               <th class="py-4 px-12 border-b text-center">No</th>
                <th class="py-4 px-12 border-b text-center">Nama</th>
                <th class="py-4 px-12 border-b text-center">Username</th>
                <th class="py-4 px-12 border-b text-center">Password</th>
@@ -41,23 +42,35 @@
            </tr>
        </thead>
        <tbody>
-           @foreach($penggunas as $pengguna)
-               <tr class="hover:bg-green-100 transition-all duration-300">
-                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->name }}</td>
-                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->username }}</td>
-                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->password }}</td>
-                   <td class="py-4 px-12 border-b text-center">{{ $pengguna->mapel }}</td>
-                   <td class="py-4 px-12 border-b text-center space-x-4">
-                        <a href="{{ route('pengguna.edit', $pengguna->id) }}" class="text-blue-600 hover:underline">Edit</a>
-                        <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Data Akan Dihapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:underline">Delete</button>
-                        </form>
-                   </td>
-               </tr>
-           @endforeach
-       </tbody>
+        @foreach($penggunas as $pengguna)
+            <tr class="hover:bg-green-100 transition-all duration-300">
+                <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
+                <td class="py-4 px-12 border-b text-center">{{ $pengguna->name }}</td>
+                <td class="py-4 px-12 border-b text-center">{{ $pengguna->username }}</td>
+                <td class="py-4 px-12 border-b text-center">
+                    <div class="flex items-center justify-center">
+                        <!-- Teks Password -->
+                        <span class="hidden-password mt-2">{{ str_repeat('*', strlen($pengguna->password)) }}</span>
+                        <span class="visible-password hidden">{{ $pengguna->password }}</span>
+                        <!-- Tombol Mata -->
+                        <button type="button" class="toggle-password ml-2 text-gray-500 focus:outline-none" onclick="togglePassword(this)">
+                            👁️
+                        </button>
+                    </div>
+                </td>                
+                <td class="py-4 px-12 border-b text-center">{{ $pengguna->mapel }}</td>
+                <td class="py-4 px-12 border-b text-center space-x-4">
+                    <a href="{{ route('pengguna.edit', $pengguna->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                    <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Data Akan Dihapus?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+    
    </table>
 
    <!-- Pagination Controls -->
@@ -84,5 +97,25 @@
    </div>
    </div>
 </body>
+
+<script>
+    function togglePassword(button) {
+        const td = button.closest('td');
+        const hiddenPassword = td.querySelector('.hidden-password');
+        const visiblePassword = td.querySelector('.visible-password');
+        
+        if (hiddenPassword.classList.contains('hidden')) {
+            hiddenPassword.classList.remove('hidden');
+            visiblePassword.classList.add('hidden');
+            button.textContent = '👁️'; // Mata terbuka
+        } else {
+            hiddenPassword.classList.add('hidden');
+            visiblePassword.classList.remove('hidden');
+            button.textContent = '👁️'; // Mata tertutup
+        }
+    }
+</script>
+
+
 
 @endsection
