@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @extends('home')
 
 @section('content')
@@ -56,5 +55,3 @@
         </div>
     </div>
 @endsection
-=======
->>>>>>> bec86c75a121267f0745348da76428b4af7a7d6a
