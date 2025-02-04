@@ -67,35 +67,8 @@
                             </div>
                         </li>
                     @endforeach
-                </ul>
-            </div>
-<<<<<<< HEAD
-        @endif
-
-        <ul id="pengembalianList" class="mt-4 space-y-4">
-            @foreach ($pengembalianTertunda as $index => $entry)
-            <li>
-                <span>{{ $entry['name'] ?? 'Nama tidak tersedia' }}</span>
-                <span>{{ $entry['mapel'] ?? 'Mapel tidak tersedia' }}</span>
-                <span>{{ $entry['barangTempat'] ?? 'Barang/Tempat tidak tersedia' }}</span>
-
-        @if ($entry['status'] == 'Pending')
-                        <span class="text-gray-400 m-2">Pending</span>
-                    @elseif ($entry['status'] == 'Diterima')
-                        <span class="text-green-600 m-2">Diterima</span>
-                    @endif
-
-        <form action="{{ route('pengembalian.approve', $index) }}" method="POST">
-            @csrf
-            <button type="submit">Setujui</button>
-        </form>
-    </li>
-@endforeach
-
+                
         </ul>
-=======
-        </div>
->>>>>>> 9851e828a1bcf70731158d2f6be278dcb6d64e4e
     </div>
 </body>
 
