@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @extends('main')
+=======
+@extends('home')
+>>>>>>> f77348eb88da575a2c678f1035e538c22c3f4ac3
 
 @section('content')
 <div class="w-screen mt-32 ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
@@ -16,7 +20,7 @@
                         <th class="px-6 py-4 text-left font-semibold">Jumlah</th>
                         <th class="px-6 py-4 text-left font-semibold">Status</th>
                     </tr>
-                </thead>
+                </thead>5
                 <tbody class="divide-y divide-gray-200">
                     <!-- Example Row 1 -->
                     <tr class="bg-gray-50 hover:bg-green-100 transition duration-150">
