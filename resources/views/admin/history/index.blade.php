@@ -16,7 +16,7 @@
                         <th class="px-6 py-4 text-left font-semibold">Jumlah</th>
                         <th class="px-6 py-4 text-left font-semibold">Status</th>
                     </tr>
-                </thead>5
+                </thead>
                 <tbody class="divide-y divide-gray-200">
                     <!-- Example Row 1 -->
                     <tr class="bg-gray-50 hover:bg-green-100 transition duration-150">

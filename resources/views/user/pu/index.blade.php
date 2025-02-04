@@ -4,35 +4,86 @@
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<body class="bg-gray-100 p-6">
-    <div class="max-w-xl mx-auto mt-32 bg-white rounded-lg shadow-md p-6 my-10 animate__animated animate__fadeIn">
-        <h2 class="text-2xl font-bold text-gray-800 text-center">Request Approvals</h2>
-        
-        <!-- Menampilkan pesan sukses atau gagal setelah admin melakukan aksi -->
-        @if(session('status'))
-            <div class="bg-green-500 text-white p-3 rounded-md mb-4">
-                {{ session('message') }}
+<body class="bg-gray-50">
+    <div class="w-full mt-32 ml-72 mr-24 animate__animated animate__fadeIn">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-green-400 to-green-500 p-6">
+                <h2 class="text-2xl font-bold text-white text-center">
+                    <i class="fas fa-undo mr-2"></i>Request Pengembalian
+                </h2>
             </div>
-        @endif
 
-        <ul id="pendingList" class="mt-4 space-y-4">
-        @foreach ($pengembalianTertunda as $index => $entry)
-                <li class="flex items-center justify-between bg-gray-50 border border-gray-300 rounded-md p-4 transition duration-200 hover:bg-gray-100">
-                    <span class="text-gray-700">
-                        {{ "{$entry['name']} - {$entry['mapel']} - {$entry['barangTempat']} - {$entry['jam']}"}}
-                    </span>
-                    <!-- Menampilkan status yang diperbarui -->
-                    @if ($entry['status'] == 'Pending')
-                        <span class="text-gray-400 m-2">Pending</span>
-                    @elseif ($entry['status'] == 'Approved')
-                        <span class="text-green-600 m-2">Approved</span>
-                    @elseif ($entry['status'] == 'Rejected')
-                        <span class="text-red-600 m-2">Rejected</span>
-                    @endif
-                </li>
-            @endforeach
-        </ul>
+            <!-- Notification Section -->
+            @if(session('status'))
+                <div class="m-6">
+                    <div class="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        {{ session('message') }}
+                    </div>
+                </div>
+            @endif
+
+            <!-- Requests List -->
+            <div class="p-6">
+                <ul id="pendingList" class="space-y-4">
+                    @foreach ($pengembalianTertunda as $index => $entry)
+                        <li class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all duration-200">
+                            <div class="p-4">
+                                <div class="flex flex-col lg:flex-row justify-between gap-4">
+                                    <!-- Request Details -->
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 flex-1">
+                                        <div>
+                                            <span class="text-sm text-gray-500">Nama:</span>
+                                            <p class="text-gray-800 font-medium">{{ $entry['name'] }}</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm text-gray-500">Mapel:</span>
+                                            <p class="text-gray-800 font-medium">{{ $entry['mapel'] }}</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm text-gray-500">Barang atau Tempat:</span>
+                                            <p class="text-gray-800 font-medium">{{ $entry['barangTempat'] }}</p>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm text-gray-500">Jam:</span>
+                                            <p class="text-gray-800 font-medium">{{ $entry['jam'] }}</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status Badge -->
+                                    <div class="flex items-center justify-end min-w-[120px]">
+                                        @if ($entry['status'] == 'Pending')
+                                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-50 text-yellow-700">
+                                                <i class="fas fa-clock mr-2"></i>Pending
+                                            </span>
+                                        @elseif ($entry['status'] == 'Approved')
+                                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-50 text-green-700">
+                                                <i class="fas fa-check mr-2"></i>Approved
+                                            </span>
+                                        @elseif ($entry['status'] == 'Rejected')
+                                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-red-50 text-red-700">
+                                                <i class="fas fa-times mr-2"></i>Rejected
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <!-- Empty State -->
+                @if(count($pengembalianTertunda) === 0)
+                    <div class="text-center py-12">
+                        <i class="fas fa-inbox text-gray-400 text-4xl mb-3"></i>
+                        <p class="text-gray-500 text-lg">No pending returns found</p>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </body>
 
