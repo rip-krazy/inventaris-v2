@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\History;
+
 use Illuminate\Http\Request;
-
-
+use App\Http\Controller\history;
 
 class HistoryController extends Controller
 {
@@ -21,27 +20,7 @@ class HistoryController extends Controller
     /**
      * Display the specified resource (Menampilkan detail berdasarkan hari).
      */
-    public function show(string $day)
-    {
-        $daysMap = [
-            'senin' => 1,
-            'selasa' => 2,
-            'rabu' => 3,
-            'kamis' => 4,
-            'jumat' => 5,
-            'sabtu' => 6,
-            'minggu' => 7,
-        ];
-    
-        if (!array_key_exists($day, $daysMap)) {
-            abort(404);
-        }
-    
-        $history = History::whereDay('created_at', $daysMap[$day])->get();
-    
-        return view('admin.history.show', compact('history', 'day'));  // Pass $day here
-    }
-    
+
 
     }
 
