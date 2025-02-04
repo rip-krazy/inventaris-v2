@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('item_id');
-            $table->string('action');
-            $table->unsignedBigInteger('admin_id');
-            $table->text('notes')->nullable();
+          
             $table->timestamps();
         });
     }

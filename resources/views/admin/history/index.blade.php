@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-@extends('home')
+@extends('main')
 
 @section('content')
 <div class="w-screen mt-32 ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
@@ -56,5 +55,3 @@
         </div>
     </div>
 @endsection
-=======
->>>>>>> bec86c75a121267f0745348da76428b4af7a7d6a
