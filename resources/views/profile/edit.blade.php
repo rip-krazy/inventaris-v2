@@ -1,16 +1,19 @@
 @extends('main')
+
 @section('content')
 <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+<!-- Scripts -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <div class="py-12 px-48 flex justify-center">
     <div class="w-full max-w-4xl ml-48 mt-20 space-y-6">
+        
+        <!-- Profile Information Section -->
         <div class="p-6 bg-white dark:bg-gray-800 shadow rounded-lg">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">{{ __('Update Profile Information') }}</h2>
             <div>
@@ -18,6 +21,7 @@
             </div>
         </div>
 
+        <!-- Update Password Section -->
         <div class="p-6 bg-white dark:bg-gray-800 shadow rounded-lg">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">{{ __('Update Password') }}</h2>
             <div>
@@ -25,6 +29,7 @@
             </div>
         </div>
 
+        <!-- Delete Account Section -->
         <div class="p-6 bg-white dark:bg-gray-800 shadow rounded-lg">
             <h2 class="text-xl font-semibold text-red-600 dark:text-red-400 mb-4">{{ __('Delete Account') }}</h2>
             <div>
@@ -33,4 +38,5 @@
         </div>
     </div>
 </div>
+
 @endsection

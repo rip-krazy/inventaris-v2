@@ -26,11 +26,9 @@
                     <h3 class="text-xl font-semibold text-gray-800">{{ $day['day'] }}</h3>
                     <p class="text-gray-600 mt-2">{{ $day['description'] }}</p>
                     <p class="mt-2 text-sm text-gray-500">Diperoleh pada: {{ $day['date'] }}</p>
-                    <a href="{{ route('history.show', ['history' => strtolower($day['day'])]) }}" class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-semibold">
-                        <img src="assets/img/info detail hari.png" alt="Detail Logo" class="w-6 h-6">
+                    <a href="{{ route('history.show', ['day' => strtolower($day['day'])]) }}" class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-semibold">
+                <img src="assets/img/info detail hari.png" alt="Detail Logo" class="w-6 h-6">
                     </a>
-
-
                 </div>
             @endforeach
         </div>

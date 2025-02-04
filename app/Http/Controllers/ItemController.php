@@ -61,4 +61,11 @@ class ItemController extends Controller
         return redirect()->route('detailruang.show', $ruangId)
             ->with('success', 'Barang berhasil dihapus');
     }
+    public function show(Request $request, $id)
+    {
+        $item = Item::findOrFail($id); // Fetch the item by ID
+        return view('admin.ruang.detailruang.show', compact('item')); // Pass the 'item' variable to the view
+    }
+    
+    
 }

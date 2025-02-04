@@ -19,6 +19,7 @@ use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HuController;
 use App\Http\Controllers\ItemController;
 
 
@@ -51,13 +52,15 @@ Route::get('/ruang/{ruang}/items', [RuangController::class, 'show'])->name('ruan
 Route::get('item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
 Route::put('item/{id}', [ItemController::class, 'update'])->name('item.update');
 Route::delete('item/{id}', [ItemController::class, 'destroy'])->name('item.destroy');
+Route::get('item/{id}', [ItemController::class, 'show'])->name('item.show');
+
 // Update this route to match the pattern in your existing view
 Route::get('detailruang/{id}', [RuangController::class, 'show'])->name('detailruang.show');
 
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
-// Route::get('detailruang/{detailruang}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
+Route::get('detailruang/{detailruang}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
 
 
 // Halaman Pengembalian
@@ -106,13 +109,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Resource route for the history controller (this will handle CRUD operations for the "history" resource)
-Route::resource('history', HistoryController::class);
-
-// Custom route for showing a specific history day (this is your custom route)
-Route::get('history/{history}', [HistoryController::class, 'show'])->name('history.show');
-
-
+Route::get('history', [HistoryController::class, 'index'])->name('history.index');
+Route::get('history/{day}', [HistoryController::class, 'show'])->name('history.show');
 
 
 
