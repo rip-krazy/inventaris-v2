@@ -17,26 +17,24 @@
 
         <ul id="pengembalianList" class="mt-4 space-y-4">
             @foreach ($pengembalianTertunda as $index => $entry)
-                <li class="flex items-center justify-between bg-gray-50 border border-gray-300 rounded-md p-4 transition duration-200 hover:bg-gray-100">
-                    <span class="text-gray-700">
-                        {{ "{$entry['name']} - {$entry['mapel']} - {$entry['barangTempat']} - {$entry['jam']}"}}
-                    </span>
+            <li>
+                <span>{{ $entry['name'] ?? 'Nama tidak tersedia' }}</span>
+                <span>{{ $entry['mapel'] ?? 'Mapel tidak tersedia' }}</span>
+                <span>{{ $entry['barangTempat'] ?? 'Barang/Tempat tidak tersedia' }}</span>
 
-                    <!-- Menampilkan status yang diperbarui -->
-                    @if ($entry['status'] == 'Pending')
+        @if ($entry['status'] == 'Pending')
                         <span class="text-gray-400 m-2">Pending</span>
                     @elseif ($entry['status'] == 'Diterima')
                         <span class="text-green-600 m-2">Diterima</span>
                     @endif
 
-                    <div class="flex space-x-2 m-2">
-                        <form action="{{ route('pengembalian.approve', $index) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="bg-green-600 text-white rounded-md px-8 py-1 hover:bg-green-700 transition duration-150">Setujui</button>
-                        </form>
-                    </div>                    
-                </li>
-            @endforeach
+        <form action="{{ route('pengembalian.approve', $index) }}" method="POST">
+            @csrf
+            <button type="submit">Setujui</button>
+        </form>
+    </li>
+@endforeach
+
         </ul>
     </div>
 </body>

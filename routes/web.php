@@ -109,8 +109,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('history', [HistoryController::class, 'index'])->name('history.index');
-Route::get('history/{day}', [HistoryController::class, 'show'])->name('history.show');
+Route::get('/history', [PengembalianController::class, 'history'])->name('pengembalian.history');
+Route::get('/pengembalian/history', [PengembalianController::class, 'history'])->name('pengembalian.history');
+Route::get('/history/filter', [HistoryController::class, 'index'])->name('history.filter');
 
 
 
