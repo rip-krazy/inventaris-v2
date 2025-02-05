@@ -47,11 +47,7 @@
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->name }}</td>
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->description }}</td>
                 <td class="py-4 px-8 border-b text-center">
-<<<<<<< HEAD
                     <a href="{{ url('detailruang/' . $ruang->id) }}" class="text-green-600 hover:text-green-800">Detail</a>
-=======
-                <a href="{{ route('ruang.item', $ruang) }}" class="text-green-600 hover:text-green-800">Detail</a>
->>>>>>> 5132950b2e3ea0e7fcc4a75e3b0443fec3af6006
                 </td>
                 <td class="py-4 px-8 border-b text-center">
                     <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
