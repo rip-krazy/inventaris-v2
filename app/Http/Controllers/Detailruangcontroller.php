@@ -63,8 +63,17 @@ class DetailRuangController extends Controller
         return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil dihapus.');
     }
     
+<<<<<<< HEAD
     public function show(DetailRuang $detailruang)
     {
         return view('admin.ruang.detailruang.index', compact('detailruang'));
     }
+=======
+   public function show($id)
+{
+    $ruang = Ruang::with('items')->findOrFail($id); // Ambil data ruang beserta item-nya
+    return view('admin.ruang.detailruang.index', compact('ruang'));
+}
+
+>>>>>>> 5132950b2e3ea0e7fcc4a75e3b0443fec3af6006
 }

@@ -64,4 +64,17 @@ class RuangController extends Controller
 
         return redirect()->route('ruang.index')->with('success', 'Data ruang berhasil dihapus.');
     }
+
+    public function item(Ruang $ruang)
+    {
+        return view('admin.ruang.detailruang.index', compact('ruang'));
+    }
+
+    public function show($id)
+    {
+        // Fetch the room with its items
+        $ruang = Ruang::with('items')->findOrFail($id);
+        
+        return view('admin.ruang.detailruang.index', compact('ruang'));
+    }
 }

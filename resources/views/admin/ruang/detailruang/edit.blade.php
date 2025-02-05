@@ -1,43 +1,34 @@
 @extends('main')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-10 my-10">
-    <h1 class="text-2xl font-bold mb-6 text-center">Edit Data Detail Ruang</h1>
+<div class="w-screen ml-72 mr-10 bg-white rounded-xl shadow-xl p-12 my-10">
+    <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-8">
+        Edit Barang: {{ $item->name }}
+    </h1>
 
-    <form action="{{ route('detailruang.update', $detailruang) }}" method="POST">
+    <form action="{{ route('item.update', $item->id) }}" method="POST" class="max-w-lg mx-auto">
         @csrf
         @method('PUT')
-        
         <div class="mb-4">
-            <label class="block text-gray-700">Nama Barang</label>
-            <input type="text" name="nama_barang" value="{{ old('nama_barang', $detailruang->nama_barang) }}" class="w-full border border-gray-300 rounded-lg p-2" required>
+            <label class="block mb-2">Nama Barang</label>
+            <input type="text" name="name" value="{{ $item->name }}" required class="w-full px-3 py-2 border rounded">
         </div>
-        
         <div class="mb-4">
-            <label class="block text-gray-700">Kode Barang</label>
-            <input type="text" name="kode_barang" value="{{ old('kode_barang', $detailruang->kode_barang) }}" class="w-full border border-gray-300 rounded-lg p-2" required>
+            <label class="block mb-2">Kode Barang</label>
+            <input type="text" name="code" value="{{ $item->code }}" required class="w-full px-3 py-2 border rounded">
         </div>
-        
         <div class="mb-4">
-            <label class="block text-gray-700">Kondisi Barang</label>
-            <div class="flex items-center space-x-4">
-                <label>
-                    <input type="radio" name="kondisi_barang" value="Baik" {{ old('kondisi_barang', $detailruang->kondisi_barang) == 'Baik' ? 'checked' : '' }}>
-                    <span class="ml-2">Baik</span>
-                </label>
-                <label>
-                    <input type="radio" name="kondisi_barang" value="Rusak" {{ old('kondisi_barang', $detailruang->kondisi_barang) == 'Rusak' ? 'checked' : '' }}>
-                    <span class="ml-2">Rusak</span>
-                </label>
-            </div>
+            <label class="block mb-2">Kondisi</label>
+            <select name="condition" required class="w-full px-3 py-2 border rounded">
+                <option value="Baik" {{ $item->condition == 'Baik' ? 'selected' : '' }}>Baik</option>
+                <option value="Rusak" {{ $item->condition == 'Rusak' ? 'selected' : '' }}>Rusak</option>
+            </select>
         </div>
-        
-        <div class="mb-4">
-            <label class="block text-gray-700">Jumlah Barang</label>
-            <input type="number" name="jumlah_barang" value="{{ old('jumlah_barang', $detailruang->jumlah_barang) }}" class="w-full border border-gray-300 rounded-lg p-2" required>
+        <div class="text-center">
+            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                Update Barang
+            </button>
         </div>
-        
-        <button type="submit" class="w-full text-white bg-blue-600 rounded-lg py-2 hover:bg-blue-700">Update</button>
     </form>
 </div>
 @endsection

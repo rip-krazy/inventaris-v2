@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-    ];    
+        'mapel',  // Add 'mapel' to the fillable array
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,6 +42,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        // If you want to cast 'mapel' to a specific type, for example, string, you can add it here.
+        // 'mapel' => 'string', // Add this line if needed
     ];
-    
 }

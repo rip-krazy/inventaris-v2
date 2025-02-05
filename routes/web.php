@@ -19,6 +19,8 @@ use App\Http\Controllers\DetailruangController;
 use App\Http\Controllers\DrController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HuController;
+use App\Http\Controllers\ItemController;
 
 
 /*
@@ -42,11 +44,31 @@ Route::resource('barangs', BarangController::class);
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+<<<<<<< HEAD
+=======
+
+Route::get('item/create/{ruangId}', [ItemController::class, 'create'])->name('item.create');
+Route::post('item/{ruangId}', [ItemController::class, 'store'])->name('item.store');
+Route::get('/ruang/{ruang}/item', [RuangController::class, 'item'])->name('ruang.item');
+Route::get('/ruang/{ruang}/items', [RuangController::class, 'show'])->name('ruang.item');
+Route::get('item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
+Route::put('item/{id}', [ItemController::class, 'update'])->name('item.update');
+Route::delete('item/{id}', [ItemController::class, 'destroy'])->name('item.destroy');
+Route::get('item/{id}', [ItemController::class, 'show'])->name('item.show');
+
+// Update this route to match the pattern in your existing view
+Route::get('detailruang/{id}', [RuangController::class, 'show'])->name('detailruang.show');
+>>>>>>> 5132950b2e3ea0e7fcc4a75e3b0443fec3af6006
 
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
+<<<<<<< HEAD
 Route::get('/detailruang/{id}', [DetailruangController::class, 'show'])->name('show');
+=======
+Route::get('detailruang/{detailruang}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
+
+>>>>>>> 5132950b2e3ea0e7fcc4a75e3b0443fec3af6006
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
@@ -94,13 +116,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Resource route for the history controller (this will handle CRUD operations for the "history" resource)
-Route::resource('history', HistoryController::class);
-
-// Custom route for showing a specific history day (this is your custom route)
-Route::get('history/{history}', [HistoryController::class, 'show'])->name('history.show');
-
-
+Route::get('/history', [PengembalianController::class, 'history'])->name('pengembalian.history');
+Route::get('/pengembalian/history', [PengembalianController::class, 'history'])->name('pengembalian.history');
+Route::get('/history/filter', [HistoryController::class, 'index'])->name('history.filter');
 
 
 
