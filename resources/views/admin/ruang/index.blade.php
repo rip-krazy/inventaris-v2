@@ -41,13 +41,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($ruangs as $index => $ruang)
+            @foreach ($ruangs as $detailruang => $ruang)
             <tr class="hover:bg-green-100">
-                <td class="py-4 px-8 border-b text-center">{{ $index + 1 }}</td>
+                <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->name }}</td>
                 <td class="py-4 px-8 border-b text-center">{{ $ruang->description }}</td>
                 <td class="py-4 px-8 border-b text-center">
-                    <a href="{{ url('detailruang') }}" class="text-green-600 hover:text-green-800">Detail</a>
+                    <a href="{{ url('detailruang/' . $ruang->id) }}" class="text-green-600 hover:text-green-800">Detail</a>
                 </td>
                 <td class="py-4 px-8 border-b text-center">
                     <a href="{{ route('ruang.edit', $ruang) }}" class="text-blue-600 hover:text-blue-800">Edit</a>

@@ -65,6 +65,6 @@ class DetailRuangController extends Controller
     
     public function show(DetailRuang $detailruang)
     {
-        return view('admin.ruang.detailruang.show', compact('detailruang'));
+        return view('admin.ruang.detailruang.index', compact('detailruang'));
     }
 }
