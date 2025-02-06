@@ -24,7 +24,7 @@
                     <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
                     <td class="px-6 py-4">{{ $entry['name'] }}</td>
                     <td class="px-6 py-4">{{ $entry['tanggal_pengembalian'] }}</td>
-                    <td class="px-6 py-4">{{ $entry['barangTempat'] }}</td>
+                    <td class="px-6 py-4">{{ $entry['barang_tempat'] }}</td>
                     <td class="px-6 py-4">{{ $entry['mapel'] }}</td>
                 </tr>
                 @endforeach

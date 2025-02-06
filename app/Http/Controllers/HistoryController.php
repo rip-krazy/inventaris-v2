@@ -31,7 +31,7 @@ class PengembalianController extends Controller
             $pengembalianHistory[] = [
                 'name' => $pengembalianTertunda[$index]['name'],
                 'mapel' => $pengembalianTertunda[$index]['mapel'],
-                'barangTempat' => $pengembalianTertunda[$index]['barangTempat'],
+                'barang_tempat' => $pengembalianTertunda[$index]['barang_tempat'],
                 'tanggal_pengembalian' => now()->toDateString(),  // Menggunakan tanggal sekarang
             ];
     
