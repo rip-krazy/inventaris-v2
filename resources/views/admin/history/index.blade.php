@@ -2,7 +2,11 @@
 
 @section('content')
 
+<<<<<<< HEAD
 <div class="w-screen mt-24 ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+=======
+<div class="w-screen mt-12 ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+>>>>>>> d6a4b49276469edd043690a30d8eddc9cc51706d
     <!-- Title -->
     <h2 class="text-center text-4xl font-extrabold text-green-600 mb-10" style="color: #16a34a;">Riwayat Pengembalian</h2>
 
@@ -24,7 +28,7 @@
                     <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
                     <td class="px-6 py-4">{{ $entry['name'] }}</td>
                     <td class="px-6 py-4">{{ $entry['tanggal_pengembalian'] }}</td>
-                    <td class="px-6 py-4">{{ $entry['barangTempat'] }}</td>
+                    <td class="px-6 py-4">{{ $entry['barang_tempat'] }}</td>
                     <td class="px-6 py-4">{{ $entry['mapel'] }}</td>
                 </tr>
                 @endforeach

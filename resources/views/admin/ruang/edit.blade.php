@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<div class="max-w-4xl mx-auto mt-32 bg-white rounded-lg shadow-2xl p-8 mb-6">
+<div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-2xl p-8 mb-6">
     <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-8">Edit Data Ruang</h1>
 
     <div class="text-center mb-8">

@@ -45,23 +45,10 @@ Route::resource('barangs', BarangController::class);
 
 Route::resource('ruang', RuangController::class);
 
-Route::get('item/create/{ruangId}', [ItemController::class, 'create'])->name('item.create');
-Route::post('item/{ruangId}', [ItemController::class, 'store'])->name('item.store');
-Route::get('/ruang/{ruang}/item', [RuangController::class, 'item'])->name('ruang.item');
-Route::get('/ruang/{ruang}/items', [RuangController::class, 'show'])->name('ruang.item');
-Route::get('item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
-Route::put('item/{id}', [ItemController::class, 'update'])->name('item.update');
-Route::delete('item/{id}', [ItemController::class, 'destroy'])->name('item.destroy');
-Route::get('item/{id}', [ItemController::class, 'show'])->name('item.show');
-
-// Update this route to match the pattern in your existing view
-Route::get('detailruang/{id}', [RuangController::class, 'show'])->name('detailruang.show');
-
 Route::resource('pengguna', PenggunaController::class);
 
 Route::resource('detailruang', DetailruangController::class);
-Route::get('detailruang/{detailruang}/show', [DetailRuangController::class, 'show'])->name('detailruang.show');
-
+Route::get('/detailruang/{id}', [DetailruangController::class, 'show'])->name('show');
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
