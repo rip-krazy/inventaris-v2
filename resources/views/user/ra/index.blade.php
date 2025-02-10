@@ -40,7 +40,7 @@
                                             <p class="text-gray-800 font-medium">{{ $entry['name'] }}</p>
                                         </div>
                                         <div>
-                                            <span class="text-sm text-gray-500">Mape:</span>
+                                            <span class="text-sm text-gray-500">Mapel:</span>
                                             <p class="text-gray-800 font-medium">{{ $entry['mapel'] }}</p>
                                         </div>
                                         <div>

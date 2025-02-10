@@ -56,18 +56,16 @@ class PengembalianController extends Controller
         // Redirect setelah proses approve
         return redirect()->route('pengembalian.index')->with('status', 'success')->with('message', 'Permintaan pengembalian telah disetujui!');
     }
-    
 
     public function history()
     {
         // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
         $pengembalianHistory = Session::get('pengembalian_history', []);
 
-       
-
         return view('admin.history.index', compact('pengembalianHistory'));
     }
 }
+
 
 
 

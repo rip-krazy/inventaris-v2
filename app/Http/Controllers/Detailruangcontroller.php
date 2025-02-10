@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ruang;
 use App\Models\DetailRuang;
 use Illuminate\Http\Request;
 

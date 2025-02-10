@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class HuController extends Controller
 {
@@ -11,7 +13,11 @@ class HuController extends Controller
      */
     public function index()
     {
-        return view('user.hu.index');
+        // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
+        $pengembalianHistory = Session::get('pengembalian_history', []);
+        
+        // Pass the data to the view
+        return view('user.hu.index', compact('pengembalianHistory'));
     }
 
     /**
