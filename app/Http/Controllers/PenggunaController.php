@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash; // Tambahkan ini
 
 class PenggunaController extends Controller
 {
@@ -51,30 +52,30 @@ class PenggunaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $pengguna = Pengguna::findOrFail($id);
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|unique:penggunas,username,' . $id,
+            'username' => 'required|string|max:255|unique:penggunas,username,'.$id,
             'mapel' => 'required|string|max:255',
-            'password' => 'nullable|string|min:6|confirmed', // Menambahkan validasi password
+            'password' => 'nullable|min:6', // Password boleh kosong
         ]);
 
-        $pengguna = Pengguna::findOrFail($id);
-        
-        // Jika password diisi, maka update password
-        if ($request->filled('password')) {
-            $pengguna->password = bcrypt($request->password); // Enkripsi password baru
-        }
-        
-        // Update data lainnya
         $pengguna->name = $request->name;
         $pengguna->username = $request->username;
         $pengguna->mapel = $request->mapel;
 
-        // Simpan perubahan
+        // Hanya update password jika ada input baru
+        if ($request->filled('password')) {
+            $pengguna->password = $request->password; // Simpan langsung tanpa Hash
+        }
+
+
         $pengguna->save();
 
-        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil diperbarui');
+        return redirect()->route('pengguna.index')->with('success', 'Data pengguna berhasil diperbarui.');
     }
+
 
     public function destroy(Pengguna $pengguna)
     {
