@@ -30,13 +30,5 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Pagination Navigation (if applicable) -->
-    <div class="mt-8 flex justify-center space-x-2">
-        <a href="#" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition">Previous</a>
-        <a href="#" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition">1</a>
-        <a href="#" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition">2</a>
-        <a href="#" class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition">Next</a>
-    </div>
 </div>
 @endsection

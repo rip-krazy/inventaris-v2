@@ -50,12 +50,7 @@ class PengembalianController extends Controller
     public function history()
     {
         // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
-<<<<<<< HEAD
-        $pengembalianHistory = Session::get('pengembalian_history', []);
-
-=======
         $pengembalianHistory = HistoryPengembalian::all();
->>>>>>> d6a4b49276469edd043690a30d8eddc9cc51706d
         return view('admin.history.index', compact('pengembalianHistory'));
     }
 }
