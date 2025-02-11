@@ -63,6 +63,7 @@ Route::post('/approvals/reject/{index}', [ApprovalController::class, 'reject'])-
 // Rute untuk melihat daftar pengembalian
 Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
 
+
 // Rute untuk menyetujui permintaan pengembalian
 Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
 

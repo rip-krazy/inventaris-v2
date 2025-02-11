@@ -67,14 +67,8 @@
                             </div>
                         </li>
                     @endforeach
-<<<<<<< HEAD
-                </ul>
-            </div>
-        </div>
-=======
                 
         </ul>
->>>>>>> d6a4b49276469edd043690a30d8eddc9cc51706d
     </div>
 </body>
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ruang;
 use App\Models\Barang;
+use App\Models\peminjaman;
 
 class PeminjamanController extends Controller
 {
@@ -24,6 +25,7 @@ class PeminjamanController extends Controller
     
         // Kirimkan data barang, ruang, dan data user ke view
         return view('user.peminjaman.index', compact('barangs', 'ruangs', 'user'));
+
     }
 
     public function submit(Request $request)

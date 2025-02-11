@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class ApprovalController extends Controller
 {
-    // Menampilkan daftar pending approvals
-    public function index()
-    {
-        $pendingApprovals = Session::get('pending_approvals', []);
-        return view('admin.approvals.index', compact('pendingApprovals'));
-    }
+   // Controller ApprovalController
+public function index()
+{
+    // Menarik pending approvals dari session
+    $pendingApprovals = Session::get('pending_approvals', []);
+
+    // Kirim ke view dengan nama variabel yang tepat
+    return view('admin.approvals.index', compact('pendingApprovals'));
+}
+
 
     // Menyetujui permintaan
     public function approve($index)

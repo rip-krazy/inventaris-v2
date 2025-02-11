@@ -12,7 +12,7 @@
    <div class="mb-6 flex justify-between items-center">
        <form action="{{ route('dr.index') }}" method="GET" class="flex items-center space-x-4">
            <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruang..." class="mt-4 px-4 py-2 border rounded-lg w-80" />
-           <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Cari</button>
+           <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Cari</button>
        </form>
    </div>
    
@@ -20,9 +20,9 @@
    <table class="min-w-full mt-2 bg-white border border-gray-300">
        <thead>
            <tr class="bg-green-200 text-gray-600">
-               <th class="py-4 px-6 border-b text-center">Nama barang</th>
-               <th class="py-4 px-6 border-b text-center">Kode barang</th>
-               <th class="py-4 px-6 border-b text-center">Kondisi barang</th>
+               <th class="py-4 px-6 border-b text-center">Nama Barang</th>
+               <th class="py-4 px-6 border-b text-center">Kode Barang</th>
+               <th class="py-4 px-6 border-b text-center">Kondisi Barang</th>
                <th class="py-4 px-6 border-b text-center">QR Kode</th>
            </tr>
        </thead>
@@ -44,12 +44,13 @@
        </tbody>
    </table>
 
+   <!-- Pagination Controls -->
    <div class="mt-6 flex justify-between items-center">
        <div>
            @if($detailruangs->onFirstPage())
                <span class="text-gray-500">Previous</span>
            @else
-               <a href="{{ $detailruangs->previousPageUrl() }}" class="text-blue-600">Previous</a>
+               <a href="{{ $detailruangs->previousPageUrl() }}" class="text-green-600 hover:text-green-700 transition duration-200">Previous</a>
            @endif
        </div>
 
@@ -59,7 +60,7 @@
 
        <div>
            @if($detailruangs->hasMorePages())
-               <a href="{{ $detailruangs->nextPageUrl() }}" class="text-blue-600">Next</a>
+               <a href="{{ $detailruangs->nextPageUrl() }}" class="text-green-600 hover:text-green-700 transition duration-200">Next</a>
            @else
                <span class="text-gray-500">Next</span>
            @endif

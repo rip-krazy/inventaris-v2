@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-
 class HuController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the user's return history.
      */
     public function index()
     {
@@ -19,6 +18,7 @@ class HuController extends Controller
         // Pass the data to the view
         return view('user.hu.index', compact('pengembalianHistory'));
     }
+
 
     /**
      * Show the form for creating a new resource.

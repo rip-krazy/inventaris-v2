@@ -14,4 +14,10 @@ class Detailruang extends Model
         'kode_barang',
         'kondisi_barang'
     ];
+
+    public function ruang()
+{
+    return $this->belongsTo(Ruang::class);
+}
+
 }

@@ -64,8 +64,26 @@ class DetailRuangController extends Controller
         return redirect()->route('detailruang.index')->with('success', 'Data Ruang berhasil dihapus.');
     }
     
-    public function show(DetailRuang $detailruang)
+    public function show($id, Request $request)
     {
-        return view('admin.ruang.detailruang.index', compact('detailruang'));
+        $ruang = Ruang::with('items')->findOrFail($id); // Get the ruang with its related items
+        $search = $request->input('search', ''); // Capture search value
+    
+        // Get the related detailruangs, apply search filter if necessary
+        $detailruangs = DetailRuang::where('ruang_id', $ruang->id)
+            ->when($search, function ($query, $search) {
+                $query->where('nama_barang', 'like', '%' . $search . '%')
+                      ->orWhere('kode_barang', 'like', '%' . $search . '%')
+                      ->orWhere('kondisi_barang', 'like', '%' . $search . '%');
+            })
+            ->orderBy('nama_barang', 'asc')
+            ->paginate(10); // Paginate results
+    
+        // Pass both ruang and detailruangs to the view
+        return view('admin.ruang.detailruang.index', compact('ruang', 'detailruangs', 'search'));
     }
+    
+
+    
+
 }

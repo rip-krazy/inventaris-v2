@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('detailruangs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
-            $table->string('kode_barang')->unique();
-            $table->string('kondisi_barang');
+            $table->foreignId('ruang_id')->constrained('ruangs'); // This should be here for the foreign key
+    $table->string('nama_barang');
+    $table->string('kode_barang')->unique();
+    $table->string('kondisi_barang');
             $table->timestamps();
         });
     }
