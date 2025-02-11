@@ -71,8 +71,8 @@
                           <div class="flex items-center justify-center">
                               <span class="hidden-password mt-2">{{ str_repeat('*', strlen($pengguna->password)) }}</span>
                               <span class="visible-password hidden">{{ $pengguna->password }}</span>
-                              <button type="button" class="toggle-password ml-2 text-gray-500 focus:outline-none" onclick="togglePassword(this)">
-                                  👁️
+                              <button type="button" class="toggle-password ml-2 text-gray-500 hover:text-gray-700 focus:outline-none" onclick="togglePassword(this)">
+                                  <i class="fa fa-eye"></i>
                               </button>
                           </div>
                       </td>                
@@ -127,15 +127,18 @@
         const td = button.closest('td');
         const hiddenPassword = td.querySelector('.hidden-password');
         const visiblePassword = td.querySelector('.visible-password');
+        const icon = button.querySelector('i');
         
         if (hiddenPassword.classList.contains('hidden')) {
             hiddenPassword.classList.remove('hidden');
             visiblePassword.classList.add('hidden');
-            button.textContent = '👁️'; // Mata terbuka
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
         } else {
             hiddenPassword.classList.add('hidden');
             visiblePassword.classList.remove('hidden');
-            button.textContent = '👁️'; // Mata tertutup
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
         }
     }
 </script>
