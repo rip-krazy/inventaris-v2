@@ -5,9 +5,55 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
       <title>Welcome to Inventaris Barang</title>
-  </head>
+      <style>
+        .sidebar-transition {
+         transition: all 0.3s ease-in-out;
+        }
+
+        .content-transition {
+         transition: margin-left 0.3s ease-in-out;
+        }
+
+        .sidebar-collapsed {
+          width: 5rem !important;
+        }
+
+        .sidebar-collapsed .sidebar-text {
+          display: none;
+        }
+
+        .sidebar-collapsed .toggle-icon {
+          transform: rotate(180deg);
+        }
+
+        #toggle-sidebar {
+          width: 100%;
+          padding: 0.5rem;
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          color: #4A4A4A;
+          transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+          #default-sidebar {
+            width: 5rem;
+          }
+
+          .sidebar-text {
+            display: none;
+          }
+
+          #main-content {
+            margin-left: 5rem;
+          }
+        }
+      </style>
+   </head>
 <body class="bg-gray-100 flex flex-col h-screen">
-   <header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
+<header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
       <div class="flex items-center">
           <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2">
           <h1 class="text-xl font-bold text-white">Inventaris Barang</h1>
@@ -39,15 +85,13 @@
   </header>  
 
 <div class="flex pt-20">
-    <!-- Button to toggle sidebar -->
-    
-    <aside id="default-sidebar" class="w-64 h-full fixed top-20 transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
-      <div class="h-full px-3 py-4 overflow-y-auto">
-       <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
-        ☰
-      </button>
-          <ul class="space-y-2 font-medium">
-             <li>
+    <aside id="default-sidebar" class="fixed top-2 left-0 z-40 sidebar-transition w-64 h-screen">
+      <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <button id="toggle-sidebar" class="mb-6 mt-20 bg-transparent text-black rounded focus:outline-none text-4xl w-full text-left">
+          ☰
+        </button>
+        <ul class="space-y-2 font-medium">
+        <li>
                 <a href="{{ url('home') }}" class="flex items-center mb-6 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                    <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                       <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -106,44 +150,50 @@
                    <span class="ml-3 sidebar-text">Sign In</span>
                 </a>
              </li>
-          </ul>
-        </div>
+        </ul>
+      </div>
     </aside>
     
-    @yield('content')
+    <main id="main-content" class="content-transition flex-1 ml-64 p-4">
+        @yield('content')
+    </main>
 </div>
 
-<style>
-    /* Style sidebar untuk teks saat sidebar minimalis */
-    .minimized .sidebar-text {
-        display: none;
-    }
-</style>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const avatarBtn = document.getElementById('avatarBtn');
-        const dropdown = document.getElementById('dropdown');
+  document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('default-sidebar');
+        const mainContent = document.getElementById('main-content');
         const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+        const toggleIcon = toggleSidebarBtn.querySelector('.toggle-icon');
+        let isSidebarOpen = true;
 
-        // Toggle dropdown menu
-        avatarBtn.addEventListener('click', function () {
-            dropdown.classList.toggle('hidden');
-        });
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            
+            sidebar.classList.toggle('sidebar-collapsed');
+            mainContent.style.marginLeft = isSidebarOpen ? '12rem' : '5rem';
+            
+            // Update toggle button text
+            const buttonText = toggleSidebarBtn.querySelector('.sidebar-text');
+            buttonText.textContent = isSidebarOpen ? 'Hide Sidebar' : 'Show Sidebar';
+        }
 
-        window.addEventListener('click', function (event) {
-            if (!avatarBtn.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add('hidden');
+        toggleSidebarBtn.addEventListener('click', toggleSidebar);
+
+        // Handle responsiveness
+        function handleResize() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('sidebar-collapsed');
+                mainContent.style.marginLeft = '5rem';
+                isSidebarOpen = false;
+            } else if (window.innerWidth > 768 && isSidebarOpen) {
+                sidebar.classList.remove('sidebar-collapsed');
+                mainContent.style.marginLeft = '12rem';
             }
-        });
+        }
 
-        // Toggle sidebar
-        toggleSidebarBtn.addEventListener('click', function () {
-            sidebar.classList.toggle('w-64');
-            sidebar.classList.toggle('w-16');
-            sidebar.classList.toggle('minimized');
-        });
+        window.addEventListener('resize', handleResize);
+        handleResize();
     });
 </script>
 </body>

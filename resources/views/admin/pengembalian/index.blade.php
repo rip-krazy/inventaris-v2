@@ -5,7 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <body>
-    <div class="w-screen ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+    <div class="w-100 mx-24 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
         <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6 my-4">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Pengembalian Tertunda</h2>
 

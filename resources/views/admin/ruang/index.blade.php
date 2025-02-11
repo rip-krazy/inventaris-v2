@@ -6,7 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 <body class="bg-gradient-to-br from-white to-green-50 p-10">
-    <div class="w-screen ml-72 bg-white rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn mr-12">
+    <div class="w-100 mx-24 bg-white rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn">
         <h1 class="text-4xl font-bold mb-8 text-center text-gray-800 border-b pb-4">
             <i class="fas fa-door-open mr-2 text-green-600"></i> Daftar Ruang Sekolah
         </h1>
@@ -52,26 +52,26 @@
             <table class="min-w-full bg-white">
                 <thead>
                     <tr class="bg-green-600 text-white">
-                        <th class="py-4 px-6 text-center font-semibold">No</th>
-                        <th class="py-4 px-6 text-center font-semibold">Ruang</th>
-                        <th class="py-4 px-6 text-center font-semibold">Keterangan</th>
-                        <th class="py-4 px-6 text-center font-semibold">Detail</th>
-                        <th class="py-4 px-6 text-center font-semibold">Aksi</th>
+                        <th class="py-4 px-12 text-center font-semibold">No</th>
+                        <th class="py-4 px-12 text-center font-semibold">Ruang</th>
+                        <th class="py-4 px-12 text-center font-semibold">Keterangan</th>
+                        <th class="py-4 px-12 text-center font-semibold">Detail</th>
+                        <th class="py-4 px-12 text-center font-semibold">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($ruangs as $ruang)
                     <tr class="hover:bg-green-50 transition duration-150">
-                        <td class="py-4 px-6 border-b text-center">{{ $loop->iteration }}</td>
-                        <td class="py-4 px-6 border-b text-center">{{ $ruang->name }}</td>
-                        <td class="py-4 px-6 border-b text-center">{{ $ruang->description }}</td>
-                        <td class="py-4 px-6 border-b text-center">
+                        <td class="py-4 px-12 border-b text-center">{{ $loop->iteration }}</td>
+                        <td class="py-4 px-12 border-b text-center">{{ $ruang->name }}</td>
+                        <td class="py-4 px-12 border-b text-center">{{ $ruang->description }}</td>
+                        <td class="py-4 px-12 border-b text-center">
                             <a href="{{ url('detailruang/' . $ruang->id) }}" 
                                class="text-green-600 hover:text-green-800 transition duration-200">
                                 <i class="fas fa-info-circle"></i> Detail
                             </a>
                         </td>
-                        <td class="py-4 px-6 border-b text-center">
+                        <td class="py-4 px-12 border-b text-center">
                             <div class="flex justify-center gap-3">
                                 <a href="{{ route('ruang.edit', $ruang) }}" 
                                    class="text-blue-500 hover:text-blue-700 transition duration-200">

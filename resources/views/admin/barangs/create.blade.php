@@ -3,7 +3,7 @@
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-<div class="max-w-7xl mt-10 mx-auto">
+<div class="max-w-2xl mt-10 mx-auto">
     <div class="bg-gradient-to-br from-white to-green-50 rounded-2xl shadow-2xl p-12 my-10 animate__animated animate__fadeIn">
         <!-- Header Section -->
         <div class="text-center mb-12">

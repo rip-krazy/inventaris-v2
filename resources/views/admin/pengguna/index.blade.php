@@ -7,7 +7,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 <body class="bg-gradient-to-br from-white to-green-50 p-10">
-   <div class="w-screen ml-72 bg-white rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn mr-12">
+   <div class="w-100 mx-24 bg-white rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn">
        <h1 class="text-4xl font-bold mb-8 text-center text-gray-800 border-b pb-4">
            <i class="fas fa-users mr-2 text-green-600"></i>Daftar Pengguna
        </h1>
@@ -53,21 +53,21 @@
           <table class="min-w-full bg-white">
               <thead>
                   <tr class="bg-green-600 text-white">
-                      <th class="py-4 px-6 text-center font-semibold">No</th>
-                      <th class="py-4 px-6 text-center font-semibold">Nama</th>
-                      <th class="py-4 px-6 text-center font-semibold">Username</th>
-                      <th class="py-4 px-6 text-center font-semibold">Password</th>
-                      <th class="py-4 px-6 text-center font-semibold">Mapel</th>
-                      <th class="py-4 px-6 text-center font-semibold">Aksi</th>
+                      <th class="py-4 px-8 text-center font-semibold">No</th>
+                      <th class="py-4 px-8 text-center font-semibold">Nama</th>
+                      <th class="py-4 px-8 text-center font-semibold">Username</th>
+                      <th class="py-4 px-8 text-center font-semibold">Password</th>
+                      <th class="py-4 px-8 text-center font-semibold">Mapel</th>
+                      <th class="py-4 px-8 text-center font-semibold">Aksi</th>
                   </tr>
               </thead>
               <tbody>
               @foreach($penggunas as $pengguna)
                   <tr class="hover:bg-green-50 transition duration-150">
-                      <td class="py-4 px-6 border-b text-center">{{ $loop->iteration }}</td>
-                      <td class="py-4 px-6 border-b text-center">{{ $pengguna->name }}</td>
-                      <td class="py-4 px-6 border-b text-center">{{ $pengguna->username }}</td>
-                      <td class="py-4 px-6 border-b text-center">
+                      <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
+                      <td class="py-4 px-8 border-b text-center">{{ $pengguna->name }}</td>
+                      <td class="py-4 px-8 border-b text-center">{{ $pengguna->username }}</td>
+                      <td class="py-4 px-8 border-b text-center">
                           <div class="flex items-center justify-center">
                               <span class="hidden-password mt-2">{{ str_repeat('*', strlen($pengguna->password)) }}</span>
                               <span class="visible-password hidden">{{ $pengguna->password }}</span>
@@ -76,8 +76,8 @@
                               </button>
                           </div>
                       </td>                
-                      <td class="py-4 px-6 border-b text-center">{{ $pengguna->mapel }}</td>
-                      <td class="py-4 px-6 border-b text-center">
+                      <td class="py-4 px-8 border-b text-center">{{ $pengguna->mapel }}</td>
+                      <td class="py-4 px-8 border-b text-center">
                           <div class="flex justify-center gap-3">
                               <a href="{{ route('pengguna.edit', $pengguna->id) }}" 
                                  class="text-blue-500 hover:text-blue-700 transition duration-200">

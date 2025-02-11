@@ -7,7 +7,7 @@
 
 <title>Data Barang</title>
 
-<div class="w-screen mr-10 ml-72 bg-gradient-to-br from-white to-green-50 rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn">
+<div class="w-100 mx-24 bg-gradient-to-br from-white to-green-50 rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn">
     <h1 class="text-4xl font-bold mb-8 text-center text-gray-800 border-b pb-4">
         <i class="fas fa-box-open mr-2 text-green-600"></i>Data Barang
     </h1>
@@ -52,29 +52,29 @@
         <table class="min-w-full bg-white">
             <thead>
                 <tr class="bg-green-600 text-white">
-                    <th class="py-4 px-6 text-center font-semibold">No</th>
-                    <th class="py-4 px-6 text-center font-semibold">Nama Barang</th>
-                    <th class="py-4 px-6 text-center font-semibold">Kode Barang</th>
-                    <th class="py-4 px-6 text-center font-semibold">Kondisi Barang</th>
-                    <th class="py-4 px-6 text-center font-semibold">Aksi</th>
+                    <th class="py-4 px-12 text-center font-semibold">No</th>
+                    <th class="py-4 px-12 text-center font-semibold">Nama Barang</th>
+                    <th class="py-4 px-12 text-center font-semibold">Kode Barang</th>
+                    <th class="py-4 px-12 text-center font-semibold">Kondisi Barang</th>
+                    <th class="py-4 px-12 text-center font-semibold">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($barangs as $barang)
                 <tr class="hover:bg-green-50 transition duration-150">
-                    <td class="py-4 px-6 border-b text-center">{{ $loop->iteration }}</td>
-                    <td class="py-4 px-6 border-b text-center">{{ $barang->nama_barang }}</td>
-                    <td class="py-4 px-6 border-b text-center">
+                    <td class="py-4 px-12 border-b text-center">{{ $loop->iteration }}</td>
+                    <td class="py-4 px-12 border-b text-center">{{ $barang->nama_barang }}</td>
+                    <td class="py-4 px-12 border-b text-center">
                         <span class="px-3 py-1 bg-gray-100 rounded-full text-gray-700">
                             {{ $barang->kode_barang }}
                         </span>
                     </td>
-                    <td class="py-4 px-6 border-b text-center">
+                    <td class="py-4 px-12 border-b text-center">
                         <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full">
                             {{ $barang->kondisi_barang }}
                         </span>
                     </td>
-                    <td class="py-4 px-6 border-b text-center">
+                    <td class="py-4 px-12 border-b text-center">
                         <div class="flex justify-center gap-3">
                             <a href="{{ route('barangs.edit', $barang) }}" 
                                class="text-blue-500 hover:text-blue-700 transition duration-200">

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <body class="bg-gray-50">
-    <div class="w-full mt-12 ml-72 mr-24 animate__animated animate__fadeIn">
+    <div class="w-100 mt-12 mx-24 animate__animated animate__fadeIn">
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
             <!-- Header Section -->
             <div class="bg-gradient-to-r from-green-400 to-green-500 p-6">
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <!-- Status Badge -->
-                                    <div class="flex items-center justify-end min-w-[120px]">
+                                    <div class="flex items-center justify-end min-w-[100px]">
                                         @if ($entry['status'] == 'Pending')
                                             <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-50 text-yellow-700">
                                                 <i class="fas fa-clock mr-2"></i>Pending
