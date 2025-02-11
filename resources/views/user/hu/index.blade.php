@@ -53,6 +53,7 @@
                         <th class="px-6 py-4 text-left text-sm font-semibold text-white">Mapel</th>
                         <th class="px-6 py-4 text-left text-sm font-semibold text-white">Status</th>
                     </tr>
+<<<<<<< HEAD
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @foreach ($pengembalianHistory as $index => $history)
@@ -92,6 +93,11 @@
                 </button>
             </div>
         </div>
+=======
+                @endforeach
+            </tbody>
+        </table>
+>>>>>>> 7d53fab83ffb38b1a71b40ebcafc42dd5709f16b
     </div>
 </div>
 @endsection

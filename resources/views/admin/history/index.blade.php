@@ -18,6 +18,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-blue-100 mr-4">
@@ -33,6 +34,11 @@
                 </div>
             </div>
         </div>
+=======
+<div class="w-screen mt-12 ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+    <!-- Title -->
+    <h2 class="text-center text-4xl font-extrabold text-green-600 mb-10" style="color: #16a34a;">Riwayat Pengembalian</h2>
+>>>>>>> 7d53fab83ffb38b1a71b40ebcafc42dd5709f16b
 
         <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
             <div class="flex items-center">
