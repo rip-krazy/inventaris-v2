@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<div class="w-screen mt-12 ml-72 mr-10 animate__animated animate__fadeIn">
+<div class="w-100 mx-24 mt-12 animate__animated animate__fadeIn">
     <!-- Header Section with Stats -->
     <div class="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">

@@ -110,37 +110,91 @@
 </div>
 
 <style>
-    /* Style sidebar untuk teks saat sidebar minimalis */
-    .minimized .sidebar-text {
-        display: none;
-    }
+    <style>
+        .sidebar-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .content-transition {
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .sidebar-collapsed {
+            width: 5rem !important;
+        }
+
+        .sidebar-collapsed .sidebar-text {
+            display: none;
+        }
+
+        .sidebar-collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        #toggle-sidebar {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #4A4A4A;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            #default-sidebar {
+                width: 5rem;
+            }
+
+            .sidebar-text {
+                display: none;
+            }
+
+            #main-content {
+                margin-left: 5rem;
+            }
+        }
+    </style>
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const avatarBtn = document.getElementById('avatarBtn');
-        const dropdown = document.getElementById('dropdown');
-        const sidebar = document.getElementById('default-sidebar');
-        const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+            const sidebar = document.getElementById('default-sidebar');
+            const mainContent = document.getElementById('main-content');
+            const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+            const dropdown = document.getElementById('dropdown');
+            const avatarBtn = document.getElementById('avatarBtn');
+            let isSidebarOpen = true;
 
-        // Toggle dropdown menu
-        avatarBtn.addEventListener('click', function () {
-            dropdown.classList.toggle('hidden');
-        });
-
-        window.addEventListener('click', function (event) {
-            if (!avatarBtn.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add('hidden');
+            function toggleSidebar() {
+                isSidebarOpen = !isSidebarOpen;
+                sidebar.classList.toggle('sidebar-collapsed');
+                mainContent.style.marginLeft = isSidebarOpen ? '12rem' : '5rem';
             }
-        });
 
-        // Toggle sidebar
-        toggleSidebarBtn.addEventListener('click', function () {
-            sidebar.classList.toggle('w-64');
-            sidebar.classList.toggle('w-16');
-            sidebar.classList.toggle('minimized');
+            function toggleDropdown() {
+                dropdown.classList.toggle('hidden');
+            }
+
+            toggleSidebarBtn.addEventListener('click', toggleSidebar);
+            avatarBtn.addEventListener('click', toggleDropdown);
+
+            // Handle responsiveness
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('sidebar-collapsed');
+                    mainContent.style.marginLeft = '5rem';
+                    isSidebarOpen = false;
+                } else if (window.innerWidth > 768 && isSidebarOpen) {
+                    sidebar.classList.remove('sidebar-collapsed');
+                    mainContent.style.marginLeft = '12rem';
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
         });
-    });
 </script>
 </body>
 </html>
