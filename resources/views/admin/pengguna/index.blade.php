@@ -102,23 +102,25 @@
       </div>
 
       <!-- Pagination Controls -->
-      <div class="mt-8 flex justify-between items-center bg-white p-4 rounded-lg shadow">
-          <button class="px-4 py-2 {{ $penggunas->onFirstPage() ? 'text-gray-400 cursor-not-allowed' : 'text-green-600 hover:text-green-700' }} transition duration-200">
-              <i class="fas fa-chevron-left mr-1"></i>
-              Previous
-          </button>
+    <div class="mt-8 flex justify-between items-center bg-white p-4 rounded-lg shadow">
+        <a href="{{ $penggunas->previousPageUrl() }}" 
+        class="px-4 py-2 {{ $penggunas->onFirstPage() ? 'text-gray-400 cursor-not-allowed pointer-events-none' : 'text-green-600 hover:text-green-700' }} transition duration-200">
+            <i class="fas fa-chevron-left mr-1"></i>
+            Previous
+        </a>
 
-          <div class="flex items-center">
-              <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg">
-                  Page {{ $penggunas->currentPage() }} of {{ $penggunas->lastPage() }}
-              </span>
-          </div>
+        <div class="flex items-center">
+            <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg">
+                Page {{ $penggunas->currentPage() }} of {{ $penggunas->lastPage() }}
+            </span>
+        </div>
 
-          <button class="px-4 py-2 {{ !$penggunas->hasMorePages() ? 'text-gray-400 cursor-not-allowed' : 'text-green-600 hover:text-green-700' }} transition duration-200">
-              Next
-              <i class="fas fa-chevron-right ml-1"></i>
-          </button>
-      </div>
+        <a href="{{ $penggunas->nextPageUrl() }}" 
+        class="px-4 py-2 {{ !$penggunas->hasMorePages() ? 'text-gray-400 cursor-not-allowed pointer-events-none' : 'text-green-600 hover:text-green-700' }} transition duration-200">
+            Next
+            <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+    </div>
    </div>
 </body>
 
