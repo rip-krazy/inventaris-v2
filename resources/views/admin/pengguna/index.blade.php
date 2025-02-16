@@ -7,6 +7,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <body class="bg-gray-100 p-10">
+    <div>
+        <div class="fixed w-full h-screen top-0 left-0 bg-red-800 z-50"></div>
+    </div>
    <div class="w-screen ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
        <h1 class="text-4xl font-bold mb-6 text-center text-gray-800">Daftar Pengguna</h1>
 
