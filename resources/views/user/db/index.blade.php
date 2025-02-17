@@ -6,7 +6,7 @@
 
 <title>Data Barang</title>
 
-<div class="w-screen mt-32 ml-72 mr-10 bg-white rounded-xl shadow-2xl p-12 my-10 animate__animated animate__fadeIn">
+<div class="w-100 mx-24 bg-white rounded-xl shadow-2xl p-12 my-10 animate__animated animate__fadeIn">
     <h1 class="text-4xl font-extrabold mb-8 text-center text-gray-800 border-b pb-4">
         <i class="fas fa-box mr-2 text-green-600"></i>Data Barang
     </h1>

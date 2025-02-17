@@ -6,7 +6,7 @@
 
 <title>Daftar ruang</title>
 
-<div class="w-screen ml-72 mr-10 mt-32 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+<div class="w-100 mx-24 mt-6 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
     <h1 class="text-2xl font-bold mb-6 text-center">Daftar ruang Sekolah</h1>
 
     <!-- Form Pencarian dan Tombol Tambah Data -->

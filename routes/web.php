@@ -21,6 +21,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HuController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProfilController;
 
 
 /*
@@ -37,6 +38,23 @@ use App\Http\Controllers\ItemController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('about', function () {
+    return view('about');
+});
+
+Route::get('privacy', function () {
+    return view('privacy');
+});
+
+Route::get('contact', function () {
+    return view('contact');
+});
+
+Route::get('Service', function () {
+    return view('Service');
+});
+
 
 // Route data
 Route::resource('barangs', BarangController::class);
@@ -94,6 +112,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::patch('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::delete('/profil', [ProfilController::class, 'destroy'])->name('profil.destroy');
 });
 
 

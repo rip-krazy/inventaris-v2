@@ -1,55 +1,128 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    <div class="glass-effect rounded-3xl p-8 shadow-2xl space-y-8">
+        <div class="text-center space-y-2 animate__animated animate__fadeInDown">
+            <h2 class="text-3xl font-bold text-white">Buat Akun Baru</h2>
+            <p class="text-gray-200">Daftar untuk memulai</p>
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('register') }}" class="space-y-6">
+            @csrf
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <!-- Name -->
+            <div class="space-y-2">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <x-text-input id="name" 
+                        class="block w-full pl-10 bg-white/10 border-gray-200/20 text-white placeholder-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:ring-opacity-40"
+                        type="text"
+                        name="name"
+                        :value="old('name')"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        placeholder="Full Name" />
+                </div>
+                <x-input-error :messages="$errors->get('name')" class="mt-1" />
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <!-- Email Address -->
+            <div class="space-y-2">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                    </div>
+                    <x-text-input id="email" 
+                        class="block w-full pl-10 bg-white/10 border-gray-200/20 text-white placeholder-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:ring-opacity-40"
+                        type="email"
+                        name="email"
+                        :value="old('email')"
+                        required
+                        autocomplete="username"
+                        placeholder="Email Address" />
+                </div>
+                <x-input-error :messages="$errors->get('email')" class="mt-1" />
+            </div>
 
-        <!-- Mapel (Subject) -->
-        <div class="mt-4">
-            <x-input-label for="mapel" :value="__('Mapel (Subject)')" />
-            <x-text-input id="mapel" class="block mt-1 w-full" type="text" name="mapel" :value="old('mapel')" required />
-            <x-input-error :messages="$errors->get('mapel')" class="mt-2" />
-        </div>
+            <!-- Mapel (Subject) -->
+            <div class="space-y-2">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <x-text-input id="mapel" 
+                        class="block w-full pl-10 bg-white/10 border-gray-200/20 text-white placeholder-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:ring-opacity-40"
+                        type="text"
+                        name="mapel"
+                        :value="old('mapel')"
+                        required
+                        placeholder="Mata Pelajaran" />
+                </div>
+                <x-input-error :messages="$errors->get('mapel')" class="mt-1" />
+            </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+            <!-- Password -->
+            <div class="space-y-2">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <x-text-input id="password"
+                        class="block w-full pl-10 bg-white/10 border-gray-200/20 text-white placeholder-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:ring-opacity-40"
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Password" />
+                </div>
+                <x-input-error :messages="$errors->get('password')" class="mt-1" />
+            </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+            <!-- Confirm Password -->
+            <div class="space-y-2">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <x-text-input id="password_confirmation"
+                        class="block w-full pl-10 bg-white/10 border-gray-200/20 text-white placeholder-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-400 focus:ring-opacity-40"
+                        type="password"
+                        name="password_confirmation"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Confirm Password" />
+                </div>
+                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
+            </div>
+
+            <!-- Register Button & Login Link -->
+            <div class="space-y-4">
+                <button type="submit" 
+                    class="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold rounded-lg shadow-lg transform transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+                    Register
+                </button>
+
+                <div class="text-center">
+                    <p class="text-sm text-gray-200">
+                        Already have an account?
+                        <a href="{{ route('login') }}" 
+                            class="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                            Sign in here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
 </x-guest-layout>
