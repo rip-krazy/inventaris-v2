@@ -62,11 +62,20 @@ Route::resource('barangs', BarangController::class);
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('/ruang/{id}/detail', [DetailRuangController::class, 'index'])->name('ruang.detail');
+
 
 Route::resource('pengguna', PenggunaController::class);
 
-Route::resource('detailruang', DetailruangController::class);
-Route::get('/detailruang/{id}', [DetailruangController::class, 'show'])->name('show');
+
+// Remove this line since you're using custom routes
+Route::resource('detailruang', DetailRuangController::class);
+
+Route::get('/detailruang/create/{id}', [DetailRuangController::class, 'create'])->name('detailruang.create');
+Route::get('/detailruang/show/{id}', [DetailRuangController::class, 'show'])->name('detailruang.show');
+Route::get('/detailruang/{id}', [DetailRuangController::class, 'index'])->name('detailruang.index');
+Route::post('/detailruang/store', [DetailRuangController::class, 'store'])->name('detailruang.store');
+Route::post('/detailruang/edit/{id}', [DetailRuangController::class, 'edit'])->name('detailruang.edit');
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');

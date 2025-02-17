@@ -11,14 +11,17 @@
 
     <!-- Search and Add Button Section -->
     <div class="mb-6 flex justify-between items-center">
-        <form action="{{ route('detailruang.index') }}" method="GET" class="flex items-center space-x-4">
+    <form action="{{ route('detailruang.index', $ruang->id) }}" method="GET" class="flex items-center space-x-4">
             <input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Cari Ruang..." class="mt-4 px-4 py-2 border rounded-lg w-80"/>
             <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg">Cari</button>
         </form>
 
-        <a href="{{ route('detailruang.create') }}" class="mt-4 px-4 py-2 text-white bg-green-600 rounded-lg">
+        <a href="{{ route('detailruang.create', ['id' => $ruang->id]) }}" 
+        class="mt-4 px-4 py-2 text-white bg-green-600 rounded-lg">
             Tambah Data
         </a>
+
+
     </div>
 
     <!-- Display search message -->
@@ -46,11 +49,11 @@
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kode_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">{{ $detailruang->kondisi_barang }}</td>
                    <td class="py-4 px-8 border-b text-center">
-                       <a href="{{ route('detailruang.show', $detailruang->id) }}" target="_blank">
-                           <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" 
-                               class="transition-transform transform hover:scale-105 hover:opacity-80 duration-300 ease-in-out mx-auto" width="50" height="50">
-                       </a>
-                   </td>
+                        <a href="{{ route('detailruang.show', ['id' => $detailruang->id]) }}" target="_blank">
+                            <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" 
+                                class="transition-transform transform hover:scale-105 hover:opacity-80 duration-300 ease-in-out mx-auto" width="50" height="50">
+                        </a>
+                    </td>
                    <td class="py-4 px-8 border-b text-center">
                        <a href="{{ route('detailruang.edit', $detailruang) }}" class="text-blue-500 hover:underline">Edit</a>
                        <form action="{{ route('detailruang.destroy', $detailruang) }}" method="POST" class="inline" 

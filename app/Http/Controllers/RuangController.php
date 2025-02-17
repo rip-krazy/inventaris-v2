@@ -72,9 +72,13 @@ class RuangController extends Controller
 
     public function show($id)
     {
-        // Fetch the room with its items
-        $ruang = Ruang::with('items')->findOrFail($id);
-        
-        return view('admin.ruang.detailruang.index', compact('ruang'));
+        // Pastikan kita mengambil ruang beserta detail barangnya
+        $ruang = Ruang::findOrFail($id);
+    
+        // Ambil detail barang terkait dengan ruang ini
+        $detailruangs = DetailRuang::where('ruang_id', $id)->get();
+    
+        return view('admin.ruang.detailruang.index', compact('ruang', 'detailruangs'));
     }
+    
 }
