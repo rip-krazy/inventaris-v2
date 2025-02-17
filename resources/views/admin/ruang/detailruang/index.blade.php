@@ -6,7 +6,7 @@
 
 <title>Detail Ruang</title>
 
-<div class="w-screen ml-72 mr-10 bg-white rounded-xl shadow-xl p-12 my-10 animate__animated animate__fadeIn">
+<div class="w-100 mx-24 bg-white rounded-xl shadow-xl p-12 my-10 animate__animated animate__fadeIn">
     <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-8">{{ $ruang->name }}</h1>
 
     <!-- Search and Add Button Section -->

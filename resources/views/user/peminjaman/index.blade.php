@@ -6,7 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 
 <body class="bg-gray-50">
-    <div class="w-full mt-32 ml-72 mr-24 animate__animated animate__fadeIn">
+    <div class="w-100 mx-24 mt-6 animate__animated animate__fadeIn">
         <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
             <!-- Header Section -->
             <div class="bg-gradient-to-r from-green-400 to-green-500 px-8 py-6">

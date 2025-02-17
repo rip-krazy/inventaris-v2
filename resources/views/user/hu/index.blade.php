@@ -1,6 +1,6 @@
 @extends('home')
 @section('content')
-<div class="w-screen mt-32 ml-72 mr-10 animate_animated animate_fadeIn">
+<div class="w-100 mx-24 mt-6 animate_animated animate_fadeIn">
     <!-- Card Container -->
     <div class="bg-white rounded-xl shadow-2xl p-8 transition-all duration-300 hover:shadow-3xl">
         <!-- Title Section -->

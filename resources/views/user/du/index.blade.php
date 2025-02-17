@@ -5,7 +5,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 mt-32 ml-32">
+<div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-100 py-6 mr-24 mt-8 ">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ml-32">
         <!-- Header Section -->
         <div class="text-center mb-12 animate__animated animate__fadeIn">
