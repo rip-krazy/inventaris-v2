@@ -32,7 +32,7 @@
                                             <span class="text-gray-800 font-medium ml-1">{{ $entry['mapel'] }}</span>
                                         </div>
                                         <div>
-                                            <span class="text-gray-500">Barang atau Tempat:</span>
+                                            <span class="text-gray-500">Nama Barang:</span>
                                             <span class="text-gray-800 font-medium ml-1">{{ $entry['barangTempat'] }}</span>
                                         </div>
                                         <div>
@@ -52,6 +52,10 @@
                                         <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-600">
                                             Diterima
                                         </span>
+                                    @elseif ($entry['status'] == 'Approved')
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-600">
+                                            Approved
+                                        </span>
                                     @endif
 
                                     <!-- Action Button -->
@@ -67,8 +71,17 @@
                             </div>
                         </li>
                     @endforeach
+                </ul>
                 
-        </ul>
+                <!-- Empty State -->
+                @if(count($pengembalianTertunda) === 0)
+                    <div class="text-center py-12">
+                        <i class="fas fa-inbox text-gray-400 text-4xl mb-3"></i>
+                        <p class="text-gray-500 text-lg">Tidak ada pengembalian tertunda</p>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </body>
 
