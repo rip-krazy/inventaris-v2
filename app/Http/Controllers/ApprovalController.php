@@ -32,39 +32,42 @@ class ApprovalController extends Controller
 
     // Approve request
     public function approve($index)
-    {
-        $pendingApprovals = Session::get('pending_approvals', []);
-        
-        if (isset($pendingApprovals[$index])) {
-            // Change status to 'Approved'
-            $pendingApprovals[$index]['status'] = 'Approved';
-            $approvedPengembalian = $pendingApprovals[$index];
+{
+    $pendingApprovals = Session::get('pending_approvals', []);
+    
+    if (isset($pendingApprovals[$index])) {
+        // Ubah status menjadi "Approved"
+        $approvedPengembalian = $pendingApprovals[$index];
+        $approvedPengembalian['status'] = 'Approved';
 
-            // Save to pengembalian_tertunda session
-            $pengembalianTertunda = Session::get('pengembalian_tertunda', []);
-            $pengembalianTertunda[] = $approvedPengembalian;
+        // Tambahkan ke pengembalian_tertunda session
+        $pengembalianTertunda = Session::get('pengembalian_tertunda', []);
+        $pengembalianTertunda[] = $approvedPengembalian;
 
-            // Save updated data back to session
-            Session::put('pending_approvals', $pendingApprovals);
-            Session::put('pengembalian_tertunda', $pengembalianTertunda);
-        }
+        // Hapus dari pending approvals
+        unset($pendingApprovals[$index]);
 
-        return redirect()->route('approvals.index')->with('status', 'success')->with('message', 'Permintaan telah disetujui!');
-    }
-
-    // Reject request
-    public function reject($index)
-    {
-        $pendingApprovals = Session::get('pending_approvals', []);
-        
-        if (isset($pendingApprovals[$index])) {
-            // Change status to 'Rejected'
-            $pendingApprovals[$index]['status'] = 'Rejected';
-        }
-
-        // Save updated data back to session
+        // Simpan perubahan session
         Session::put('pending_approvals', $pendingApprovals);
-
-        return redirect()->route('approvals.index')->with('status', 'failed')->with('message', 'Permintaan telah ditolak!');
+        Session::put('pengembalian_tertunda', $pengembalianTertunda);
     }
+
+    return redirect()->route('approvals.index')->with('status', 'success')->with('message', 'Permintaan telah disetujui!');
+}
+
+public function reject($index)
+{
+    $pendingApprovals = Session::get('pending_approvals', []);
+    
+    if (isset($pendingApprovals[$index])) {
+        // Hapus dari pending approvals
+        unset($pendingApprovals[$index]);
+    }
+
+    // Simpan perubahan session
+    Session::put('pending_approvals', $pendingApprovals);
+
+    return redirect()->route('approvals.index')->with('status', 'failed')->with('message', 'Permintaan telah ditolak!');
+}
+
 }
