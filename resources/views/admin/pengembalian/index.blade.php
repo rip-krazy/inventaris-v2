@@ -5,7 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <body>
-    <div class="w-screen ml-72 mr-10 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
+    <div class="w-100 mx-24 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
         <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6 my-4">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Pengembalian Tertunda</h2>
 
@@ -32,7 +32,7 @@
                                             <span class="text-gray-800 font-medium ml-1">{{ $entry['mapel'] }}</span>
                                         </div>
                                         <div>
-                                            <span class="text-gray-500">Barang atau Tempat:</span>
+                                            <span class="text-gray-500">Nama Barang:</span>
                                             <span class="text-gray-800 font-medium ml-1">{{ $entry['barangTempat'] }}</span>
                                         </div>
                                         <div>
@@ -52,6 +52,10 @@
                                         <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-600">
                                             Diterima
                                         </span>
+                                    @elseif ($entry['status'] == 'Approved')
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-600">
+                                            Approved
+                                        </span>
                                     @endif
 
                                     <!-- Action Button -->
@@ -67,8 +71,17 @@
                             </div>
                         </li>
                     @endforeach
+                </ul>
                 
-        </ul>
+                <!-- Empty State -->
+                @if(count($pengembalianTertunda) === 0)
+                    <div class="text-center py-12">
+                        <i class="fas fa-inbox text-gray-400 text-4xl mb-3"></i>
+                        <p class="text-gray-500 text-lg">Tidak ada pengembalian tertunda</p>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </body>
 

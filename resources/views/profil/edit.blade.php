@@ -1,4 +1,4 @@
-@extends('main')
+@extends('home')
 
 @section('content')
 <meta charset="utf-8">
@@ -32,7 +32,7 @@
                             <h2 class="ml-3 text-xl font-semibold text-gray-800 dark:text-gray-200">{{ __('Update Profile Information') }}</h2>
                         </div>
                         <div class="mt-6">
-                            @include('profile.partials.update-profile-information-form')
+                            @include('profil.partials.update-profil-information-form')
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             <h2 class="ml-3 text-xl font-semibold text-gray-800 dark:text-gray-200">{{ __('Update Password') }}</h2>
                         </div>
                         <div class="mt-6">
-                            @include('profile.partials.update-password-form')
+                            @include('profil.partials.update-password-form')
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         <h2 class="ml-3 text-xl font-semibold text-red-600 dark:text-red-400">{{ __('Delete Account') }}</h2>
                     </div>
                     <div class="mt-6">
-                        @include('profile.partials.delete-user-form')
+                        @include('profil.partials.delete-user-form')
                     </div>
                 </div>
             </div>

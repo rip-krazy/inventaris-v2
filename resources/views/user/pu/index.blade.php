@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <body class="bg-gray-50">
-    <div class="w-full mt-32 ml-72 mr-24 animate__animated animate__fadeIn">
+    <div class="w-100 mx-24 mt-6 animate__animated animate__fadeIn">
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
             <!-- Header Section -->
             <div class="bg-gradient-to-r from-green-400 to-green-500 p-6">

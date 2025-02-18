@@ -5,57 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Welcome to Inventaris Barang</title>
+    <style>
+        .sidebar-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .content-transition {
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .sidebar-collapsed {
+            width: 5rem !important;
+        }
+
+        .sidebar-collapsed .sidebar-text {
+            display: none;
+        }
+
+        .sidebar-collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        #toggle-sidebar {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #4A4A4A;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            #default-sidebar {
+                width: 5rem;
+            }
+
+            .sidebar-text {
+                display: none;
+            }
+
+            #main-content {
+                margin-left: 5rem;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex flex-col h-screen">
-<header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
-    <div class="flex items-center">
-        <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2"> <!-- Increased logo size here -->
-        <h1 class="text-xl font-bold text-white">Inventaris Barang</h1> <!-- Increased font size to text-3xl -->
-    </div>
-    <div class="hidden sm:flex sm:items-center sm:ms-6 relative">
-      <button id="avatarBtn" class="focus:outline-none">
-        <div style="font-size: 1.25rem;" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-200 dark:text-gray-400 bg-transparent dark:bg-gray-800">
-          {{ Auth::user()->name }} 
-          <svg class="w-6 h-10 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="12,16 6,10 18,10" />
-          </svg>
+    <header class="bg-gray-800 shadow p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50">
+        <div class="flex items-center">
+            <img src="{{ asset('assets/img/Logo_Inventaris-removebg-preview.png') }}" alt="Logo" class="h-16 w-16 mr-2">
+            <h1 class="text-xl font-bold text-white">Inventaris Barang</h1>
         </div>
-      </button>
-      <div id="dropdown" 
-           class="absolute right-2 mt-32 w-48 bg-white text-gray-800 rounded-lg shadow-lg hidden z-50">
-        <a href="{{ url('profile') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">Profil</a>
-        <a href="{{ url('hu') }}" style="font-size: 1rem;" class="block px-4 py-2 hover:bg-gray-200 rounded-t-lg">History</a>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <x-dropdown-link :href="route('logout')"
-                           style="font-size: 1rem;"  class="block px-4 py-2 hover:bg-gray-200 rounded-b-lg"
-                           onclick="event.preventDefault(); this.closest('form').submit();">
-            {{ __('Log Out') }}
-          </x-dropdown-link>
-        </form>
-      </div>
-    </div>    
-</header>
+        <div class="header-dropdown hidden sm:block relative">
+            <button id="avatarBtn" class="focus:outline-none">
+                <div class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-200 bg-transparent hover:bg-gray-700 focus:outline-none transition">
+                    {{ Auth::user()->name }}
+                    <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </button>
+            <div id="dropdown" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
+                <a href="{{ url('profil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil</a>
+                <a href="{{ url('hu') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">History</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        {{ __('Log Out') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
 
-<div class="flex">
-    <!-- Button to toggle sidebar -->
-    
-    <aside id="default-sidebar" class="w-64 h-full fixed top-20 transition-all duration-300 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
-       <div class="h-full px-3 py-4 overflow-y-auto">
-       <button id="toggle-sidebar" class=" mb-6 m-1 bg-transparent text-black rounded focus:outline-none text-4xl"> <!-- Increased font size to text-2xl -->
-        ☰
-      </button>
-      <ul class="space-y-2 font-medium">
-                 <li>
-                    <a href="{{ url('du') }}" class="flex items-center p-2 mb-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                       <svg class="flex-shrink-0 w-6 h-6  text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                          <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                          <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                       </svg>
-                       <span class="ml-3 sidebar-text">Dashboard</span>
-                    </a>
-                 </li>
-                 <li>
+    <div class="flex pt-20">
+        <aside id="default-sidebar" class="fixed top-24 left-0 z-40 sidebar-transition w-64 h-screen">
+            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+                <button id="toggle-sidebar" class="mb-6 bg-transparent text-black rounded focus:outline-none text-4xl w-full text-left">
+                    ☰
+                </button>
+                <ul class="space-y-2 font-medium">
+                    <li>
+                        <a href="{{ url('du') }}" class="flex items-center p-2 mb-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                                <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+                                <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+                            </svg>
+                            <span class="ml-3 sidebar-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
                     <a href="{{ url('db') }}" class="flex items-center p-2 mb-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                        <svg class="flex-shrink-0 w-6 h-6  text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                           <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
@@ -103,44 +144,52 @@
                        <span class="ml-3 sidebar-text">Sign In</span>
                     </a>
                  </li>
-              </ul>
-       </div>
-    </aside>
-    @yield('content')
-</div>
+                </ul>
+            </div>
+        </aside>
 
-<style>
-    /* Style sidebar untuk teks saat sidebar minimalis */
-    .minimized .sidebar-text {
-        display: none;
-    }
-</style>
+        <main id="main-content" class="content-transition flex-1 ml-64 p-4">
+            @yield('content')
+        </main>
+    </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const avatarBtn = document.getElementById('avatarBtn');
-        const dropdown = document.getElementById('dropdown');
-        const sidebar = document.getElementById('default-sidebar');
-        const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('default-sidebar');
+            const mainContent = document.getElementById('main-content');
+            const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+            const dropdown = document.getElementById('dropdown');
+            const avatarBtn = document.getElementById('avatarBtn');
+            let isSidebarOpen = true;
 
-        // Toggle dropdown menu
-        avatarBtn.addEventListener('click', function () {
-            dropdown.classList.toggle('hidden');
-        });
-
-        window.addEventListener('click', function (event) {
-            if (!avatarBtn.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add('hidden');
+            function toggleSidebar() {
+                isSidebarOpen = !isSidebarOpen;
+                sidebar.classList.toggle('sidebar-collapsed');
+                mainContent.style.marginLeft = isSidebarOpen ? '12rem' : '5rem';
             }
-        });
 
-        // Toggle sidebar
-        toggleSidebarBtn.addEventListener('click', function () {
-            sidebar.classList.toggle('w-64');
-            sidebar.classList.toggle('w-16');
-            sidebar.classList.toggle('minimized');
+            function toggleDropdown() {
+                dropdown.classList.toggle('hidden');
+            }
+
+            toggleSidebarBtn.addEventListener('click', toggleSidebar);
+            avatarBtn.addEventListener('click', toggleDropdown);
+
+            // Handle responsiveness
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('sidebar-collapsed');
+                    mainContent.style.marginLeft = '5rem';
+                    isSidebarOpen = false;
+                } else if (window.innerWidth > 768 && isSidebarOpen) {
+                    sidebar.classList.remove('sidebar-collapsed');
+                    mainContent.style.marginLeft = '12rem';
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
         });
-    });
-</script>
+    </script>
 </body>
 </html>

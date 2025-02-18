@@ -21,6 +21,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HuController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProfilController;
 
 
 /*
@@ -38,17 +39,43 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('about', function () {
+    return view('about');
+});
+
+Route::get('privacy', function () {
+    return view('privacy');
+});
+
+Route::get('contact', function () {
+    return view('contact');
+});
+
+Route::get('Service', function () {
+    return view('Service');
+});
+
+
 // Route data
 Route::resource('barangs', BarangController::class);
 
 // Route Ruangan
 
 Route::resource('ruang', RuangController::class);
+Route::get('/ruang/{id}/detail', [DetailRuangController::class, 'index'])->name('ruang.detail');
+
 
 Route::resource('pengguna', PenggunaController::class);
 
-Route::resource('detailruang', DetailruangController::class);
-Route::get('/detailruang/{id}', [DetailruangController::class, 'show'])->name('show');
+
+// Remove this line since you're using custom routes
+Route::resource('detailruang', DetailRuangController::class);
+
+Route::get('/detailruang/create/{id}', [DetailRuangController::class, 'create'])->name('detailruang.create');
+Route::get('/detailruang/show/{id}', [DetailRuangController::class, 'show'])->name('detailruang.show');
+Route::get('/detailruang/{id}', [DetailRuangController::class, 'index'])->name('detailruang.index');
+Route::post('/detailruang/store', [DetailRuangController::class, 'store'])->name('detailruang.store');
+Route::post('/detailruang/edit/{id}', [DetailRuangController::class, 'edit'])->name('detailruang.edit');
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
@@ -62,6 +89,7 @@ Route::post('/approvals/reject/{index}', [ApprovalController::class, 'reject'])-
 
 // Rute untuk melihat daftar pengembalian
 Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+
 
 // Rute untuk menyetujui permintaan pengembalian
 Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
@@ -93,6 +121,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::patch('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::delete('/profil', [ProfilController::class, 'destroy'])->name('profil.destroy');
 });
 
 
