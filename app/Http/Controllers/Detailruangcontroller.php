@@ -48,23 +48,32 @@ class DetailRuangController extends Controller
     }
     
 
-    public function edit(DetailRuang $detailruang)
+    public function edit($id)
     {
+        $detailruang = DetailRuang::findOrFail($id);
         return view('admin.ruang.detailruang.edit', compact('detailruang'));
     }
-
-    public function update(Request $request, DetailRuang $detailruang)
+    
+    public function update(Request $request, $id)
     {
+        $detailruang = DetailRuang::findOrFail($id);
+        
         $request->validate([
             'nama_barang' => 'required',
-            'kode_barang' => 'required|unique:detailruangs,kode_barang,' . $detailruang->id,
+            'kode_barang' => 'required|unique:detailruangs,kode_barang,' . $id,
             'kondisi_barang' => 'required',
         ]);
     
-        $detailruang->update($request->all());
+        $detailruang->update([
+            'nama_barang' => $request->nama_barang,
+            'kode_barang' => $request->kode_barang,
+            'kondisi_barang' => $request->kondisi_barang,
+        ]);
+    
         return redirect()->route('detailruang.index', ['id' => $detailruang->ruang_id])
-                        ->with('success', 'Data Ruang berhasil diperbarui.');
+                         ->with('success', 'Data Ruang berhasil diperbarui.');
     }
+    
     
     public function destroy(DetailRuang $detailruang)
     {

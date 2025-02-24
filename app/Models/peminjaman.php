@@ -16,10 +16,13 @@ class Peminjaman extends Model
         'jam',
     ];
 
-  // Relasi ke Barang
-public function barang()
-{
-    return $this->belongsTo(Barang::class, 'barangtempat');
-}
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barangtempat');
+    }
 
+    public function pengembalian()
+    {
+        return $this->hasOne(Pengembalian::class);
+    }
 }

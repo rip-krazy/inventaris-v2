@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Pengembalian;
 
 class PengembalianController extends Controller
 {
@@ -50,10 +51,7 @@ class PengembalianController extends Controller
     // Menampilkan riwayat pengembalian
     public function history()
     {
-        // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
-        $historyPengembalian = Session::get('history_pengembalian', []);
-        
-        // Menampilkan view riwayat pengembalian
-        return view('admin.pengembalian.history', compact('historyPengembalian'));
+        $historyPengembalian = Pengembalian::all();
+    return view('admin.pengembalian.history', compact('historyPengembalian'));
     }
 }

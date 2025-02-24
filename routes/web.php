@@ -75,7 +75,8 @@ Route::get('/detailruang/create/{id}', [DetailRuangController::class, 'create'])
 Route::get('/detailruang/show/{id}', [DetailRuangController::class, 'show'])->name('detailruang.show');
 Route::get('/detailruang/{id}', [DetailRuangController::class, 'index'])->name('detailruang.index');
 Route::post('/detailruang/store', [DetailRuangController::class, 'store'])->name('detailruang.store');
-Route::post('/detailruang/edit/{id}', [DetailRuangController::class, 'edit'])->name('detailruang.edit');
+Route::put('/detailruang/update/{id}', [DetailRuangController::class, 'update'])->name('detailruang.update');
+
 
 // Halaman Pengembalian
 //Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');

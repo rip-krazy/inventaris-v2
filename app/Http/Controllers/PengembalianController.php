@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Pengembalian;
+use App\Models\Peminjaman;
 use App\Models\Barang;
 use App\Models\Ruang;
 use App\Models\DetailRuang;

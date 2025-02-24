@@ -149,6 +149,7 @@
             <div class="flex justify-center space-x-4">
                 <a href="{{url('contact')}}" class="text-gray-400 hover:text-white transition duration-300">Contact</a>
                 <a href="{{url('privacy')}}" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
+                <a href="{{url('Service')}}" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
             </div>
         </div>
     </footer>
