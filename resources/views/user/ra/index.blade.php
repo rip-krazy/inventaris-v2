@@ -46,14 +46,15 @@
                                         <div>
                                             <span class="text-sm text-gray-500">Barang atau Tempat:</span>
                                             <p class="text-gray-800 font-medium">
-                                                @if (!empty($entry['barangTempat']))
+                                                @if (!empty($entry['barangTempat']) && $entry['barangTempat'] !== "Barang Tidak Ditemukan")
                                                     {{ $entry['barangTempat'] }}
-                                                @elseif (!empty($entry['ruangTempat']))
-                                                   {{ $entry['ruangTempat'] }}
+                                                @elseif (!empty($entry['ruangTempat']) && $entry['ruangTempat'] !== "Ruang Tidak Ditemukan")
+                                                    {{ $entry['ruangTempat'] }}
                                                 @else
                                                     -
                                                 @endif
                                             </p>
+
                                         </div>
                                         <div>
                                             <span class="text-sm text-gray-500">Jam:</span>

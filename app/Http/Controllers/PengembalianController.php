@@ -46,16 +46,16 @@ class PengembalianController extends Controller
             // Memindahkan data yang disetujui ke history
             $pengembalianHistory = Session::get('pengembalian_history', []);
             $entry = $pengembalianTertunda[$index];
-
+    
             // Konversi barangTempat & ruangTempat ke nama jika masih dalam bentuk ID
             $barangTempat = isset($entry['barangTempat']) && is_numeric($entry['barangTempat']) 
                             ? $this->getNamaBarangAtauRuang($entry['barangTempat']) 
-                            : null;
-
+                            : $entry['barangTempat'] ?? null;
+    
             $ruangTempat = isset($entry['ruangTempat']) && is_numeric($entry['ruangTempat']) 
                             ? $this->getNamaBarangAtauRuang($entry['ruangTempat']) 
-                            : null;
-
+                            : $entry['ruangTempat'] ?? null;
+    
             // Menambahkan data yang disetujui ke pengembalian history
             $pengembalianHistory[] = [
                 'name' => $entry['name'],
@@ -63,6 +63,8 @@ class PengembalianController extends Controller
                 'barangTempat' => $barangTempat,
                 'ruangTempat' => $ruangTempat,
                 'tanggal_pengembalian' => now()->toDateString(),
+                'status' => 'Approved', // Tambahkan status agar tidak undefined
+                'alasan' => null, // Pastikan alasan tetap ada walau tidak digunakan
             ];
             
             // Menghapus data yang sudah disetujui dari pengembalian tertunda
@@ -77,6 +79,7 @@ class PengembalianController extends Controller
             ->with('status', 'success')
             ->with('message', 'Permintaan pengembalian telah disetujui!');
     }
+    
     
     public function history()
     {
@@ -104,25 +107,20 @@ class PengembalianController extends Controller
      * Fungsi untuk mencari nama Barang atau Ruang berdasarkan ID
      */
     private function getNamaBarangAtauRuang($id)
-{
-    if (!$id) {
-        return '-'; // Jika ID kosong, return '-'
+    {
+        // Cek apakah ID adalah Barang
+        $barang = Barang::find($id);
+        if ($barang) {
+            return $barang->nama_barang;
+        }
+
+        // Cek apakah ID adalah Ruang
+        $ruang = Ruang::find($id);
+        if ($ruang) {
+            return $ruang->nama_ruang;
+        }
+
+        // Jika tidak ditemukan
+        return '-';
     }
-
-    // Cek apakah ID adalah Ruangan
-    $ruang = Ruang::find($id);
-    if ($ruang) {
-        return $ruang->name ?? '-'; // Gunakan 'name' bukan 'nama_ruang'
-    }
-
-    // Cek apakah ID adalah Detail Ruangan
-    $detailRuang = DetailRuang::find($id);
-    if ($detailRuang) {
-        dd($detailRuang); // Debug: Pastikan data barang dalam ruangan ditemukan
-        return $detailRuang->nama_barang;
-    }
-
-    return '-';
-}
-
 }

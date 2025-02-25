@@ -14,14 +14,14 @@ class Pengembalian extends Model
     protected $fillable = [
         'nama',
         'mapel',
-        'barangtempat',
+        'barang_tempat',
         'jam',
         'status',
     ];
 
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'barangtempat');
+        return $this->belongsTo(Barang::class, 'barang_tempat');
     }
 
     public function pengembalian()

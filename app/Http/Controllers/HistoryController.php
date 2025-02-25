@@ -28,35 +28,45 @@ class PengembalianController extends Controller
         if (isset($pengembalianTertunda[$index])) {
             // Memindahkan data yang disetujui ke history
             $pengembalianHistory = Session::get('pengembalian_history', []);
-
+    
             // Pastikan kita menangani baik barang maupun ruang
             $barangTempat = isset($pengembalianTertunda[$index]['barang_tempat']) ? $pengembalianTertunda[$index]['barang_tempat'] : null;
             $ruangTempat = isset($pengembalianTertunda[$index]['ruangTempat']) ? $pengembalianTertunda[$index]['ruangTempat'] : null;
-
-            // Simpan history pengembalian dengan membedakan barang dan ruang
+    
+            // Simpan history pengembalian dengan status "Approved"
             $pengembalianHistory[] = [
                 'name' => $pengembalianTertunda[$index]['name'],
                 'mapel' => $pengembalianTertunda[$index]['mapel'],
                 'barang_tempat' => $barangTempat,
                 'ruangTempat' => $ruangTempat,
                 'tanggal_pengembalian' => now()->toDateString(),
+                'status' => 'Approved', // Tambahkan status di sini
             ];
-
+    
             // Hapus dari daftar tertunda
             unset($pengembalianTertunda[$index]);
-
+    
             // Update session
             Session::put('pengembalian_tertunda', $pengembalianTertunda);
             Session::put('pengembalian_history', $pengembalianHistory);
         }
-
+    
         return redirect()->route('pengembalian.index')->with('status', 'success')->with('message', 'Permintaan pengembalian telah disetujui!');
     }
+    
 
-    // Menampilkan riwayat pengembalian
-    public function history()
-    {
-        $historyPengembalian = Pengembalian::all();
-        return view('admin.history.index', compact('historyPengembalian'));
+   public function history()
+{
+    $historyPengembalian = Session::get('pengembalian_history', []);
+
+    foreach ($historyPengembalian as &$entry) {
+        if (!isset($entry['status'])) {
+            $entry['status'] = 'Approved'; // Default jika status tidak tersedia
+        }
     }
+
+    return view('admin.history.index', compact('historyPengembalian'));
+}
+
+    
 }
