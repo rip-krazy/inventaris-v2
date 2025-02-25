@@ -104,26 +104,25 @@ class PengembalianController extends Controller
      * Fungsi untuk mencari nama Barang atau Ruang berdasarkan ID
      */
     private function getNamaBarangAtauRuang($id)
-    {
-        // Cek apakah ID adalah Barang
-        $barang = Barang::find($id);
-        if ($barang) {
-            return $barang->nama_barang;
-        }
-
-        // Cek apakah ID adalah DetailRuang
-        $detailRuang = DetailRuang::find($id);
-        if ($detailRuang) {
-            return $detailRuang->nama_barang;
-        }
-
-        // Cek apakah ID adalah Ruang
-        $ruang = Ruang::find($id);
-        if ($ruang) {
-            return $ruang->nama_ruang;
-        }
-
-        // Jika tidak ditemukan
-        return '-';
+{
+    if (!$id) {
+        return '-'; // Jika ID kosong, return '-'
     }
+
+    // Cek apakah ID adalah Ruangan
+    $ruang = Ruang::find($id);
+    if ($ruang) {
+        return $ruang->name ?? '-'; // Gunakan 'name' bukan 'nama_ruang'
+    }
+
+    // Cek apakah ID adalah Detail Ruangan
+    $detailRuang = DetailRuang::find($id);
+    if ($detailRuang) {
+        dd($detailRuang); // Debug: Pastikan data barang dalam ruangan ditemukan
+        return $detailRuang->nama_barang;
+    }
+
+    return '-';
+}
+
 }

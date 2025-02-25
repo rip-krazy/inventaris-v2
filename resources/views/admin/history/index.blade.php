@@ -1,11 +1,7 @@
 @extends('main')
 
 @section('content')
-<<<<<<< HEAD
 <div class="container w-100 mx-auto px-24 py-8 animate__animated animate__fadeIn">
-=======
-<div class="container mx-auto w-100 px-24 py-8 animate__animated animate__fadeIn">
->>>>>>> bf3afed8870568dacf446cbfddbe2c76762c468f
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <!-- Total Returns Card -->

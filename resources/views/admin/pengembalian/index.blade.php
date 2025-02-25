@@ -35,12 +35,12 @@
                                         <div>
                                             <span class="text-sm text-gray-500">Peminjaman:</span>
                                             <p class="text-gray-800 font-medium">
-                                                @if (!empty($entry['barangTempat']))
+                                                @if (!empty($entry['ruangTempat']) && $entry['ruangTempat'] !== '-')
+                                                    {{ $entry['ruangTempat'] }}
+                                                @elseif (!empty($entry['barangTempat']) && $entry['barangTempat'] !== '-')
                                                     {{ $entry['barangTempat'] }}
-                                                @elseif (!empty($entry['ruangTempat']))
-                                                   {{ $entry['ruangTempat'] }}
                                                 @else
-                                                    -
+                                                    Data Tidak Ditemukan
                                                 @endif
                                             </p>
                                         </div>
