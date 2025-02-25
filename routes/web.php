@@ -56,6 +56,12 @@ Route::get('Service', function () {
 });
 
 
+use App\Models\Pengguna;
+Route::get('/jumlah-pengguna', function () {
+    return response()->json(['jumlah' => Pengguna::count()]);
+});
+
+
 // Route data
 Route::resource('barangs', BarangController::class);
 

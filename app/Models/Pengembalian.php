@@ -9,11 +9,14 @@ class Pengembalian extends Model
 {
     use HasFactory;
 
+    protected $table = 'pengembalian';
+
     protected $fillable = [
         'nama',
         'mapel',
         'barangtempat',
         'jam',
+        'status',
     ];
 
     public function barang()

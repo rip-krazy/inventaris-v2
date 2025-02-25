@@ -9,6 +9,9 @@ class Peminjaman extends Model
 {
     use HasFactory;
 
+    protected $table = 'peminjamans';
+
+
     protected $fillable = [
         'nama',
         'mapel',
@@ -20,6 +23,13 @@ class Peminjaman extends Model
     {
         return $this->belongsTo(Barang::class, 'barangtempat');
     }
+
+    public function ruang()
+{
+    return $this->belongsTo(Ruang::class, 'ruangtempat');
+}
+
+    
 
     public function pengembalian()
     {

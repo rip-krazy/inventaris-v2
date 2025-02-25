@@ -90,7 +90,7 @@
                         <td class="px-6 py-4 text-center text-gray-800">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 text-gray-800">{{ $entry['name'] }}</td>
                         <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($entry['tanggal_pengembalian'])->format('d M Y') }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ $entry['barangTempat'] }}</td>
+                        <td class="px-6 py-4 text-gray-600"> {{ $entry['barangTempat'] ?? $entry['ruangTempat'] ?? '-' }}</td>
                         <td class="px-6 py-4 text-green-800">{{ $entry['mapel'] }}</td>
                         <td class="px-6 py-4 text-blue-800">Selesai</td>
                     </tr>

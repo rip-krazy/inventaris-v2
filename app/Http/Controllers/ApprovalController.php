@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
 use App\Models\Barang; // Import the Barang model
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -11,22 +12,23 @@ class ApprovalController extends Controller
 {
     public function index()
     {
-        // Retrieve pending approvals from session
         $pendingApprovals = Session::get('pending_approvals', []);
-
-        // Loop through each approval and replace barangTempat ID with actual name
+    
         foreach ($pendingApprovals as $key => $approval) {
-            if (isset($approval['barangTempat']) && is_numeric($approval['barangTempat'])) {
-                // Find the corresponding item
+            if (!empty($approval['barangTempat']) && is_numeric($approval['barangTempat'])) {
                 $barang = Barang::find($approval['barangTempat']);
-                if ($barang) {
-                    // Replace the ID with the actual name
-                    $pendingApprovals[$key]['barangTempat'] = $barang->nama_barang;
-                }
+                $pendingApprovals[$key]['barangTempat'] = $barang ? $barang->nama_barang : "Barang Tidak Ditemukan";
+            }
+            if (!empty($approval['ruangTempat']) && is_numeric($approval['ruangTempat'])) {
+                $ruang = Ruang::find($approval['ruangTempat']);
+                $pendingApprovals[$key]['ruangTempat'] = $ruang ? $ruang->name : "Ruang Tidak Ditemukan";
+            }
+            // Pastikan nama ruangan ditampilkan
+            if (!empty($approval['ruangNama'])) {
+                $pendingApprovals[$key]['ruangNama'] = $approval['ruangNama'];
             }
         }
 
-        // Send to view with the updated data
         return view('admin.approvals.index', compact('pendingApprovals'));
     }
 

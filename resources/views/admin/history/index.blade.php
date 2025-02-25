@@ -1,7 +1,11 @@
 @extends('main')
 
 @section('content')
+<<<<<<< HEAD
 <div class="container w-100 mx-auto px-24 py-8 animate__animated animate__fadeIn">
+=======
+<div class="container mx-auto w-100 px-24 py-8 animate__animated animate__fadeIn">
+>>>>>>> bf3afed8870568dacf446cbfddbe2c76762c468f
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <!-- Total Returns Card -->
@@ -116,7 +120,7 @@
                             <td class="px-6 py-4 text-gray-600">
                                 {{ \Carbon\Carbon::parse($entry['tanggal_pengembalian'])->format('d M Y') }}
                             </td>
-                            <td class="px-6 py-4 text-gray-600">{{ $entry['barangTempat'] }}</td>
+                            <td class="px-6 py-4 text-gray-600"> {{ $entry['barangTempat'] ?? $entry['ruangTempat'] ?? '-' }}</td>
                             <td class="px-6 py-4">
                                 <span class="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
                                     {{ $entry['mapel'] }}
