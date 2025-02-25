@@ -30,39 +30,35 @@ class PeminjamanController extends Controller
 
     public function submit(Request $request)
     {
-        // Validasi input form
         $request->validate([
             'nama' => 'required|string',
             'mapel' => 'required|string',
-            'barangtempat' => 'required|exists:barangs,id', // Validasi jika barang/tempat ada
             'jam' => 'required|string',
-            'jenis' => 'required|string', // Validasi jenis
+            'jenis' => 'required|string',
         ]);
     
-        // Tentukan jenis (barang atau ruang) yang dipilih
-        $jenis = $request->jenis;
-    
-        // Tambahkan permintaan baru ke session
         $newEntry = [
             'name' => $request->nama,
             'mapel' => $request->mapel,
-            'barangTempat' => $request->barangtempat,
             'jam' => $request->jam,
             'status' => 'Pending',
-            'jenis' => $jenis, // Menyimpan jenis (barang/ruang)
-            'barangtempat' => $request->barangtempat, // menyimpan id barang atau ruang
-            'ruangtempat' => $request->ruangtempat,  // menyimpan id ruang
+            'jenis' => $request->jenis,
         ];
     
-        // Ambil pending approvals dari session dan simpan
+        if ($request->jenis === 'barang') {
+            $request->validate(['barangtempat' => 'required|exists:barangs,id']);
+            $newEntry['barangTempat'] = $request->barangtempat;
+        } else {
+            $request->validate(['ruangtempat' => 'required|exists:ruangs,id']);
+            $newEntry['ruangTempat'] = $request->ruangtempat;
+            $newEntry['ruangNama'] = $request->ruang_nama; // Simpan nama ruangan
+        }
+    
         $pendingApprovals = Session::get('pending_approvals', []);
         $pendingApprovals[] = $newEntry;
         Session::put('pending_approvals', $pendingApprovals);
     
-        // Redirect ke halaman tunggu
-        return redirect()->route('ra.index');
+        return redirect()->route('peminjaman.index')->with('notification', 'Peminjaman berhasil diajukan!');
     }
-    
-    
 
 }

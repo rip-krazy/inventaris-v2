@@ -5,7 +5,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 <body class="bg-gradient-to-br from-white to-green-50 p-12">
-    <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl p-12 my-10">
+    <div class="w-100 mx-24 bg-white rounded-2xl shadow-2xl p-12 my-10">
         <div class="text-center mb-12">
             <i class="fas fa-user-edit text-5xl text-green-600 mb-4"></i>
             <h1 class="text-4xl font-extrabold text-gray-800">Edit Pengguna</h1>

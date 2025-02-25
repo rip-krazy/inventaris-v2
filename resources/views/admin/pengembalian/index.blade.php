@@ -33,8 +33,16 @@
                                             <p class="text-gray-800 font-medium">{{ $entry['mapel'] }}</p>
                                         </div>
                                         <div>
-                                            <span class="text-sm text-gray-500">Nama Barang:</span>
-                                            <p class="text-gray-800 font-medium">{{ $entry['barangTempat'] }}</p>
+                                            <span class="text-sm text-gray-500">Peminjaman:</span>
+                                            <p class="text-gray-800 font-medium">
+                                                @if (!empty($entry['barangTempat']))
+                                                    {{ $entry['barangTempat'] }}
+                                                @elseif (!empty($entry['ruangTempat']))
+                                                   {{ $entry['ruangTempat'] }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </p>
                                         </div>
                                         <div>
                                             <span class="text-sm text-gray-500">Waktu:</span>

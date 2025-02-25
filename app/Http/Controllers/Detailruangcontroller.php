@@ -101,8 +101,4 @@ class DetailRuangController extends Controller
         // Pass both ruang and detailruangs to the view
         return view('admin.ruang.detailruang.index', compact('ruang', 'detailruangs', 'search'));
     }
-    
-
-    
-
 }
