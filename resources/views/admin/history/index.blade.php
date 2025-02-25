@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-<div class="container mx-auto px-6 py-8 animate__animated animate__fadeIn">
+<div class="container w-100 mx-auto px-24 py-8 animate__animated animate__fadeIn">
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <!-- Total Returns Card -->
