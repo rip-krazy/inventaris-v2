@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
-use App\Models\Barang; // Import the Barang model
+use App\Models\Barang;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -11,60 +12,102 @@ class ApprovalController extends Controller
 {
     public function index()
     {
-        // Retrieve pending approvals from session
         $pendingApprovals = Session::get('pending_approvals', []);
 
-        // Loop through each approval and replace barangTempat ID with actual name
         foreach ($pendingApprovals as $key => $approval) {
-            if (isset($approval['barangTempat']) && is_numeric($approval['barangTempat'])) {
-                // Find the corresponding item
+            if (!empty($approval['barangTempat']) && is_numeric($approval['barangTempat'])) {
                 $barang = Barang::find($approval['barangTempat']);
-                if ($barang) {
-                    // Replace the ID with the actual name
-                    $pendingApprovals[$key]['barangTempat'] = $barang->nama_barang;
-                }
+                $pendingApprovals[$key]['barangTempat'] = $barang ? $barang->nama_barang : "Barang Tidak Ditemukan";
+            }
+            if (!empty($approval['ruangTempat']) && is_numeric($approval['ruangTempat'])) {
+                $ruang = Ruang::find($approval['ruangTempat']);
+                $pendingApprovals[$key]['ruangTempat'] = $ruang ? $ruang->name : "Ruang Tidak Ditemukan";
+            }
+            if (!empty($approval['ruangNama'])) {
+                $pendingApprovals[$key]['ruangNama'] = $approval['ruangNama'];
             }
         }
 
-        // Send to view with the updated data
-        return view('admin.approvals.index', compact('pendingApprovals'));
+        // Menghitung jumlah permintaan yang menunggu persetujuan
+        $pendingCount = count($pendingApprovals);
+
+        return view('admin.approvals.index', compact('pendingApprovals', 'pendingCount'));
     }
 
-    // Approve request
     public function approve($index)
     {
         $pendingApprovals = Session::get('pending_approvals', []);
-        
+    
         if (isset($pendingApprovals[$index])) {
-            // Change status to 'Approved'
-            $pendingApprovals[$index]['status'] = 'Approved';
+            // Ubah status menjadi "Approved"
             $approvedPengembalian = $pendingApprovals[$index];
-
-            // Save to pengembalian_tertunda session
+            $approvedPengembalian['status'] = 'Approved';
+            $approvedPengembalian['tanggal_pengembalian'] = now()->toDateString();
+            
+            // Make sure we're storing the correct property names consistently
+            // Convert IDs to names if they're still numeric
+            if (!empty($approvedPengembalian['barangTempat']) && is_numeric($approvedPengembalian['barangTempat'])) {
+                $barang = Barang::find($approvedPengembalian['barangTempat']);
+                $approvedPengembalian['barangTempat'] = $barang ? $barang->nama_barang : "Barang Tidak Ditemukan";
+            }
+            
+            if (!empty($approvedPengembalian['ruangTempat']) && is_numeric($approvedPengembalian['ruangTempat'])) {
+                $ruang = Ruang::find($approvedPengembalian['ruangTempat']);
+                // Make sure we're using the correct column name (name or nama_ruang)
+                $approvedPengembalian['ruangTempat'] = $ruang ? $ruang->name : "Ruang Tidak Ditemukan";
+            }
+    
+            // Tambahkan ke pengembalian_tertunda session
             $pengembalianTertunda = Session::get('pengembalian_tertunda', []);
             $pengembalianTertunda[] = $approvedPengembalian;
-
-            // Save updated data back to session
+    
+            // Hapus dari pending approvals
+            unset($pendingApprovals[$index]);
+    
+            // Simpan perubahan session
             Session::put('pending_approvals', $pendingApprovals);
             Session::put('pengembalian_tertunda', $pengembalianTertunda);
         }
-
+    
         return redirect()->route('approvals.index')->with('status', 'success')->with('message', 'Permintaan telah disetujui!');
     }
 
-    // Reject request
-    public function reject($index)
-    {
-        $pendingApprovals = Session::get('pending_approvals', []);
+  // Reject request in ApprovalController
+public function reject(Request $request, $index)
+{
+    $pendingApprovals = Session::get('pending_approvals', []);
+    $alasan = $request->input('alasan', 'Tidak ada alasan');
+
+    if (isset($pendingApprovals[$index])) {
+        $rejectedItem = $pendingApprovals[$index];
         
-        if (isset($pendingApprovals[$index])) {
-            // Change status to 'Rejected'
-            $pendingApprovals[$index]['status'] = 'Rejected';
+        // Convert IDs to names before storing in history
+        if (!empty($rejectedItem['barangTempat']) && is_numeric($rejectedItem['barangTempat'])) {
+            $barang = Barang::find($rejectedItem['barangTempat']);
+            $rejectedItem['barangTempat'] = $barang ? $barang->nama_barang : "Barang Tidak Ditemukan";
         }
+        
+        if (!empty($rejectedItem['ruangTempat']) && is_numeric($rejectedItem['ruangTempat'])) {
+            $ruang = Ruang::find($rejectedItem['ruangTempat']);
+            $rejectedItem['ruangTempat'] = $ruang ? $ruang->name : "Ruang Tidak Ditemukan";
+        }
+        
+        $rejectedItem['status'] = 'Rejected';
+        $rejectedItem['alasan'] = $alasan;
+        $rejectedItem['tanggal_pengembalian'] = now()->toDateString();
 
-        // Save updated data back to session
+        // Simpan ke pengembalian_history untuk user dan admin view
+        $pengembalianHistory = Session::get('pengembalian_history', []);
+        $pengembalianHistory[] = $rejectedItem;
+        
+        // Hapus item dari pending approvals
+        unset($pendingApprovals[$index]);
+
+        // Update session
         Session::put('pending_approvals', $pendingApprovals);
-
-        return redirect()->route('approvals.index')->with('status', 'failed')->with('message', 'Permintaan telah ditolak!');
+        Session::put('pengembalian_history', $pengembalianHistory);
     }
+
+    return redirect()->route('approvals.index')->with('status', 'failed')->with('message', 'Permintaan telah ditolak!');
+}
 }

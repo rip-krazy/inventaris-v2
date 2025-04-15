@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('mapel');
-            $table->string('barangtempat');
+            $table->unsignedBigInteger('barangtempat')->nullable(); // Bisa null jika pinjam ruangan
+            $table->unsignedBigInteger('ruangtempat')->nullable(); // Bisa null jika pinjam barang
             $table->string('jam');
             $table->timestamps();
         });
+        
     }
 
     /**

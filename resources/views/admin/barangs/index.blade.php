@@ -69,11 +69,10 @@
                             {{ $barang->kode_barang }}
                         </span>
                     </td>
-                    <td class="py-4 px-12 border-b text-center">
-                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full">
-                            {{ $barang->kondisi_barang }}
-                        </span>
-                    </td>
+                    <td class="py-4 px-6 border-b text-center">
+                                <span class="px-3 py-1 rounded-full text-sm {{ $barang->kondisi_barang === 'Baik' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $barang->kondisi_barang }}
+                                </span>
                     <td class="py-4 px-12 border-b text-center">
                         <div class="flex justify-center gap-3">
                             <a href="{{ route('barangs.edit', $barang) }}" 

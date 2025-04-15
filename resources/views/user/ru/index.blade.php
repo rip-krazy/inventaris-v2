@@ -3,11 +3,14 @@
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 <title>Daftar ruang</title>
 
-<div class="w-100 mx-24 mt-6 bg-white rounded-lg shadow-lg p-10 my-10 animate__animated animate__fadeIn">
-    <h1 class="text-2xl font-bold mb-6 text-center">Daftar ruang Sekolah</h1>
+<div class="w-100 mx-24 mt-6 bg-white rounded-lg shadow-xl p-10 my-10 animate__animated animate__fadeIn">
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800 border-b pb-4">
+        <i class="fas fa-door-open mr-2 text-green-600"></i> Daftar Ruang Sekolah
+    </h1>
 
     <!-- Form Pencarian dan Tombol Tambah Data -->
     <div class="mb-6 flex justify-between items-center gap-4">
@@ -19,7 +22,7 @@
                     name="search" 
                     value="{{ old('search', $search) }}" 
                     placeholder="Cari Ruang..." 
-                    class="pl-10 pr-4 py-2 border-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200" />
+                    class="pl-10 pr-4 py-2 border-2 border-green-200 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200" />
             </div>
             <button type="submit" 
                     class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 flex items-center gap-2">
@@ -47,7 +50,9 @@
                         <td class="py-4 px-16 border-b text-center">{{ $ruang->name }}</td>
                         <td class="py-4 px-16 border-b text-center">{{ $ruang->description }}</td>
                         <td class="py-4 px-10 border-b text-center">
-                            <a href="{{ url('dr') }}" class="text-green-600 hover:text-green-700 transition duration-200">Detail</a>
+                            <a href="{{ url('dr') }}" class="text-green-600 hover:text-green-700 transition duration-200">
+                                <i class="fas fa-info-circle mr-1"></i> Detail
+                            </a>
                         </td>
                     </tr>
                 @endforeach

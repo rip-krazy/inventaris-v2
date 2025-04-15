@@ -22,4 +22,13 @@ class DrController extends Controller
     
         return view('user.ru.dr.index', compact('detailruangs', 'search'));
     }
+    
+    /**
+     * Menampilkan detail barang untuk user
+     */
+    public function show($id)
+    {
+        $item = DetailRuang::findOrFail($id);
+        return view('user.ru.dr.tampil', compact('item'));
+    }
 }

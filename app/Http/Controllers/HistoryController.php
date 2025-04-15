@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\Pengembalian;
+use App\Models\history;
 
 class PengembalianController extends Controller
 {
@@ -15,7 +17,7 @@ class PengembalianController extends Controller
         // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
         $historyPengembalian = Session::get('history_pengembalian', []);
 
-        return view('admin.pengembalian.index', compact('pengembalianTertunda', 'historyPengembalian'));
+        return view('admin.history.index', compact('pengembalianTertunda', 'historyPengembalian'));
     }
 
     public function approve($index)
@@ -27,18 +29,24 @@ class PengembalianController extends Controller
             // Memindahkan data yang disetujui ke history
             $pengembalianHistory = Session::get('pengembalian_history', []);
     
-            // Pastikan data yang disetujui memiliki key yang sesuai, termasuk 'tanggal_pengembalian'
+            // Pastikan kita menangani baik barang maupun ruang
+            $barangTempat = isset($pengembalianTertunda[$index]['barang_tempat']) ? $pengembalianTertunda[$index]['barang_tempat'] : null;
+            $ruangTempat = isset($pengembalianTertunda[$index]['ruangTempat']) ? $pengembalianTertunda[$index]['ruangTempat'] : null;
+    
+            // Simpan history pengembalian dengan status "Approved"
             $pengembalianHistory[] = [
                 'name' => $pengembalianTertunda[$index]['name'],
                 'mapel' => $pengembalianTertunda[$index]['mapel'],
-                'barang_tempat' => $pengembalianTertunda[$index]['barang_tempat'],
-                'tanggal_pengembalian' => now()->toDateString(),  // Menggunakan tanggal sekarang
+                'barang_tempat' => $barangTempat,
+                'ruangTempat' => $ruangTempat,
+                'tanggal_pengembalian' => now()->toDateString(),
+                'status' => 'Approved', // Tambahkan status di sini
             ];
     
-            // Menghapus data yang sudah disetujui dari pengembalian tertunda
+            // Hapus dari daftar tertunda
             unset($pengembalianTertunda[$index]);
     
-            // Menyimpan kembali data ke session
+            // Update session
             Session::put('pengembalian_tertunda', $pengembalianTertunda);
             Session::put('pengembalian_history', $pengembalianHistory);
         }
@@ -47,13 +55,18 @@ class PengembalianController extends Controller
     }
     
 
-    // Menampilkan riwayat pengembalian
-    public function history()
-    {
-        // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
-        $historyPengembalian = Session::get('history_pengembalian', []);
-        
-        // Menampilkan view riwayat pengembalian
-        return view('admin.pengembalian.history', compact('historyPengembalian'));
+   public function history()
+{
+    $historyPengembalian = Session::get('pengembalian_history', []);
+
+    foreach ($historyPengembalian as &$entry) {
+        if (!isset($entry['status'])) {
+            $entry['status'] = 'Approved'; // Default jika status tidak tersedia
+        }
     }
+
+    return view('admin.history.index', compact('historyPengembalian'));
+}
+
+    
 }

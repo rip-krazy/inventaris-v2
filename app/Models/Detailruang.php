@@ -10,6 +10,7 @@ class Detailruang extends Model
     use HasFactory;
 
     protected $fillable = [
+        'ruang_id',
         'nama_barang',
         'kode_barang',
         'kondisi_barang'
