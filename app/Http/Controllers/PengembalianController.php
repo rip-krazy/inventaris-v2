@@ -113,13 +113,15 @@ class PengembalianController extends Controller
         if ($barang) {
             return $barang->nama_barang;
         }
-
+    
         // Cek apakah ID adalah Ruang
         $ruang = Ruang::find($id);
         if ($ruang) {
-            return $ruang->nama_ruang;
+            // Make sure this matches the column name in your Ruang model
+            // Change this to $ruang->name if that's your actual column name
+            return $ruang->name; 
         }
-
+    
         // Jika tidak ditemukan
         return '-';
     }

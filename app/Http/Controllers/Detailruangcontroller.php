@@ -9,12 +9,11 @@ use Illuminate\Http\Request;
 class DetailRuangController extends Controller
 {
     public function index(Request $request, $id)
-{
-    return view('admin.ruang.detailruang.index');
-}
+    {
+        // Method ini sudah benar digantikan oleh method show untuk menampilkan daftar barang
+        return redirect()->route('detailruang.show', ['id' => $id]);
+    }
     
-    
-
     public function create($id)
     {
         // Ambil data ruang berdasarkan ID
@@ -24,8 +23,6 @@ class DetailRuangController extends Controller
         return view('admin.ruang.detailruang.create', compact('ruang'));
     }
     
-    
-
     public function store(Request $request)
     {
         $request->validate([
@@ -47,7 +44,6 @@ class DetailRuangController extends Controller
                         ->with('success', 'Data Ruang berhasil ditambahkan.');
     }
     
-
     public function edit($id)
     {
         $detailruang = DetailRuang::findOrFail($id);
@@ -74,7 +70,6 @@ class DetailRuangController extends Controller
                          ->with('success', 'Data Ruang berhasil diperbarui.');
     }
     
-    
     public function destroy(DetailRuang $detailruang)
     {
         $ruang_id = $detailruang->ruang_id; // Save the ruang_id before deletion
@@ -83,9 +78,10 @@ class DetailRuangController extends Controller
                         ->with('success', 'Data Ruang berhasil dihapus.');
     }
     
+    // Method ini menampilkan DAFTAR BARANG dalam sebuah ruangan (seperti index)
     public function show($id, Request $request)
     {
-        $ruang = Ruang::with('items')->findOrFail($id); // Get the ruang with its related items
+        $ruang = Ruang::findOrFail($id); // Get the ruang
         $search = $request->input('search', ''); // Capture search value
     
         // Get the related detailruangs, apply search filter if necessary
@@ -100,5 +96,12 @@ class DetailRuangController extends Controller
     
         // Pass both ruang and detailruangs to the view
         return view('admin.ruang.detailruang.index', compact('ruang', 'detailruangs', 'search'));
+    }
+    
+    // Method baru untuk menampilkan DETAIL SATU BARANG
+    public function showItem($id)
+    {
+        $item = DetailRuang::findOrFail($id);
+        return view('admin.ruang.detailruang.show', compact('item'));
     }
 }

@@ -15,6 +15,18 @@
             font-family: 'Poppins', sans-serif;
         }
         
+        .animated-gradient {
+            background: linear-gradient(-45deg, #3490dc, #38b2ac, #4c51bf, #667eea);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         .card-gradient {
             background: linear-gradient(135deg, #f6f8fa 0%, #e9f1f7 100%);
             transition: all 0.3s ease;
@@ -34,7 +46,7 @@
         }
         
         .info-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             border: 1px solid rgba(226, 232, 240, 0.5);
         }
         
@@ -42,18 +54,6 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             border-color: rgba(226, 232, 240, 1);
-        }
-        
-        .animated-gradient {
-            background: linear-gradient(-45deg, #3490dc, #38b2ac, #4c51bf, #667eea);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-        
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
         .qr-container {
@@ -81,6 +81,46 @@
             -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
+        
+        .timeline-dot {
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+        
+        .bounce-in {
+            animation: bounceIn 1s;
+        }
+        
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            }
+            0% {
+                opacity: 0;
+                transform: scale3d(.3, .3, .3);
+            }
+            20% {
+                transform: scale3d(1.1, 1.1, 1.1);
+            }
+            40% {
+                transform: scale3d(.9, .9, .9);
+            }
+            60% {
+                opacity: 1;
+                transform: scale3d(1.03, 1.03, 1.03);
+            }
+            80% {
+                transform: scale3d(.97, .97, .97);
+            }
+            100% {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-green-50 to-purple-50 min-h-screen flex items-center justify-center p-5">
@@ -101,12 +141,15 @@
                 </div>
                 <p class="text-xl opacity-90 font-light ml-1">{{ $item->nama_barang }}</p>
                 
-                <div class="flex space-x-3 mt-5">
+                <div class="flex flex-wrap gap-3 mt-5">
                     <span class="glass-effect px-3 py-1 rounded-full text-sm flex items-center">
                         <i class="fas fa-clock mr-2"></i> Diupdate: {{ \Carbon\Carbon::parse($item->updated_at)->diffForHumans() }}
                     </span>
                     <span class="glass-effect px-3 py-1 rounded-full text-sm flex items-center">
                         <i class="fas fa-tag mr-2"></i> Inventaris
+                    </span>
+                    <span class="glass-effect px-3 py-1 rounded-full text-sm flex items-center">
+                        <i class="fas fa-calendar-alt mr-2"></i> {{ \Carbon\Carbon::parse($item->tanggal_pembelian)->format('d M Y') }}
                     </span>
                 </div>
             </div>
@@ -115,7 +158,7 @@
         <!-- Main content -->
         <div class="p-8 bg-gray-50">
             <!-- Top info section -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="info-card bg-white p-6 rounded-xl shadow-sm flex flex-col items-center">
                     <div class="bg-blue-100 p-4 rounded-full text-blue-600 mb-4">
                         <i class="fas fa-barcode text-2xl"></i>
@@ -133,32 +176,10 @@
                         {{ $item->kondisi_barang }}
                     </p>
                 </div>
-                
-                <div class="info-card bg-white p-6 rounded-xl shadow-sm flex flex-col items-center">
-                    <div class="bg-green-100 p-4 rounded-full text-green-600 mb-4">
-                        <i class="fas fa-cubes text-2xl"></i>
-                    </div>
-                    <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">Status Barang</h3>
-                    <div class="mt-2">
-                        @if($item->status_barang == 'baik')
-                            <span class="badge px-4 py-1 rounded-full bg-green-100 text-green-800 text-sm font-medium flex items-center">
-                                <i class="fas fa-check-circle mr-1"></i> Baik
-                            </span>
-                        @elseif($item->status_barang == 'rusak')
-                            <span class="badge px-4 py-1 rounded-full bg-red-100 text-red-800 text-sm font-medium flex items-center">
-                                <i class="fas fa-times-circle mr-1"></i> Rusak
-                            </span>
-                        @else
-                            <span class="badge px-4 py-1 rounded-full bg-yellow-100 text-yellow-800 text-sm font-medium flex items-center">
-                                <i class="fas fa-exclamation-circle mr-1"></i> Perlu Perawatan
-                            </span>
-                        @endif
-                    </div>
-                </div>
             </div>
             
             <!-- Timeline section -->
-            <div class="mb-10 bg-white p-6 rounded-xl shadow-sm">
+            <div class="mb-10 bg-white p-6 rounded-xl shadow-sm bounce-in">
                 <div class="flex items-center mb-6">
                     <div class="bg-blue-100 p-2 rounded-lg mr-3">
                         <i class="fas fa-history text-blue-600"></i>
@@ -167,14 +188,28 @@
                 </div>
                 
                 <div class="border-l-2 border-blue-500 pl-6 ml-3 space-y-6">
-                    <div class="relative">
-                        <div class="absolute -left-9 top-0 bg-blue-500 rounded-full w-4 h-4 border-4 border-white"></div>
-                        <h3 class="text-md font-medium text-gray-800">Pembelian</h3>
-                        <p class="text-sm text-gray-600 mt-1">{{ \Carbon\Carbon::parse($item->tanggal_pembelian)->format('d M Y') }}</p>
+                    <div class="relative timeline-item">
+                        <div class="absolute -left-9 top-0 bg-blue-500 rounded-full w-4 h-4 border-4 border-white timeline-dot"></div>
+                        <h3 class="text-md font-medium text-gray-800">Status Barang</h3>
+                        <div class="mt-2">
+                            @if($item->status_barang == 'baik' || $item->kondisi_barang == 'Baik')
+                                <span class="badge px-4 py-1 rounded-full bg-green-100 text-green-800 text-sm font-medium flex items-center w-max">
+                                    <i class="fas fa-check-circle mr-1"></i> Baik
+                                </span>
+                            @elseif($item->status_barang == 'rusak' || $item->kondisi_barang != 'Baik')
+                                <span class="badge px-4 py-1 rounded-full bg-red-100 text-red-800 text-sm font-medium flex items-center w-max">
+                                    <i class="fas fa-times-circle mr-1"></i> Rusak
+                                </span>
+                            @else
+                                <span class="badge px-4 py-1 rounded-full bg-yellow-100 text-yellow-800 text-sm font-medium flex items-center w-max">
+                                    <i class="fas fa-exclamation-circle mr-1"></i> Perlu Perawatan
+                                </span>
+                            @endif
+                        </div>
                     </div>
                 
-                    <div class="relative">
-                        <div class="absolute -left-9 top-0 bg-blue-500 rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="relative timeline-item">
+                        <div class="absolute -left-9 top-0 bg-blue-500 rounded-full w-4 h-4 border-4 border-white timeline-dot"></div>
                         <h3 class="text-md font-medium text-gray-800">Lokasi</h3>
                         <p class="text-sm text-gray-600 mt-1">{{ $item->lokasi_barang ?? 'Lokasi belum tersedia.' }}</p>
                         <div class="mt-2 text-sm text-blue-600 flex items-center">
@@ -183,23 +218,23 @@
                         </div>
                     </div>
                     
-                    <div class="relative">
-                        <div class="absolute -left-9 top-0 bg-blue-500 rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="relative timeline-item">
+                        <div class="absolute -left-9 top-0 bg-blue-500 rounded-full w-4 h-4 border-4 border-white timeline-dot"></div>
                         <h3 class="text-md font-medium text-gray-800">Deskripsi</h3>
                         <p class="text-sm text-gray-600 mt-1">{{ $item->deskripsi_barang ?? 'Deskripsi belum tersedia.' }}</p>
                     </div>
                 </div>
             </div>
             
-            <!-- QR Code section -->
-            <div class="flex flex-col md:flex-row items-center gap-6 mb-8 bg-white p-6 rounded-xl shadow-sm">
-                <div class="qr-container bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-xl shadow-md flex-1 text-center">
+            <!-- QR Code section with additional info -->
+            <div class="flex flex-col md:flex-row items-stretch gap-6 mb-8">
+                <div class="qr-container bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-xl shadow-md flex-1 text-center flex flex-col justify-center">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">QR Code</h3>
                     <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" class="w-36 h-36 mx-auto object-contain">
                     <p class="mt-4 text-sm text-gray-500">Scan untuk informasi cepat</p>
                 </div>
                 
-                <div class="flex-1 space-y-4">
+                <div class="card-gradient p-6 rounded-xl shadow-md flex-1 flex flex-col justify-center space-y-4">
                     <div class="flex items-center gap-4">
                         <div class="bg-green-100 p-3 rounded-full">
                             <i class="fas fa-sync-alt text-green-600"></i>
@@ -240,19 +275,35 @@
             </div>
             
             <div class="flex gap-4">
-                <a href="{{ route('detailruang.show', $item->ruang_id) }}" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-200 flex items-center shadow-md hover:shadow-lg">
+                <a href="{{ route('dr.index') }}" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 flex items-center shadow-md hover:shadow-lg">
                     <i class="fas fa-arrow-left mr-2"></i>
-                    Kembali ke Ruangan
+                    Kembali ke Daftar
                 </a>
             </div>
         </div>
     </div>
     
     <script>
-        // This would be where you'd add any JavaScript functionality
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Detail Barang page loaded');
-            // You could add functionality for the print button here
+            // Add animation classes with delay for a staggered effect
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate__animated', 'animate__fadeInUp');
+                }, 300 * (index + 1));
+            });
+            
+            // Highlight related items when hovering over timeline items
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.classList.add('bg-blue-50', 'rounded-lg', 'p-2', '-ml-2');
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.classList.remove('bg-blue-50', 'rounded-lg', 'p-2', '-ml-2');
+                });
+            });
         });
     </script>
 </body>

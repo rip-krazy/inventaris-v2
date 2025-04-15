@@ -123,11 +123,6 @@
                     <i class="fas fa-sync-alt text-blue-600"></i>
                     <span class="text-gray-700">Refresh</span>
                 </button>
-                <button id="notification-btn" class="px-4 py-2 bg-white shadow-md rounded-lg flex items-center space-x-2 hover:bg-gray-50 transition-all card-hover relative">
-                    <i class="fas fa-bell text-yellow-500"></i>
-                    <span class="text-gray-700">Notifikasi</span>
-                    <span class="notification-badge">3</span>
-                </button>
                 <button onclick="window.location.href='{{ url('profile') }}'" 
                         class="px-4 py-2 bg-white shadow-md rounded-lg flex items-center space-x-2 hover:bg-gray-50 transition-all card-hover">
                     <i class="fas fa-cog text-gray-600"></i>
@@ -156,61 +151,37 @@
                     <span class="text-sm font-medium text-gray-500">Pengembalian Tertunda</span>
                     <div class="text-2xl font-bold text-red-600 counter" data-target="5">0</div>
                 </div>
-                <div class="h-16 w-px bg-gray-200"></div>
-                <div class="text-center hover:scale-110 transition-transform duration-300 cursor-pointer">
-                    <div class="text-yellow-600 mb-2"><i class="fas fa-hourglass-half text-3xl"></i></div>
-                    <span class="text-sm font-medium text-gray-500">Menunggu Persetujuan</span>
-                    <div class="text-2xl font-bold text-yellow-600 counter" data-target="25">0</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Weather & System Status - New Feature -->
-        <div class="flex mb-8 space-x-4">
-            <div class="glass-card rounded-xl shadow-lg p-4 flex items-center space-x-4 w-1/2 card-hover transition-all duration-300">
-                <div id="weather-icon" class="text-4xl text-yellow-500">
-                    <i class="fas fa-sun"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-800">Cuaca Hari Ini</h3>
-                    <p class="text-gray-600">Jakarta, 32°C, Cerah</p>
-                    <p class="text-xs text-gray-500">Diperbarui: <span id="weather-update-time">Hari ini, 08:15</span></p>
-                </div>
-            </div>
-            <div class="glass-card rounded-xl shadow-lg p-4 flex items-center space-x-4 w-1/2 card-hover transition-all duration-300">
-                <div class="text-4xl text-green-500">
-                    <i class="fas fa-server"></i>
-                </div>
-                <div class="w-full">
-                    <h3 class="text-lg font-semibold text-gray-800">Status Sistem</h3>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-600">Server Load:</span>
-                        <div class="w-32 bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 35%"></div>
-                        </div>
-                        <span class="text-sm text-gray-600">35%</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-2">
-                        <span class="text-gray-600">Database:</span>
-                        <div class="w-32 bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 28%"></div>
-                        </div>
-                        <span class="text-sm text-gray-600">28%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+               <!-- admin/dashboard.blade.php atau layout yang sesuai -->
+<div class="h-16 w-px bg-gray-200"></div>
+<div class="text-center hover:scale-110 transition-transform duration-300 cursor-pointer">
+    <div class="text-yellow-600 mb-2"><i class="fas fa-hourglass-half text-3xl"></i></div>
+    <span class="text-sm font-medium text-gray-500">Menunggu Persetujuan</span>
+    <div class="text-2xl font-bold text-yellow-600 counter" data-target="{{ count(Session::get('pending_approvals', [])) }}">0</div>
+</div>
+</div>
 
-        <!-- Chart Row - New Feature -->
-        <div class="flex space-x-6 mb-8">
-            <div class="glass-card p-5 rounded-xl shadow-lg w-1/2 card-hover transition-all duration-300">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Peminjaman Barang (Bulan Ini)</h2>
-                <div id="borrowing-chart" class="h-64"></div>
-            </div>
-            <div class="glass-card p-5 rounded-xl shadow-lg w-1/2 card-hover transition-all duration-300">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Kondisi Barang</h2>
-                <div id="item-condition-chart" class="h-64"></div>
-            </div>
+<!-- Tambahkan script JavaScript untuk animasi counter -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.counter');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const count = 0;
+        const increment = target > 0 ? Math.ceil(target / 20) : 0;
+        
+        function updateCount() {
+            const currentCount = parseInt(counter.innerText);
+            if (currentCount < target) {
+                counter.innerText = Math.min(currentCount + increment, target);
+                setTimeout(updateCount, 50);
+            }
+        }
+        
+        updateCount();
+    });
+});
+</script>
         </div>
 
         <!-- Stats Grid with enhanced styling -->
@@ -224,9 +195,9 @@
                             <i class="fas fa-users text-2xl text-white"></i>
                         </div>
                         <div class="ml-4">
-        <h2 class="text-xl font-semibold text-gray-800">Total Pengguna</h2>
-        <p class="text-3xl font-bold text-blue-600 mt-1 counter">{{ $jumlahPengguna }}</p>
-    </div>
+                            <h2 class="text-xl font-semibold text-gray-800">Total Pengguna</h2>
+                            <p class="text-3xl font-bold text-blue-600 mt-1 counter">{{ $jumlahPengguna }}</p>
+                        </div>
 
                     </div>
                     <div class="mt-4">
@@ -240,7 +211,7 @@
                     </div>
                     <div class="mt-4 flex items-center text-blue-500 cursor-pointer hover:underline" onclick="showUserList()">
                         <i class="fas fa-chart-line mr-2"></i>
-                        <span class="text-sm font-medium">Lihat Semua Pengguna</span>
+                        <span class="text-sm font-medium">Semua Pengguna</span>
                     </div>
                 </div>
             </div>
@@ -271,7 +242,7 @@
                     </div>
                     <div class="mt-4 flex items-center text-green-500 cursor-pointer hover:underline" onclick="showReturnedItems()">
                         <i class="fas fa-check-circle mr-2"></i>
-                        <span class="text-sm font-medium">Lihat Riwayat Pengembalian</span>
+                        <span class="text-sm font-medium">Riwayat Pengembalian</span>
                     </div>
                 </div>
             </div>
@@ -300,7 +271,7 @@
                     </div>
                     <div class="mt-4 flex items-center text-red-500 cursor-pointer hover:underline" onclick="showOverdueItems()">
                         <i class="fas fa-clock mr-2"></i>
-                        <span class="text-sm font-medium">Lihat Item Telat</span>
+                        <span class="text-sm font-medium">Item Telat</span>
                     </div>
                 </div>
             </div>
@@ -329,7 +300,7 @@
                     </div>
                     <div class="mt-4 flex items-center text-purple-500 cursor-pointer hover:underline" onclick="showInventory()">
                         <i class="fas fa-database mr-2"></i>
-                        <span class="text-sm font-medium">Lihat Inventaris</span>
+                        <span class="text-sm font-medium">Inventaris</span>
                     </div>
                 </div>
             </div>
@@ -379,10 +350,6 @@
                                     <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
                                     <span class="text-sm font-medium text-gray-600">Rusak: <span class="counter" data-target="{{ $jumlahBarangRusak }}">0</span></span>
                                 </div>
-                                <div class="flex items-center">
-                                    <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-                                    <span class="text-sm font-medium text-gray-600">Maintenance: <span class="counter" data-target="5">0</span></span>
-                                </div>
                             </div>
                         </div>
                         <div class="p-3 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg">
@@ -391,160 +358,13 @@
                     </div>
                     <div class="mt-4 flex items-center text-indigo-500 cursor-pointer hover:underline" onclick="showItemConditionReport()">
                         <i class="fas fa-chart-pie mr-2"></i>
-                        <span class="text-sm font-medium">Lihat Laporan Lengkap</span>
+                        <span class="text-sm font-medium">Laporan Lengkap</span>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Recent Activity - New Feature -->
-        <div class="glass-card rounded-xl shadow-lg p-6 mb-8 animate__animated animate__fadeIn">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-semibold text-gray-800">Aktivitas Terkini</h2>
-                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center" onclick="showAllActivities()">
-                    Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </div>
-            <div class="space-y-4" id="recent-activities">
-                <div class="flex items-start p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <div class="p-2 bg-blue-100 rounded-full text-blue-600 mr-4">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div class="flex-grow">
-                        <p class="text-gray-800 font-medium">Pengguna Baru</p>
-                        <p class="text-gray-600 text-sm">Ahmad Rizky telah mendaftar sebagai pengguna baru</p>
-                        <p class="text-gray-400 text-xs mt-1">Baru saja</p>
-                    </div>
-                </div>
-                <div class="flex items-start p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <div class="p-2 bg-green-100 rounded-full text-green-600 mr-4">
-                    <i class="fas fa-box-open text-xl"></i>
-                    </div>
-                    <div class="flex-grow">
-                        <p class="text-gray-800 font-medium">Pengembalian Barang</p>
-                        <p class="text-gray-600 text-sm">Budi Santoso mengembalikan 3 item</p>
-                        <p class="text-gray-400 text-xs mt-1">15 menit yang lalu</p>
-                    </div>
-                </div>
-                <div class="flex items-start p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <div class="p-2 bg-yellow-100 rounded-full text-yellow-600 mr-4">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-                    <div class="flex-grow">
-                        <p class="text-gray-800 font-medium">Permintaan Baru</p>
-                        <p class="text-gray-600 text-sm">Siti Nurhayati meminta peminjaman 2 laptop</p>
-                        <p class="text-gray-400 text-xs mt-1">1 jam yang lalu</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Quick Stats - New Feature -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- Top Items -->
-            <div class="glass-card rounded-xl shadow-lg p-6 animate__animated animate__fadeIn card-hover transition-all duration-300">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Paling Sering Dipinjam</h2>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="p-2 bg-blue-100 rounded-lg mr-3">
-                                <i class="fas fa-laptop text-blue-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">p5</p>
-                                <p class="text-xs text-gray-500">Ruangan</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-blue-600">32</p>
-                            <p class="text-xs text-gray-500">peminjaman</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="p-2 bg-green-100 rounded-lg mr-3">
-                                <i class="fas fa-camera text-green-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">Kamera DSLR Canon</p>
-                                <p class="text-xs text-gray-500">Fotografi</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-green-600">28</p>
-                            <p class="text-xs text-gray-500">peminjaman</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="p-2 bg-purple-100 rounded-lg mr-3">
-                                <img src="\assets\img\projector.png" class="w-5">
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">Proyektor Epson</p>
-                                <p class="text-xs text-gray-500">Elektronik</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-purple-600">24</p>
-                            <p class="text-xs text-gray-500">peminjaman</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center" onclick="showAllTopItems()">
-                    Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </div>
-            
-            <!-- Top Users -->
-            <div class="glass-card rounded-xl shadow-lg p-6 animate_animated animate_fadeIn card-hover transition-all duration-300">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Pengguna Paling Aktif</h2>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="h-10 w-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">BS</div>
-                            <div class="ml-3">
-                                <p class="font-medium text-gray-800">Budi Santoso</p>
-                                <p class="text-xs text-gray-500">Departemen IT</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-blue-600">18</p>
-                            <p class="text-xs text-gray-500">peminjaman</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="h-10 w-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">SN</div>
-                            <div class="ml-3">
-                                <p class="font-medium text-gray-800">Siti Nurhayati</p>
-                                <p class="text-xs text-gray-500">Departemen Marketing</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-green-600">15</p>
-                            <p class="text-xs text-gray-500">peminjaman</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="h-10 w-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">AR</div>
-                            <div class="ml-3">
-                                <p class="font-medium text-gray-800">Ahmad Rizky</p>
-                                <p class="text-xs text-gray-500">Departemen Keuangan</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold text-purple-600">12</p>
-                            <p class="text-xs text-gray-500">peminjaman</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center" onclick="showAllTopUsers()">
-                    Lihat Semua <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </div>
-        </div>
+     
         
         <!-- Footer - New Feature -->
         <div class="mt-12 text-center text-gray-500 text-sm mb-6">
@@ -651,154 +471,6 @@
         }, 1000);
     });
     
-    // Borrowing Chart
-    var borrowingOptions = {
-        series: [{
-            name: 'Peminjaman',
-            data: [31, 40, 35, 51, 49, 60, 70, 91, 125, 150, 170, 185]
-        }],
-        chart: {
-            height: 250,
-            type: 'line',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            },
-            fontFamily: 'Inter, sans-serif'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 3,
-            colors: ['#3b82f6']
-        },
-        grid: {
-            row: {
-                colors: ['#f3f4f6', 'transparent'],
-                opacity: 0.5
-            }
-        },
-        xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        },
-        tooltip: {
-            theme: 'light',
-            y: {
-                formatter: function (val) {
-                    return val + " peminjaman"
-                }
-            }
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'light',
-                type: "vertical",
-                shadeIntensity: 0.4,
-                opacityFrom: 0.7,
-                opacityTo: 0.2,
-                stops: [0, 100]
-            }
-        }
-    };
-
-    var borrowingChart = new ApexCharts(document.querySelector("#borrowing-chart"), borrowingOptions);
-    borrowingChart.render();
-    
-    // Item Condition Chart
-    var itemConditionOptions = {
-        series: [75, 20, 5],
-        chart: {
-            type: 'donut',
-            height: 250,
-            fontFamily: 'Inter, sans-serif'
-        },
-        labels: ['Baik', 'Perlu Maintenance', 'Rusak'],
-        colors: ['#10b981', '#f59e0b', '#ef4444'],
-        legend: {
-            position: 'bottom'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                donut: {
-                    size: '55%',
-                    labels: {
-                        show: true,
-                        name: {
-                            show: true
-                        },
-                        value: {
-                            show: true,
-                            formatter: function(val) {
-                                return val + '%';
-                            }
-                        },
-                        total: {
-                            show: true,
-                            label: 'Total',
-                            formatter: function (w) {
-                                return '100%';
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    };
-
-    var itemConditionChart = new ApexCharts(document.querySelector("#item-condition-chart"), itemConditionOptions);
-    itemConditionChart.render();
-    
-    // Notifications Button Action
-    document.getElementById('notification-btn').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Notifikasi',
-            html: `
-                <div class="text-left mb-4">
-                    <div class="p-3 border-b flex items-start">
-                        <div class="p-2 bg-blue-100 rounded-full text-blue-600 mr-3">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-800">Peminjaman Disetujui</p>
-                            <p class="text-sm text-gray-600">Permintaan peminjaman projector untuk meeting telah disetujui</p>
-                            <p class="text-xs text-gray-400 mt-1">10 menit yang lalu</p>
-                        </div>
-                    </div>
-                    <div class="p-3 border-b flex items-start">
-                        <div class="p-2 bg-red-100 rounded-full text-red-600 mr-3">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-800">Pengembalian Tertunda</p>
-                            <p class="text-sm text-gray-600">Ahmad Rizky belum mengembalikan 2 laptop dalam tenggat waktu</p>
-                            <p class="text-xs text-gray-400 mt-1">1 jam yang lalu</p>
-                        </div>
-                    </div>
-                    <div class="p-3 flex items-start">
-                        <div class="p-2 bg-green-100 rounded-full text-green-600 mr-3">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-800">Barang Baru Ditambahkan</p>
-                            <p class="text-sm text-gray-600">10 laptop baru telah ditambahkan ke inventaris</p>
-                            <p class="text-xs text-gray-400 mt-1">3 jam yang lalu</p>
-                        </div>
-                    </div>
-                </div>
-            `,
-            showConfirmButton: true,
-            confirmButtonText: 'Lihat Semua',
-            confirmButtonColor: '#3b82f6'
-        });
-    });
     
     // Settings Button Action
     document.getElementById('settings-btn').addEventListener('click', function() {
@@ -841,53 +513,6 @@
         });
     });
     
-    // Simple function placeholders for demonstration
-    function showUserDetails() {
-        Swal.fire('Detail Pengguna', 'Fitur ini akan menampilkan detail informasi pengguna.', 'info');
-    }
-    
-    function showItemDetails() {
-        Swal.fire('Detail Barang', 'Fitur ini akan menampilkan detail informasi barang.', 'info');
-    }
-    
-    function showPendingReturns() {
-        Swal.fire('Pengembalian Tertunda', 'Fitur ini akan menampilkan daftar pengembalian tertunda.', 'info');
-    }
-    
-    function showUserList() {
-        Swal.fire('Daftar Pengguna', 'Fitur ini akan menampilkan daftar semua pengguna.', 'info');
-    }
-    
-    function showReturnedItems() {
-        Swal.fire('Riwayat Pengembalian', 'Fitur ini akan menampilkan riwayat pengembalian barang.', 'info');
-    }
-    
-    function showOverdueItems() {
-        Swal.fire('Item Telat', 'Fitur ini akan menampilkan daftar barang yang telat dikembalikan.', 'info');
-    }
-    
-    function showInventory() {
-        Swal.fire('Inventaris', 'Fitur ini akan menampilkan daftar lengkap inventaris.', 'info');
-    }
-    
-    function showApprovals() {
-        Swal.fire('Permintaan Persetujuan', 'Fitur ini akan menampilkan daftar permintaan yang perlu persetujuan.', 'info');
-    }
-    
-    function showItemConditionReport() {
-        Swal.fire('Laporan Kondisi Barang', 'Fitur ini akan menampilkan laporan lengkap kondisi barang.', 'info');
-    }
-    
-    function showAllActivities() {
-        Swal.fire('Semua Aktivitas', 'Fitur ini akan menampilkan semua aktivitas dalam sistem.', 'info');
-    }
-    
-    function showAllTopItems() {
-        Swal.fire('Item Populer', 'Fitur ini akan menampilkan daftar lengkap item yang paling sering dipinjam.', 'info');
-    }
-    
-    function showAllTopUsers() {
-        Swal.fire('Pengguna Aktif', 'Fitur ini akan menampilkan daftar lengkap pengguna paling aktif.', 'info');
-    }
+ 
 </script>
 @endsection

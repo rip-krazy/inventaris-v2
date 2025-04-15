@@ -78,10 +78,13 @@ Route::resource('pengguna', PenggunaController::class);
 Route::resource('detailruang', DetailRuangController::class);
 
 Route::get('/detailruang/create/{id}', [DetailRuangController::class, 'create'])->name('detailruang.create');
-Route::get('/detailruang/show/{id}', [DetailRuangController::class, 'show'])->name('detailruang.show');
+// Di dalam web.php atau routes file
+Route::get('/detailruang/{id}', [DetailRuangController::class, 'show'])->name('detailruang.show');
+Route::get('/detailruang/item/{id}', [DetailRuangController::class, 'showItem'])->name('detailruang.showItem');
 Route::get('/detailruang/{id}', [DetailRuangController::class, 'index'])->name('detailruang.index');
 Route::post('/detailruang/store', [DetailRuangController::class, 'store'])->name('detailruang.store');
 Route::put('/detailruang/update/{id}', [DetailRuangController::class, 'update'])->name('detailruang.update');
+Route::get('/detailruang/item/edit/{id}', [DetailRuangController::class, 'editItem'])->name('detailruang.editItem');
 
 
 // Halaman Pengembalian
@@ -109,6 +112,7 @@ Route::resource('db', DbController::class);
 Route::resource('ru', RuController::class);
 
 Route::resource('dr', DrController::class);
+Route::get('/dr/{id}', [DrController::class, 'show'])->name('dr.show');
 
 Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');

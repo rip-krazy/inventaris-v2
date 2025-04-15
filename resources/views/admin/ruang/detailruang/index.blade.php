@@ -75,8 +75,9 @@
                                     {{ $detailruang->kondisi_barang }}
                                 </span>
                             </td>
+                          <!-- Di dalam file index.blade.php, bagian QR Code -->
                             <td class="py-4 px-6 border-b text-center">
-                                <a href="{{ route('detailruang.show', $detailruang->id) }}" target="_blank">
+                                <a href="{{ route('detailruang.showItem', $detailruang->id) }}" target="_blank">
                                     <img src="{{ asset('assets/img/qr-code.svg') }}" alt="QR Code" 
                                         class="transition-transform transform hover:scale-110 hover:opacity-80 duration-300 ease-in-out mx-auto" 
                                         width="40" height="40">

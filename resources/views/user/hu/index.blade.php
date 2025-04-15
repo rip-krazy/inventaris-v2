@@ -73,42 +73,49 @@
 
         <!-- Table -->
         <div class="overflow-hidden rounded-xl border border-gray-200">
-            <table class="min-w-full table-auto border-collapse">
-                <thead>
-                    <tr class="bg-gray-50 border-b border-gray-200">
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600">No</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600">Nama User</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600">Tanggal Pengembalian</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600">Nama Barang/Tempat</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600">Mapel</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200" id="tableBody">
-                    @forelse ($pengembalianHistory as $index => $entry)
-                    <tr class="hover:bg-gray-50 transition duration-150" data-tanggal="{{ $entry['tanggal_pengembalian'] }}">
-                        <td class="px-6 py-4 text-center text-gray-800">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 text-gray-800">{{ $entry['name'] }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($entry['tanggal_pengembalian'])->format('d M Y') }}</td>
-                        <td class="px-6 py-4 text-gray-600"> {{ $entry['barangTempat'] ?? $entry['ruangTempat'] ?? '-' }}</td>
-                        <td class="px-6 py-4 text-green-800">{{ $entry['mapel'] }}</td>
-                        <td class="px-6 py-4 text-blue-800">Selesai</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-10 text-center text-gray-500">
-                            <div class="flex flex-col items-center">
-                                <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/>
-                                </svg>
-                                <p class="text-lg font-medium">Tidak ada data riwayat pengembalian</p>
-                                <p class="text-gray-400">Data riwayat pengembalian akan muncul di sini</p>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+           <!-- In your user.hu.index view -->
+<table class="min-w-full table-auto border-collapse">
+    <thead>
+        <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="px-6 py-4 text-left font-semibold text-gray-600">No</th>
+            <th class="px-6 py-4 text-left font-semibold text-gray-600">Tanggal Pengembalian</th>
+            <th class="px-6 py-4 text-left font-semibold text-gray-600">Nama Barang/Tempat</th>
+            <th class="px-6 py-4 text-left font-semibold text-gray-600">Mapel</th>
+            <th class="px-6 py-4 text-left font-semibold text-gray-600">Status</th>
+            <th class="px-6 py-4 text-left font-semibold text-gray-600">Alasan (jika ditolak)</th>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200" id="tableBody">
+        @forelse ($pengembalianHistory as $index => $entry)
+        <tr class="hover:bg-gray-50 transition duration-150" data-tanggal="{{ $entry['tanggal_pengembalian'] }}">
+            <td class="px-6 py-4 text-center text-gray-800">{{ $index + 1 }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ \Carbon\Carbon::parse($entry['tanggal_pengembalian'])->format('d M Y') }}</td>
+            <td class="px-6 py-4 text-gray-600">{{ $entry['barangTempat'] ?? $entry['ruangTempat'] ?? '-' }}</td>
+            <td class="px-6 py-4 text-green-800">{{ $entry['mapel'] }}</td>
+            <td class="px-6 py-4 
+                @if(isset($entry['status']) && $entry['status'] == 'Rejected') text-red-600 
+                @else text-blue-800 @endif">
+                {{ isset($entry['status']) && $entry['status'] == 'Rejected' ? 'Ditolak' : 'Selesai' }}
+            </td>
+            <td class="px-6 py-4 text-red-600">
+                {{ isset($entry['alasan']) && isset($entry['status']) && $entry['status'] == 'Rejected' ? $entry['alasan'] : '-' }}
+            </td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="6" class="px-6 py-10 text-center text-gray-500">
+                <div class="flex flex-col items-center">
+                    <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/>
+                    </svg>
+                    <p class="text-lg font-medium">Tidak ada data riwayat pengembalian</p>
+                    <p class="text-gray-400">Data riwayat pengembalian akan muncul di sini</p>
+                </div>
+            </td>
+        </tr>
+        @endforelse
+    </tbody>
+</table>
         </div>
     </div>
 </div>
