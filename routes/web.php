@@ -117,6 +117,9 @@ Route::get('/dr/{id}', [DrController::class, 'show'])->name('dr.show');
 Route::resource('peminjaman', PeminjamanController::class);
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 Route::post('/peminjaman/submit', [PeminjamanController::class, 'submit'])->name('peminjaman.submit');
+Route::get('/pengembalian/reset-filter', [PengembalianController::class, 'resetFilter'])->name('pengembalian.reset-filter');
+Route::get('/pengembalian/export-csv', [PengembalianController::class, 'exportCsv'])->name('pengembalian.export-csv');
+Route::get('/pengembalian/details/{id}', [PengembalianController::class, 'getDetails'])->name('pengembalian.get-details');
 
 Route::resource('ra', RaController::class);
 
@@ -148,6 +151,9 @@ Route::get('/history/filter', [HistoryController::class, 'index'])->name('histor
 
 
 Route::resource('hu', HuController::class);
+Route::get('/user/history/details/{id}', [HuController::class, 'getDetails'])->name('hu.details');
+Route::get('/user/history/filter', [HuController::class, 'filter'])->name('hu.filter');
+Route::get('/user/history/reset', [HuController::class, 'resetFilter'])->name('hu.reset');
 
 
 require __DIR__.'/auth.php';

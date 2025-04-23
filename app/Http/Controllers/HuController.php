@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\History;
 
 class HuController extends Controller
 {
@@ -12,59 +14,89 @@ class HuController extends Controller
      */
     public function index()
     {
-        // Mendapatkan data pengembalian yang sudah disetujui (history) dari session
-        $pengembalianHistory = Session::get('pengembalian_history', []);
+        // Get the current authenticated user's name
+        $userName = Auth::user()->name;
+        
+        // Fetch history data from database instead of session
+        $pengembalianHistory = History::where('type', 'pengembalian')
+            ->where('name', $userName)
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         // Pass the data to the view
         return view('user.hu.index', compact('pengembalianHistory'));
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Get detailed information about a specific history entry
      */
-    public function create()
+    public function getDetails($id)
     {
-        //
+        // Get the authenticated user's name
+        $userName = Auth::user()->name;
+        
+        // Find the history entry by ID and ensure it belongs to the current user
+        $history = History::where('id', $id)
+            ->where('name', $userName)
+            ->first();
+        
+        if ($history) {
+            return response()->json($history);
+        }
+        
+        return response()->json(['error' => 'Data tidak ditemukan'], 404);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Filter history entries based on search criteria
      */
-    public function store(Request $request)
+    public function filter(Request $request)
     {
-        //
+        $userName = Auth::user()->name;
+        $query = History::where('type', 'pengembalian')
+            ->where('name', $userName);
+            
+        // Apply search filter
+        $search = $request->input('search');
+        $filterTanggal = $request->input('tanggal');
+        $filterStatus = $request->input('status');
+
+        if (!empty($search)) {
+            $query->where(function($q) use ($search) {
+                $q->where('barang_tempat', 'like', "%{$search}%")
+                  ->orWhere('ruang_tempat', 'like', "%{$search}%")
+                  ->orWhere('mapel', 'like', "%{$search}%");
+            });
+        }
+
+        // Apply date filter
+        if (!empty($filterTanggal)) {
+            $query->whereDate('tanggal_pengembalian', $filterTanggal);
+        }
+
+        // Apply status filter
+        if (!empty($filterStatus)) {
+            $query->where('status', $filterStatus);
+        }
+
+        // Get the filtered results
+        $pengembalianHistory = $query->orderBy('created_at', 'desc')->get();
+
+        // Pass request parameters back to view for maintaining filter state
+        $filters = [
+            'search' => $search,
+            'tanggal' => $filterTanggal,
+            'status' => $filterStatus
+        ];
+
+        return view('user.hu.index', compact('pengembalianHistory', 'filters'));
     }
 
     /**
-     * Display the specified resource.
+     * Reset all filters
      */
-    public function show(string $id)
+    public function resetFilter()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('hu.index');
     }
 }

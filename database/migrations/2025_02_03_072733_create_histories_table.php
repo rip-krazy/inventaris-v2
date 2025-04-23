@@ -17,6 +17,14 @@ return new class extends Migration
             $table->string('action');
             $table->unsignedBigInteger('admin_id');
             $table->text('notes')->nullable();
+            $table->string('name');
+            $table->string('mapel')->nullable();
+            $table->string('barang_tempat')->nullable();
+            $table->string('ruang_tempat')->nullable();
+            $table->date('tanggal_pengembalian');
+            $table->string('status')->default('Approved');
+            $table->text('alasan')->nullable();
+            $table->string('type')->default('pengembalian');
             $table->timestamps();
         });
     }
