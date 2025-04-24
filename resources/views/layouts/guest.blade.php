@@ -19,8 +19,9 @@
 
         <!-- Custom Styles -->
         <style>
-            .blue-gradient {
-                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            /* Background putih */
+            .white-bg {
+                background-color: #ffffff;
             }
             
             .glass-effect {
@@ -46,14 +47,21 @@
                 filter: grayscale(0%);
                 transform: translateY(-5px);
             }
+            
+            /* Box shadow untuk section program keahlian */
+            .program-section {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
         </style>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen blue-gradient relative overflow-hidden">
-            <!-- Decorative Circles -->
+        <!-- Background putih -->
+        <div class="min-h-screen white-bg relative overflow-hidden">
+            <!-- Lingkaran dekoratif dengan warna bebas yang menarik -->
             <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div class="absolute w-96 h-96 rounded-full bg-blue-400 opacity-10 -top-20 -left-20"></div>
-                <div class="absolute w-96 h-96 rounded-full bg-blue-600 opacity-10 top-1/2 -right-20"></div>
+                <div class="absolute w-96 h-96 rounded-full bg-indigo-500 opacity-10 -top-20 -left-20"></div>
+                <div class="absolute w-96 h-96 rounded-full bg-amber-400 opacity-10 top-1/2 -right-20"></div>
+                <div class="absolute w-64 h-64 rounded-full bg-teal-400 opacity-10 bottom-20 left-1/4"></div>
             </div>
 
             <div class="min-h-screen relative z-10 flex items-center justify-center p-6">
@@ -63,53 +71,53 @@
                         <div class="w-full lg:w-1/2 text-center lg:text-left space-y-8 animate__animated animate__fadeInLeft">
                             <div class="space-y-6">
                                 <img src="/assets/img/smk logo.jpg" 
-                                     class="w-40 h-40 mx-auto lg:mx-0 object-cover rounded-2xl shadow-lg hover-scale" 
+                                     class="w-40 h-40 mx-auto lg:mx-0 object-cover rounded-full shadow-lg hover-scale" 
                                      alt="School Logo">
                                 
                                 <div class="space-y-3">
-                                    <h1 class="text-4xl lg:text-5xl font-bold text-white">
+                                    <h1 class="text-4xl lg:text-5xl font-bold text-gray-800">
                                         SMK Amaliah Ciawi
                                     </h1>
-                                    <p class="text-xl text-gray-200">
+                                    <p class="text-xl text-gray-600">
                                         Membentuk Generasi Unggul, Kreatif & Inovatif
                                     </p>
                                 </div>
 
-                                <!-- Programs Section -->
-                                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 space-y-4">
-                                    <h3 class="text-xl font-semibold text-white">Program Keahlian</h3>
+                                <!-- Programs Section - diubah warnanya agar sesuai dengan background putih -->
+                                <div class="bg-gray-50 rounded-2xl p-6 space-y-4 program-section">
+                                    <h3 class="text-xl font-semibold text-gray-800">Program Keahlian</h3>
                                     <div class="grid grid-cols-4 gap-6">
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/pplg.png" alt="PPLG" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">PPLG</span>
+                                            <span class="text-xs text-gray-700">PPLG</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/tjkt.png" alt="TJKT" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">TJKT</span>
+                                            <span class="text-xs text-gray-700">TJKT</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/an.png" alt="AN" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">AN</span>
+                                            <span class="text-xs text-gray-700">AN</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/perkantoran.png" alt="MP" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">MP</span>
+                                            <span class="text-xs text-gray-700">MP</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/akl.jpg" alt="AKL" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">AKL</span>
+                                            <span class="text-xs text-gray-700">AKL</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/br.png" alt="BR" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">BR</span>
+                                            <span class="text-xs text-gray-700">BR</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/lps.png" alt="LPS" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">LPS</span>
+                                            <span class="text-xs text-gray-700">LPS</span>
                                         </div>
                                         <div class="program-container text-center space-y-2">
                                             <img src="/assets/img/dpb.png" alt="DPB" class="program-icon h-16 w-16 mx-auto">
-                                            <span class="text-xs text-white">DPB</span>
+                                            <span class="text-xs text-gray-700">DPB</span>
                                         </div>
                                     </div>
                                 </div>

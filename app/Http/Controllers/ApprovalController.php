@@ -73,41 +73,72 @@ class ApprovalController extends Controller
     }
 
   // Reject request in ApprovalController
-public function reject(Request $request, $index)
-{
-    $pendingApprovals = Session::get('pending_approvals', []);
-    $alasan = $request->input('alasan', 'Tidak ada alasan');
-
-    if (isset($pendingApprovals[$index])) {
-        $rejectedItem = $pendingApprovals[$index];
-        
-        // Convert IDs to names before storing in history
-        if (!empty($rejectedItem['barangTempat']) && is_numeric($rejectedItem['barangTempat'])) {
-            $barang = Barang::find($rejectedItem['barangTempat']);
-            $rejectedItem['barangTempat'] = $barang ? $barang->nama_barang : "Barang Tidak Ditemukan";
-        }
-        
-        if (!empty($rejectedItem['ruangTempat']) && is_numeric($rejectedItem['ruangTempat'])) {
-            $ruang = Ruang::find($rejectedItem['ruangTempat']);
-            $rejectedItem['ruangTempat'] = $ruang ? $ruang->name : "Ruang Tidak Ditemukan";
-        }
-        
-        $rejectedItem['status'] = 'Rejected';
-        $rejectedItem['alasan'] = $alasan;
-        $rejectedItem['tanggal_pengembalian'] = now()->toDateString();
-
-        // Simpan ke pengembalian_history untuk user dan admin view
-        $pengembalianHistory = Session::get('pengembalian_history', []);
-        $pengembalianHistory[] = $rejectedItem;
-        
-        // Hapus item dari pending approvals
-        unset($pendingApprovals[$index]);
-
-        // Update session
-        Session::put('pending_approvals', $pendingApprovals);
-        Session::put('pengembalian_history', $pengembalianHistory);
-    }
-
-    return redirect()->route('approvals.index')->with('status', 'failed')->with('message', 'Permintaan telah ditolak!');
-}
+  public function reject(Request $request, $index)
+  {
+      $pendingApprovals = Session::get('pending_approvals', []);
+      $alasan = $request->input('alasan', 'Tidak ada alasan');
+  
+      if (isset($pendingApprovals[$index])) {
+          $rejectedItem = $pendingApprovals[$index];
+          
+          // Get the item ID (either barangTempat or ruangTempat)
+          $itemId = null;
+          if (!empty($rejectedItem['barangTempat']) && is_numeric($rejectedItem['barangTempat'])) {
+              $itemId = $rejectedItem['barangTempat'];
+              $barang = Barang::find($rejectedItem['barangTempat']);
+              $barangTempat = $barang ? $barang->nama_barang : "Barang Tidak Ditemukan";
+              $ruangTempat = null;
+          } elseif (!empty($rejectedItem['ruangTempat']) && is_numeric($rejectedItem['ruangTempat'])) {
+              $itemId = $rejectedItem['ruangTempat'];
+              $ruang = Ruang::find($rejectedItem['ruangTempat']);
+              $ruangTempat = $ruang ? $ruang->name : "Ruang Tidak Ditemukan";
+              $barangTempat = null;
+          } else {
+              // Handle case when both are not numeric or not available
+              $barangTempat = $rejectedItem['barangTempat'] ?? null;
+              $ruangTempat = $rejectedItem['ruangTempat'] ?? null;
+              $itemId = 0; // Default value when no proper ID is available
+          }
+          
+          // Create new history record in database
+          $history = new \App\Models\History();
+          $history->name = $rejectedItem['name'];
+          $history->mapel = $rejectedItem['mapel'] ?? null;
+          $history->barang_tempat = $barangTempat;
+          $history->ruang_tempat = $ruangTempat;
+          $history->tanggal_pengembalian = now()->toDateString();
+          $history->status = 'Rejected';
+          $history->alasan = $alasan;
+          $history->type = 'pengembalian';
+          
+          // Add required fields from migration
+          $history->item_id = $itemId;
+          $history->action = 'reject';
+          $history->admin_id = auth()->id() ?? 1; // Use authenticated admin ID or default to 1
+          $history->notes = 'Rejected: ' . $alasan;
+          
+          try {
+              $history->save();
+              \Log::info('Rejection saved to history database', [
+                  'name' => $rejectedItem['name'],
+                  'status' => 'Rejected'
+              ]);
+          } catch (\Exception $e) {
+              \Log::error('Failed to save rejection to history: ' . $e->getMessage());
+              return redirect()->route('approvals.index')
+                  ->with('status', 'error')
+                  ->with('message', 'Error saving rejection: ' . $e->getMessage());
+          }
+          
+          // Remove from pending approvals
+          unset($pendingApprovals[$index]);
+          
+          // Update session
+          Session::put('pending_approvals', $pendingApprovals);
+      }
+  
+      return redirect()->route('approvals.index')
+          ->with('status', 'failed')
+          ->with('message', 'Permintaan telah ditolak dan disimpan ke history!');
+  }
 }
