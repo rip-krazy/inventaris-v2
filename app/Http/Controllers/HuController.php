@@ -27,6 +27,35 @@ class HuController extends Controller
         return view('user.hu.index', compact('pengembalianHistory'));
     }
 
+    public function deleteHistory(Request $request)
+{
+    $timeRange = $request->input('time_range');
+    $query = History::where('type', 'pengembalian');
+    
+    switch($timeRange) {
+        case '24jam':
+            $query->where('tanggal_pengembalian', '>=', now()->subHours(24));
+            break;
+        case '7hari':
+            $query->where('tanggal_pengembalian', '>=', now()->subDays(7));
+            break;
+        case '30hari':
+            $query->where('tanggal_pengembalian', '>=', now()->subDays(30));
+            break;
+        case 'semua':
+            // No additional where clause needed - will delete all pengembalian history
+            break;
+        default:
+            return redirect()->back()->with('error', 'Jangka waktu tidak valid.');
+    }
+    
+    $deletedCount = $query->count();
+    $query->delete();
+    
+    return redirect()->back()->with('status', 'success')
+        ->with('message', "Berhasil menghapus $deletedCount riwayat pengembalian.");
+}
+
     /**
      * Get detailed information about a specific history entry
      */

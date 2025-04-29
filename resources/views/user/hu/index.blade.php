@@ -75,10 +75,33 @@
 
     <!-- Main Content -->
     <div class="bg-white rounded-xl shadow-md overflow-hidden">
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-green-500 to-green-600 px-8 py-6">
-            <h2 class="text-2xl font-bold text-white">Riwayat Pengembalian</h2>
-            <p class="text-green-100 mt-1">Daftar lengkap history pengembalian barang dan tempat</p>
+        <!-- Header with Delete History Button -->
+        <div class="bg-gradient-to-r from-green-500 to-green-600 px-8 py-6 flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-bold text-white">Riwayat Pengembalian</h2>
+                <p class="text-green-100 mt-1">Daftar lengkap history pengembalian barang dan tempat</p>
+            </div>
+            
+           <!-- Dropdown Button dan Menu Hapus Riwayat -->
+            <div class="relative inline-block text-left ">
+                <!-- Dropdown Button -->
+                <button id="deleteHistoryDropdownButton" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleDeleteDropdown()">
+                    Hapus Riwayat
+                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                 <!-- Dropdown Menu (Hidden by default) dengan z-index tinggi -->
+                <div id="deleteHistoryDropdown" class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-30">
+                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="deleteHistoryDropdownButton">
+                        <button onclick="openDeleteModal('24jam')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hapus riwayat 24 jam terakhir</button>
+                        <button onclick="openDeleteModal('7hari')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hapus riwayat 7 hari terakhir</button>
+                        <button onclick="openDeleteModal('30hari')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hapus riwayat 30 hari terakhir</button>
+                        <button onclick="openDeleteModal('semua')" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem">Hapus semua riwayat</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Search and Filter -->
@@ -272,36 +295,154 @@
     </div>
 </div>
 
-<!-- Add link to Animate.css CDN in your layout if needed -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> -->
+<!-- Modal for Delete History Confirmation -->
+<div id="deleteHistoryModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75" onclick="closeDeleteModal()"></div>
+        </div>
 
-<script>
-    // Function to open the modal with the rejection reason
-    function openAlasanModal(id, alasan) {
-        // Set the rejection reason in the modal
-        document.getElementById('modal-content').innerText = alasan;
-        
-        // Show the modal
-        document.getElementById('alasanModal').classList.remove('hidden');
-        
-        // Add overflow hidden to body to prevent scrolling while modal is open
-        document.body.style.overflow = 'hidden';
-    }
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="delete-modal-title">
+                            Konfirmasi Hapus Riwayat
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500" id="delete-modal-content">
+                                <!-- Content will be inserted here by JavaScript -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <form id="deleteHistoryForm" action="{{ route('hu.deleteHistory') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="time_range" id="deleteTimeRange" value="">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Hapus
+                    </button>
+                </form>
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeDeleteModal()">
+                        Batal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    // Function to close the modal
-    function closeAlasanModal() {
-        // Hide the modal
-        document.getElementById('alasanModal').classList.add('hidden');
-        
-        // Remove overflow hidden from body
-        document.body.style.overflow = 'auto';
-    }
+    <script>
+        // Function to open the Alasan modal
+        function openAlasanModal(id, alasan) {
+            document.getElementById('modal-content').innerText = alasan;
+            document.getElementById('alasanModal').classList.remove('hidden');
+        }
     
-    // Close modal when clicking ESC key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeAlasanModal();
+        // Function to close the Alasan modal
+        function closeAlasanModal() {
+            document.getElementById('alasanModal').classList.add('hidden');
+        }
+    
+        // Toggle dropdown function
+    function toggleDeleteDropdown() {
+        const dropdown = document.getElementById('deleteHistoryDropdown');
+        dropdown.classList.toggle('hidden');
+    }
+
+    // Close the dropdown when clicking outside
+    window.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('deleteHistoryDropdown');
+        const dropdownButton = document.getElementById('deleteHistoryDropdownButton');
+        
+        if (!dropdown.contains(event.target) && !dropdownButton.contains(event.target)) {
+            dropdown.classList.add('hidden');
         }
     });
-</script>
-@endsection
+
+    // Function untuk open Delete History modal tetap sama
+    function openDeleteModal(timeRange) {
+        const modalTitle = document.getElementById('delete-modal-title');
+        const modalContent = document.getElementById('delete-modal-content');
+        const deleteTimeRange = document.getElementById('deleteTimeRange');
+        
+        deleteTimeRange.value = timeRange;
+        
+        let title = 'Konfirmasi Hapus Riwayat';
+        let content = '';
+        
+        switch(timeRange) {
+            case '24jam':
+                content = 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 24 jam terakhir? Tindakan ini tidak dapat dibatalkan.';
+                break;
+            case '7hari':
+                content = 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 7 hari terakhir? Tindakan ini tidak dapat dibatalkan.';
+                break;
+            case '30hari':
+                content = 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 30 hari terakhir? Tindakan ini tidak dapat dibatalkan.';
+                break;
+            case 'semua':
+                title = 'Hapus Semua Riwayat?';
+                content = 'Apakah Anda yakin ingin menghapus SEMUA riwayat pengembalian? Tindakan ini tidak dapat dibatalkan dan akan menghapus seluruh data pengembalian.';
+                break;
+        }
+        
+        modalTitle.innerText = title;
+        modalContent.innerText = content;
+        document.getElementById('deleteHistoryModal').classList.remove('hidden');
+        
+        // Tutup dropdown setelah opsi dipilih
+        document.getElementById('deleteHistoryDropdown').classList.add('hidden');
+    }
+    
+    // Function untuk close modal tetap sama
+    function closeDeleteModal() {
+        document.getElementById('deleteHistoryModal').classList.add('hidden');
+    }
+
+    // Function untuk Alasan modal tetap sama
+    function openAlasanModal(id, alasan) {
+        document.getElementById('modal-content').innerText = alasan;
+        document.getElementById('alasanModal').classList.remove('hidden');
+    }
+    
+    function closeAlasanModal() {
+        document.getElementById('alasanModal').classList.add('hidden');
+    }
+    
+        // Add event listeners when document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Escape key handler for modals
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeAlasanModal();
+                    closeDeleteModal();
+                }
+            });
+    
+            // Initialize Alpine.js if needed
+            if (typeof Alpine !== 'undefined') {
+                Alpine.start();
+            }
+    
+            // Add animation effect when filtering
+            const filterForm = document.querySelector('form[action="{{ route("hu.filter") }}"]');
+            if (filterForm) {
+                filterForm.addEventListener('submit', function() {
+                    const tableRows = document.querySelectorAll('#tableBody tr');
+                    tableRows.forEach(row => {
+                        row.classList.add('animate__fadeOut');
+                    });
+                });
+            }
+        });
+    </script>
+    @endsection

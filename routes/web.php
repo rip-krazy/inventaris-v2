@@ -103,6 +103,8 @@ Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pen
 
 // Rute untuk menyetujui permintaan pengembalian
 Route::post('/pengembalian/approve/{index}', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
+// Add this to your routes/web.php file
+Route::post('/hu/delete-history', [HuController::class, 'deleteHistory'])->name('hu.deleteHistory');
 
 
 Route::resource('du', DuController::class);
