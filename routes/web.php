@@ -22,6 +22,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HuController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\AdminUserController;
 
 
 /*
@@ -54,6 +55,11 @@ Route::get('contact', function () {
 Route::get('Service', function () {
     return view('Service');
 });
+
+Route::get('features', function () {
+    return view('features');
+});
+
 
 
 use App\Models\Pengguna;
@@ -128,6 +134,12 @@ Route::resource('pu', PuController::class);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', AdminUserController::class);
+});
+
+Route::get('/admin/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
