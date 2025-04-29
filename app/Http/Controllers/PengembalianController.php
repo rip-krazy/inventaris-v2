@@ -97,7 +97,6 @@ class PengembalianController extends Controller
             ->with('message', 'Permintaan pengembalian telah disetujui dan disimpan ke database!');
     }
     
-    
     public function history(Request $request)
     {
         // Query dasar untuk mendapatkan data history dari database
