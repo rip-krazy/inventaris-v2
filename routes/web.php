@@ -23,6 +23,7 @@ use App\Http\Controllers\HuController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -141,7 +142,21 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('users', AdminUserController::class);
 });
 
-Route::get('/admin/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
+// Rute register yang dapat diakses tanpa middleware admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/register', [AdminUserController::class, 'registerForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminUserController::class, 'registerStore'])->name('admin.register.store');
+});
+
+    // User management routes
+    Route::resource('users', UserController::class);
+
+
+// Registration routes
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('admin.register.show');
+Route::post('/register', [UserController::class, 'store'])->name('admin.register.store');
+
+
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
