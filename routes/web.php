@@ -24,6 +24,7 @@ use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\RuController;
+use App\Http\Controllers\AdminUserController;
 
 // Models
 use App\Models\Pengguna;
@@ -204,3 +205,17 @@ Route::resource('pu', PuController::class);
 // Dr Routes
 Route::resource('dr', DrController::class);
 Route::get('/dr/{id}', [DrController::class, 'show'])->name('dr.show');
+
+// Rute register yang dapat diakses tanpa middleware admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/register', [AdminUserController::class, 'registerForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminUserController::class, 'registerStore'])->name('admin.register.store');
+});
+
+    // User management routes
+    Route::resource('users', UserController::class);
+
+
+// Registration routes
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('admin.register.show');
+Route::post('/register', [UserController::class, 'store'])->name('admin.register.store');

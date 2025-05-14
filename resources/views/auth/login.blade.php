@@ -77,17 +77,6 @@
                     Sign in
                 </button>
             </div>
-
-            <!-- Register Link -->
-            <div class="text-center">
-                <p class="text-sm text-black">
-                    Don't have an account?
-                    <a href="{{ route('register') }}" 
-                        class="font-medium text-green-600 hover:text-green-800 transition-colors duration-200">
-                        Register here
-                    </a>
-                </p>
-            </div>
         </form>
     </div>
 </x-guest-layout>

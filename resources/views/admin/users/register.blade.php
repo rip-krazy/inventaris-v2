@@ -1,12 +1,11 @@
-
 @extends('layouts.admin')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-<div class="w-100 mx-16 bg-white rounded-xl shadow-2xl p-10  animate__animated animate__fadeIn">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="w-100 mx-16 bg-white rounded-xl shadow-2xl p-10 animate__animated animate__fadeIn">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
             <!-- Left side decorative column -->
-            <div class="md:w-2/5 bg-gradient-to-br from-blue-600 to-indigo-700 p-8 flex flex-col justify-center relative overflow-hidden">
+            <div class="md:w-2/5 bg-gradient-to-br from-green-600 to-green-700 p-8 flex flex-col justify-center relative overflow-hidden">
                 <!-- Background pattern -->
                 <div class="absolute inset-0 opacity-10">
                     <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
@@ -22,7 +21,7 @@
                     </svg>
                     </div>
                     <h2 class="text-3xl font-bold text-white mb-3">Buat Akun Baru</h2>
-                    <p class="text-blue-100 mb-8 max-w-md">Bergabunglah dengan sistem kami untuk mengelola pembelajaran dengan lebih efektif dan efisien.</p>
+                    <p class="text-green-100 mb-8 max-w-md">Bergabunglah dengan sistem kami untuk mengelola pembelajaran dengan lebih efektif dan efisien.</p>
                     
                     <div class="space-y-4">
                         <div class="flex items-start">
@@ -33,7 +32,7 @@
                             </div>
                             <div class="ml-3">
                                 <p class="text-sm font-medium text-white">Proses pendaftaran cepat</p>
-                                <p class="text-xs text-blue-100">Hanya membutuhkan beberapa menit</p>
+                                <p class="text-xs text-green-100">Hanya membutuhkan beberapa menit</p>
                             </div>
                         </div>
                         
@@ -45,7 +44,7 @@
                             </div>
                             <div class="ml-3">
                                 <p class="text-sm font-medium text-white">Keamanan terjamin</p>
-                                <p class="text-xs text-blue-100">Data Anda dilindungi dengan enkripsi</p>
+                                <p class="text-xs text-green-100">Data Anda dilindungi dengan enkripsi</p>
                             </div>
                         </div>
                     </div>
@@ -79,7 +78,7 @@
                                 <i class="fas fa-user text-gray-400"></i>
                             </div>
                             <input id="name" type="text" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('name') border-red-500 @enderror" 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('name') border-red-500 @enderror" 
                                 name="name" value="{{ old('name') }}" 
                                 required autocomplete="name" autofocus 
                                 placeholder="Nama Lengkap">
@@ -102,7 +101,7 @@
                                 <i class="fas fa-envelope text-gray-400"></i>
                             </div>
                             <input id="email" type="email" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('email') border-red-500 @enderror" 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('email') border-red-500 @enderror" 
                                 name="email" value="{{ old('email') }}" 
                                 required autocomplete="email" 
                                 placeholder="email@example.com">
@@ -125,7 +124,7 @@
                                 <i class="fas fa-users-cog text-gray-400"></i>
                             </div>
                             <select id="usertype" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('usertype') border-red-500 @enderror" 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('usertype') border-red-500 @enderror" 
                                 name="usertype" required>
                                 <option value="" disabled selected>Pilih tipe pengguna</option>
                                 <option value="admin" {{ old('usertype') == 'admin' ? 'selected' : '' }}>Admin</option>
@@ -151,7 +150,7 @@
                                 <i class="fas fa-book text-gray-400"></i>
                             </div>
                             <input id="mapel" type="text" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('mapel') border-red-500 @enderror" 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('mapel') border-red-500 @enderror" 
                                 name="mapel" value="{{ old('mapel') }}"  
                                 placeholder="Matematika, Bahasa Indonesia, dll">
                             @error('mapel')
@@ -173,7 +172,7 @@
                                 <i class="fas fa-school text-gray-400"></i>
                             </div>
                             <input id="kelas" type="text" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('kelas') border-red-500 @enderror" 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('kelas') border-red-500 @enderror" 
                                 name="kelas" value="{{ old('kelas') }}"  
                                 placeholder="10A, 11B, 12C, dll">
                             @error('kelas')
@@ -195,7 +194,7 @@
                                 <i class="fas fa-lock text-gray-400"></i>
                             </div>
                             <input id="password" type="password" 
-                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('password') border-red-500 @enderror" 
+                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('password') border-red-500 @enderror" 
                                 name="password" 
                                 required autocomplete="new-password" 
                                 placeholder="Minimal 8 karakter">
@@ -228,7 +227,7 @@
                                 <i class="fas fa-check-circle text-gray-400"></i>
                             </div>
                             <input id="password-confirm" type="password" 
-                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200" 
                                 name="password_confirmation" 
                                 required autocomplete="new-password" 
                                 placeholder="Ketik ulang password">
@@ -240,16 +239,12 @@
 
                     <!-- Submit Button -->
                     <div class="pt-2">
-                        <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
+                        <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-200">
                             <i class="fas fa-user-plus mr-2"></i> Buat Akun Baru
                         </button>
                     </div>
                 </form>
             </div>
-        </div>
-        
-        <div class="text-center text-sm text-gray-500">
-            Sudah punya akun? <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Masuk di sini</a>
         </div>
     </div>
 </div>
