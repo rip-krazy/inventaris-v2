@@ -44,6 +44,9 @@ class PeminjamanController extends Controller
             'status' => 'Pending',
             'jenis' => $request->jenis,
         ];
+        
+        $newEntry['catatan'] = $request->catatan;
+
     
         if ($request->jenis === 'barang') {
             $request->validate(['barangtempat' => 'required|exists:barangs,id']);
