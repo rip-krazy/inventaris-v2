@@ -19,11 +19,16 @@ use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\ProfilController;
+<<<<<<< HEAD
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuController;
 use App\Http\Controllers\RaController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\RuController;
+=======
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\UserController;
+>>>>>>> 8a875b9aea837fbff628caa4e5ffa0009a812f77
 
 // Models
 use App\Models\Pengguna;
@@ -64,11 +69,21 @@ Route::get('Service', function () {
     return view('Service');
 });
 
+<<<<<<< HEAD
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
 */
+=======
+Route::get('features', function () {
+    return view('features');
+});
+
+
+
+use App\Models\Pengguna;
+>>>>>>> 8a875b9aea837fbff628caa4e5ffa0009a812f77
 Route::get('/jumlah-pengguna', function () {
     return response()->json(['jumlah' => Pengguna::count()]);
 });
@@ -170,11 +185,57 @@ Route::get('/pengembalian/reset-filter', [PengembalianController::class, 'resetF
 Route::get('/pengembalian/export-csv', [PengembalianController::class, 'exportCsv'])->name('pengembalian.export-csv');
 Route::get('/pengembalian/details/{id}', [PengembalianController::class, 'getDetails'])->name('pengembalian.get-details');
 
+<<<<<<< HEAD
 /*
 |--------------------------------------------------------------------------
 | History Routes
 |--------------------------------------------------------------------------
 */
+=======
+Route::resource('ra', RaController::class);
+
+Route::resource('pu', PuController::class);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', AdminUserController::class);
+});
+
+// Rute register yang dapat diakses tanpa middleware admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/register', [AdminUserController::class, 'registerForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminUserController::class, 'registerStore'])->name('admin.register.store');
+});
+
+    // User management routes
+    Route::resource('users', UserController::class);
+
+
+// Registration routes
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('admin.register.show');
+Route::post('/register', [UserController::class, 'store'])->name('admin.register.store');
+
+
+
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::patch('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::delete('/profil', [ProfilController::class, 'destroy'])->name('profil.destroy');
+});
+
+
+>>>>>>> 8a875b9aea837fbff628caa4e5ffa0009a812f77
 Route::get('/history', [PengembalianController::class, 'history'])->name('pengembalian.history');
 Route::get('/pengembalian/history', [PengembalianController::class, 'history'])->name('pengembalian.history');
 Route::get('/history/filter', [HistoryController::class, 'index'])->name('history.filter');

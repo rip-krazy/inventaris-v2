@@ -19,7 +19,7 @@
             <div class="p-6">
                 <ul id="pendingList" class="space-y-4">
                     @foreach ($pendingApprovals as $index => $entry)
-                        <li id="approval-{{ $index }}" class="approval-item bg-gray-50 border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all duration-200">
+                        <li id="approval-{{ $index }}" class="bg-gray-50 border border-gray-200 rounded-lg hover:shadow-md transition-all duration-200">
                             <div class="p-4">
                                 <div class="flex flex-col lg:flex-row justify-between gap-4">
                                     <!-- Request Details -->
@@ -36,7 +36,7 @@
                                             <span class="text-sm text-gray-500">Barang/Tempat:</span>
                                             <p class="text-gray-800 font-medium">
                                                 @if (!empty($entry['barangTempat']))
-                                                   {{ $entry['barangTempat'] }}
+                                                    {{ $entry['barangTempat'] }}
                                                 @elseif (!empty($entry['ruangTempat']))
                                                     {{ $entry['ruangTempat'] }}
                                                 @else
@@ -51,31 +51,37 @@
                                     </div>
 
                                     <!-- Action Buttons -->
-                                    <div class="flex space-x-3 mt-4 lg:mt-0">
+                                    <div class="flex flex-col space-y-2 mt-4 lg:mt-0">
+                                        <!-- Button Catatan -->
+                                        @if (!empty($entry['catatan']))
+                                            <button onclick="openNoteModal(`{{ addslashes($entry['catatan']) }}`)"
+                                                class="inline-flex items-center px-4 py-2 bg-yellow-500 text-sm font-medium text-white rounded-lg hover:bg-yellow-600 transition">
+                                                <i class="fas fa-sticky-note mr-1"></i>Lihat Catatan
+                                            </button>
+                                        @endif
+
+                                        <!-- Approve Button -->
                                         <form action="{{ route('approvals.approve', $index) }}" method="POST" class="approve-form">
                                             @csrf
                                             <button type="submit" 
                                                 class="approve-btn inline-flex items-center px-4 py-2 bg-green-600 text-sm font-medium text-white 
-                                                       rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 
-                                                       focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
+                                                       rounded-lg hover:bg-green-700 transition"
                                                 data-id="{{ $index }}">
                                                 Approve
                                             </button>
                                         </form>
-                                        <form action="{{ route('approvals.reject', $index) }}" method="POST" class="reject-form">
-                                            @csrf
-                                            <button type="submit" 
-                                                class="reject-btn inline-flex items-center px-4 py-2 bg-red-600 text-sm font-medium text-white 
-                                                       rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 
-                                                       focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
-                                                data-id="{{ $index }}">
-                                                Reject
-                                            </button>
-                                        </form>
+
+                                        <!-- Reject Button -->
+                                        <button type="button" data-id="{{ $index }}" 
+                                            class="reject-btn inline-flex items-center px-4 py-2 bg-red-600 text-sm font-medium text-white 
+                                                   rounded-lg hover:bg-red-700 transition">
+                                            Reject
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </li>
+<<<<<<< HEAD
                         <!-- Modal Rejection -->
                         <div id="rejectModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                             <div class="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -109,6 +115,8 @@
                                 document.getElementById("rejectModal").classList.add("hidden");
                             }
                         </script>
+=======
+>>>>>>> 8a875b9aea837fbff628caa4e5ffa0009a812f77
                     @endforeach
                 </ul>
 
@@ -116,38 +124,79 @@
                 @if(count($pendingApprovals) === 0)
                     <div class="text-center py-12">
                         <i class="fas fa-inbox text-gray-400 text-4xl mb-3"></i>
-                        <p class="text-gray-500 text-lg">No pending approvals</p>
+                        <p class="text-gray-500 text-lg">Tidak ada permintaan persetujuan</p>
                     </div>
                 @endif
             </div>
         </div>
     </div>
 
-    <!-- JavaScript for Auto Hide Effect -->
+    <!-- Modal Catatan -->
+    <div id="noteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-md w-96">
+            <h2 class="text-lg font-bold mb-3">Catatan</h2>
+            <p id="noteText" class="text-gray-700 whitespace-pre-line"></p>
+            <div class="text-right mt-4">
+                <button onclick="closeNoteModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Rejection -->
+    <div id="rejectModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-md w-96">
+            <h2 class="text-lg font-bold mb-3">Masukkan Alasan Penolakan</h2>
+            <form id="rejectForm" method="POST">
+                @csrf
+                <input type="hidden" name="reject_index" id="reject_index">
+                <textarea name="alasan" id="reject_reason" rows="3" class="w-full p-2 border rounded" required></textarea>
+                <div class="flex justify-end mt-4">
+                    <button type="button" onclick="closeRejectModal()" class="bg-gray-300 px-4 py-2 rounded mr-2 hover:bg-gray-400">Batal</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Tolak</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".approve-btn, .reject-btn").forEach(button => {
-                button.addEventListener("click", function (event) {
-                    event.preventDefault(); // Prevent default form submission
+        function openNoteModal(note) {
+            document.getElementById('noteText').innerText = note;
+            document.getElementById('noteModal').classList.remove('hidden');
+        }
 
-                    let listItem = document.getElementById("approval-" + this.getAttribute("data-id"));
-                    if (listItem) {
-                        listItem.classList.add("animate__animated", "animate__fadeOut"); // Apply fade-out animation
-                        
-                        setTimeout(() => {
-                            listItem.remove(); // Remove the element after animation completes
-                        }, 1000; // 1 seconds delay
+        function closeNoteModal() {
+            document.getElementById('noteModal').classList.add('hidden');
+        }
+
+        function closeRejectModal() {
+            document.getElementById('rejectModal').classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle reject button
+            document.querySelectorAll('.reject-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.getAttribute('data-id');
+                    document.getElementById('reject_index').value = index;
+                    document.getElementById('rejectForm').action = "{{ route('approvals.reject', '') }}/" + index;
+                    document.getElementById('rejectModal').classList.remove('hidden');
+                });
+            });
+
+            // Optional: Add fade-out animation before approve/reject
+            document.querySelectorAll('.approve-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const item = document.getElementById(`approval-${id}`);
+                    if (item) {
+                        item.classList.add('animate__fadeOut');
+                        setTimeout(() => item.remove(), 800);
                     }
-
-                    // Submit the form after 10 second to update Laravel session
-                    setTimeout(() => {
-                        this.closest("form").submit();
-                    }, 10000);
                 });
             });
         });
     </script>
-
 </body>
 
 @endsection

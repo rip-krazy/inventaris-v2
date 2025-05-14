@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,8 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
-        'mapel',  // Add 'mapel' to the fillable array
+        'usertype',
+        'mapel',
+        'kelas',
     ];
 
     /**
@@ -42,7 +43,36 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        // If you want to cast 'mapel' to a specific type, for example, string, you can add it here.
-        // 'mapel' => 'string', // Add this line if needed
+        'password' => 'hashed',
     ];
+    
+    /**
+     * Check if user is admin
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->usertype === 'admin';
+    }
+    
+    /**
+     * Check if user is teacher
+     *
+     * @return bool
+     */
+    public function isGuru()
+    {
+        return $this->usertype === 'guru';
+    }
+    
+    /**
+     * Check if user is student
+     *
+     * @return bool
+     */
+    public function isSiswa()
+    {
+        return $this->usertype === 'siswa';
+    }
 }
