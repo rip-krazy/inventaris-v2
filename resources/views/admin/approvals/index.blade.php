@@ -81,42 +81,6 @@
                                 </div>
                             </div>
                         </li>
-<<<<<<< HEAD
-                        <!-- Modal Rejection -->
-                        <div id="rejectModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-                            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                                <h2 class="text-lg font-bold mb-4">Masukkan Alasan Penolakan</h2>
-                                <form id="rejectForm" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="reject_index" id="reject_index">
-                                    <textarea name="alasan" id="reject_reason" rows="3" class="w-full p-2 border rounded-md" required></textarea>
-                                    <div class="flex justify-end mt-4">
-                                        <button type="button" class="bg-gray-300 px-4 py-2 rounded-lg mr-2" onclick="closeModal()">Batal</button>
-                                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg">Tolak</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function () {
-                                document.querySelectorAll(".reject-btn").forEach(button => {
-                                    button.addEventListener("click", function (event) {
-                                        event.preventDefault();
-                                        let index = this.getAttribute("data-id");
-                                        document.getElementById("reject_index").value = index;
-                                        document.getElementById("rejectModal").classList.remove("hidden");
-                                        document.getElementById("rejectForm").action = "{{ route('approvals.reject', '') }}/" + index;
-                                    });
-                                });
-                            });
-
-                            function closeModal() {
-                                document.getElementById("rejectModal").classList.add("hidden");
-                            }
-                        </script>
-=======
->>>>>>> 8a875b9aea837fbff628caa4e5ffa0009a812f77
                     @endforeach
                 </ul>
 
