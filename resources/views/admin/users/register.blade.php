@@ -17,9 +17,9 @@
                 <!-- Content -->
                 <div class="relative z-10 text-center md:text-left">
                     <div class="flex justify-center md:justify-start">
-                        <div class="w-16 h-16 rounded-2xl bg-white bg-opacity-20 flex items-center justify-center mb-6">
-                            <i class="fas fa-user-plus text-2xl text-white"></i>
-                        </div>
+                    <svg class="w-16 h-16 mb-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                    </svg>
                     </div>
                     <h2 class="text-3xl font-bold text-white mb-3">Buat Akun Baru</h2>
                     <p class="text-blue-100 mb-8 max-w-md">Bergabunglah dengan sistem kami untuk mengelola pembelajaran dengan lebih efektif dan efisien.</p>
