@@ -73,7 +73,13 @@
                                         <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu</p>
                                         <p class="text-gray-800 font-medium flex items-center">
                                             <i class="far fa-clock text-amber-500 mr-2 mt-1"></i>
-                                            {{ $entry['jam'] }}
+                                            @if (!empty($entry['jamMulai']) && !empty($entry['jamSelesai']))
+                                                {{ $entry['jamMulai'] }} - {{ $entry['jamSelesai'] }}
+                                            @elseif (!empty($entry['jam']))
+                                                {{ $entry['jam'] }}
+                                            @else
+                                                -
+                                            @endif
                                         </p>
                                     </div>
                                 </div>
@@ -88,7 +94,7 @@
                                     @endif
 
                                     <div class="flex space-x-2">
-                                        <form action="{{ route('approvals.approve', $index) }}" method="POST" class="flex-1">
+                                        <form action="{{ route('approvals.approve', $index) }}" method="POST" class="flex-1 approve-form">
                                             @csrf
                                             <button type="submit" 
                                                 class="approve-btn w-full flex items-center justify-center px-3 py-2 bg-green-600 text-sm font-medium text-white 
