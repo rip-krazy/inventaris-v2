@@ -23,7 +23,6 @@ class User extends Authenticatable
         'password',
         'usertype',
         'mapel',
-        'kelas',
     ];
 
     /**
@@ -54,25 +53,5 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->usertype === 'admin';
-    }
-    
-    /**
-     * Check if user is teacher
-     *
-     * @return bool
-     */
-    public function isGuru()
-    {
-        return $this->usertype === 'guru';
-    }
-    
-    /**
-     * Check if user is student
-     *
-     * @return bool
-     */
-    public function isSiswa()
-    {
-        return $this->usertype === 'siswa';
     }
 }

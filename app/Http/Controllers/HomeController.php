@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         if($usertype=='user')
         {
-            $jumlahPengguna = Pengguna::count(); 
+            $jumlahPengguna = User::count(); 
             $totalbarang = Barang::count();
             $jumlahBarangBaik = Barang::where('kondisi_barang', 'baik')->count();
             $jumlahBarangRusak = Barang::where('kondisi_barang', 'rusak')->count();
@@ -27,7 +27,7 @@ class HomeController extends Controller
 
         else if($usertype=='admin')
         {
-            $jumlahPengguna = Pengguna::count(); 
+            $jumlahPengguna = User::count(); 
             $totalbarang = Barang::count();
             $jumlahBarangBaik = Barang::where('kondisi_barang', 'baik')->count();
             $jumlahBarangRusak = Barang::where('kondisi_barang', 'rusak')->count();

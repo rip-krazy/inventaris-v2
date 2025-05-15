@@ -1,17 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 py-12 px-4 sm:px-6 lg:px-8">
-<div class="w-100 mx-16 bg-white rounded-xl shadow-2xl p-10 animate__animated animate__fadeIn">
+<div class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="w-100 mx-16 bg-white rounded-xl shadow-2xl p-10 animate__animated animate__fadeIn">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
             <!-- Left side decorative column -->
             <div class="md:w-2/5 bg-gradient-to-br from-green-600 to-green-700 p-8 flex flex-col justify-center relative overflow-hidden">
-                <!-- Background pattern -->
-                <div class="absolute inset-0 opacity-10">
-                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
-                        <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="white" stroke-width="2" stroke-dasharray="5,5" />
-                    </svg>
-                </div>
                 
                 <!-- Content -->
                 <div class="relative z-10 text-center md:text-left">
@@ -116,32 +110,6 @@
                         @enderror
                     </div>
 
-                    <!-- User Type Field -->
-                    <div>
-                        <label for="usertype" class="block text-sm font-medium text-gray-700 mb-1">Tipe Pengguna</label>
-                        <div class="relative rounded-lg shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-users-cog text-gray-400"></i>
-                            </div>
-                            <select id="usertype" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('usertype') border-red-500 @enderror" 
-                                name="usertype" required>
-                                <option value="" disabled selected>Pilih tipe pengguna</option>
-                                <option value="admin" {{ old('usertype') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="guru" {{ old('usertype') == 'guru' ? 'selected' : '' }}>Guru</option>
-                                <option value="siswa" {{ old('usertype') == 'siswa' ? 'selected' : '' }}>Siswa</option>
-                            </select>
-                            @error('usertype')
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-exclamation-circle text-red-500"></i>
-                                </div>
-                            @enderror
-                        </div>
-                        @error('usertype')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
                     <!-- Mata Pelajaran Field (only shown for Guru) -->
                     <div id="mapel-container">
                         <label for="mapel" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
@@ -160,28 +128,6 @@
                             @enderror
                         </div>
                         @error('mapel')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Kelas Field (only shown for Siswa) -->
-                    <div id="kelas-container" style="display: none;">
-                        <label for="kelas" class="block text-sm font-medium text-gray-700 mb-1">Kelas</label>
-                        <div class="relative rounded-lg shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-school text-gray-400"></i>
-                            </div>
-                            <input id="kelas" type="text" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('kelas') border-red-500 @enderror" 
-                                name="kelas" value="{{ old('kelas') }}"  
-                                placeholder="10A, 11B, 12C, dll">
-                            @error('kelas')
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-exclamation-circle text-red-500"></i>
-                                </div>
-                            @enderror
-                        </div>
-                        @error('kelas')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -207,10 +153,10 @@
                         <div class="mt-2">
                             <div class="flex justify-between text-xs text-gray-500 mb-1">
                                 <span>Kekuatan password:</span>
-                                <span id="strengthText">Lemah</span>
+                                <span id="strengthText">Belum ada</span>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-1.5">
-                                <div id="passwordStrength" class="h-1.5 rounded-full bg-red-500 transition-all duration-300" style="width: 0%"></div>
+                                <div id="passwordStrength" class="h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
                             </div>
                         </div>
                         
@@ -251,49 +197,71 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Toggle password visibility
-        const togglePassword = document.getElementById('togglePassword');
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-        const password = document.getElementById('password');
-        const passwordConfirm = document.getElementById('password-confirm');
+        // Password strength elements
+        const passwordInput = document.getElementById('password');
         const passwordStrength = document.getElementById('passwordStrength');
         const strengthText = document.getElementById('strengthText');
-        const userType = document.getElementById('usertype');
-        const mapelContainer = document.getElementById('mapel-container');
-        const kelasContainer = document.getElementById('kelas-container');
         
-        // Toggle fields based on user type
-        userType.addEventListener('change', function() {
-            if (this.value === 'guru') {
-                mapelContainer.style.display = 'block';
-                kelasContainer.style.display = 'none';
-                document.getElementById('mapel').setAttribute('required', 'required');
-                document.getElementById('kelas').removeAttribute('required');
-            } else if (this.value === 'siswa') {
-                mapelContainer.style.display = 'none';
-                kelasContainer.style.display = 'block';
-                document.getElementById('mapel').removeAttribute('required');
-                document.getElementById('kelas').setAttribute('required', 'required');
+        // Toggle password visibility elements
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const passwordConfirm = document.getElementById('password-confirm');
+
+        // Password strength checker
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            
+            // Length check
+            if (password.length > 0) strength += 10;
+            if (password.length >= 4) strength += 10;
+            if (password.length >= 8) strength += 20;
+            if (password.length >= 12) strength += 20;
+            
+            // Character type checks
+            if (/[a-z]/.test(password)) strength += 10; // Lowercase
+            if (/[A-Z]/.test(password)) strength += 10; // Uppercase
+            if (/[0-9]/.test(password)) strength += 10; // Numbers
+            if (/[^A-Za-z0-9]/.test(password)) strength += 10; // Special chars
+            
+            // Cap at 100
+            strength = Math.min(strength, 100);
+            
+            // Update the strength meter
+            passwordStrength.style.width = strength + '%';
+            
+            // Update strength text and color
+            if (password.length === 0) {
+                strengthText.textContent = 'Belum ada';
+                strengthText.className = 'text-gray-500';
+                passwordStrength.className = 'h-1.5 rounded-full bg-gray-200 transition-all duration-300';
+            } else if (strength < 30) {
+                strengthText.textContent = 'Sangat Lemah';
+                strengthText.className = 'text-red-500';
+                passwordStrength.className = 'h-1.5 rounded-full bg-red-500 transition-all duration-300';
+            } else if (strength < 50) {
+                strengthText.textContent = 'Lemah';
+                strengthText.className = 'text-orange-500';
+                passwordStrength.className = 'h-1.5 rounded-full bg-orange-500 transition-all duration-300';
+            } else if (strength < 70) {
+                strengthText.textContent = 'Sedang';
+                strengthText.className = 'text-yellow-500';
+                passwordStrength.className = 'h-1.5 rounded-full bg-yellow-500 transition-all duration-300';
+            } else if (strength < 90) {
+                strengthText.textContent = 'Kuat';
+                strengthText.className = 'text-green-500';
+                passwordStrength.className = 'h-1.5 rounded-full bg-green-500 transition-all duration-300';
             } else {
-                mapelContainer.style.display = 'none';
-                kelasContainer.style.display = 'none';
-                document.getElementById('mapel').removeAttribute('required');
-                document.getElementById('kelas').removeAttribute('required');
+                strengthText.textContent = 'Sangat Kuat';
+                strengthText.className = 'text-green-600';
+                passwordStrength.className = 'h-1.5 rounded-full bg-green-600 transition-all duration-300';
             }
         });
-        
-        // Initial state check if form has been submitted and returned with errors
-        if (userType.value === 'guru') {
-            mapelContainer.style.display = 'block';
-            kelasContainer.style.display = 'none';
-        } else if (userType.value === 'siswa') {
-            mapelContainer.style.display = 'none';
-            kelasContainer.style.display = 'block';
-        }
-        
+
+        // Toggle password visibility
         togglePassword.addEventListener('click', function() {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
         });
@@ -305,41 +273,9 @@
             this.querySelector('i').classList.toggle('fa-eye-slash');
         });
         
-        // Password strength meter
-        password.addEventListener('input', function() {
-            const val = this.value;
-            let strength = 0;
-            
-            // Length check
-            if (val.length >= 8) strength += 20;
-            if (val.length >= 12) strength += 20;
-            
-            // Character type checks
-            if (val.match(/[A-Z]/)) strength += 20;
-            if (val.match(/[0-9]/)) strength += 20;
-            if (val.match(/[^A-Za-z0-9]/)) strength += 20;
-            
-            // Cap at 100
-            strength = Math.min(strength, 100);
-            
-            passwordStrength.style.width = strength + '%';
-            
-            // Update color and text
-            if (strength < 40) {
-                passwordStrength.className = 'h-1.5 rounded-full bg-red-500 transition-all duration-300';
-                strengthText.textContent = 'Lemah';
-            } else if (strength < 70) {
-                passwordStrength.className = 'h-1.5 rounded-full bg-yellow-500 transition-all duration-300';
-                strengthText.textContent = 'Sedang';
-            } else {
-                passwordStrength.className = 'h-1.5 rounded-full bg-green-500 transition-all duration-300';
-                strengthText.textContent = 'Kuat';
-            }
-        });
-        
         // Validate password match
         passwordConfirm.addEventListener('input', function() {
-            if (this.value !== password.value && password.value !== '') {
+            if (this.value !== passwordInput.value && passwordInput.value !== '') {
                 this.classList.add('border-red-500');
             } else {
                 this.classList.remove('border-red-500');

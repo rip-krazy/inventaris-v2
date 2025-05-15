@@ -196,12 +196,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="ml-4">
                             <h2 class="text-xl font-semibold text-gray-800">Total Pengguna</h2>
-                            <p class="text-3xl font-bold text-blue-600 mt-1 counter">{{ $jumlahPengguna }}</p>
+                            <p class="text-3xl font-bold text-blue-600 mt-1 counter" data-target="{{ $jumlahPengguna }}">0</p>
                         </div>
-
                     </div>
                     <div class="mt-4">
-                        <div class="flex justify-between items-center mb-1">
+                        <div class="flex justify-between mb-1">
                             <span class="text-sm font-medium text-gray-700">Aktivitas Bulan Ini</span>
                             <span class="text-sm font-medium text-blue-600">87%</span>
                         </div>
@@ -215,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             </div>
-
+            
             <!-- Returned Items Card -->
             <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
                 <div class="p-6 relative overflow-hidden">
