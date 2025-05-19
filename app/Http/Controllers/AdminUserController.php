@@ -47,8 +47,11 @@ class AdminUserController extends Controller
             'is_admin' => $request->has('is_admin') ? true : false,
         ]);
 
-        // Simpan password asli di session untuk ditampilkan
-        session()->put('generated_passwords.'.$user->id, $request->password);
+        // Simpan password asli di database untuk ditampilkan
+        \App\Models\PlaintextPassword::create([
+            'user_id' => $user->id,
+            'password' => $request->password,
+        ]);
 
         return redirect()->route('admin.users.index')
              ->with('success', 'User created successfully');
@@ -79,8 +82,11 @@ class AdminUserController extends Controller
             'is_admin' => $isAdmin,
         ]);
 
-        // Simpan password asli di session untuk ditampilkan
-        session()->put('generated_passwords.'.$user->id, $request->password);
+        // Simpan password asli di database untuk ditampilkan
+        \App\Models\PlaintextPassword::create([
+            'user_id' => $user->id,
+            'password' => $request->password,
+        ]);
 
         return redirect()->route('pengguna.index')
              ->with('success', 'User created successfully');
@@ -109,8 +115,12 @@ class AdminUserController extends Controller
         // Jika password diisi, update password
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
-            // Simpan password baru di session
-            session()->put('generated_passwords.'.$user->id, $request->password);
+            
+            // Update atau buat record password plaintext di database
+            \App\Models\PlaintextPassword::updateOrCreate(
+                ['user_id' => $user->id],
+                ['password' => $request->password]
+            );
         }
 
         $user->update($data);
