@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'name' => 'Ilya',
-            'email' => 'ilya@gmail.com',
-            'password' => '12345678',
+            'email' => 'ilya12@gmail.com',
+            'password' => Hash::make('12345678'), // Menggunakan Hash::make untuk password
             'usertype' => 'admin',
             'mapel' => 'Bahasa',
         ]);
