@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'ilya12@gmail.com',
             'password' => Hash::make('12345678'), // Menggunakan Hash::make untuk password
             'usertype' => 'admin',
-            'mapel' => 'Bahasa',
+            'mapel' => 'pepeleg',
         ]);
     }
 }
