@@ -341,16 +341,56 @@
                             <input type="hidden" id="ruangNama" name="ruang_nama">
                         </div>
 
-                        <!-- Time Field -->
-                        <div class="relative">
+                        <!-- Time Field - MODIFIED TO USE DROPDOWNS -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- From Time Dropdown -->
                             <div class="relative">
-                                <input type="time" name="jam" required 
-                                       class="input-field rounded-xl px-4 py-3 w-full 
-                                              hover:border-emerald-300 transition-colors duration-200 
-                                              focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
-                                <label class="floating-label">
-                                    <i class="far fa-clock mr-1 text-xs"></i>Waktu Peminjaman
-                                </label>
+                                <div class="relative">
+                                    <select name="jam_dari" required 
+                                            class="type-selector appearance-none input-field rounded-xl px-4 py-3 w-full bg-white 
+                                                hover:border-emerald-300 transition-colors duration-200
+                                                focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                        <option value="" disabled selected>Pilih</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <label class="floating-label">
+                                        <i class="far fa-clock mr-1 text-xs"></i>Dari Jam
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- To Time Dropdown -->
+                            <div class="relative">
+                                <div class="relative">
+                                    <select name="jam_sampai" required 
+                                            class="type-selector appearance-none input-field rounded-xl px-4 py-3 w-full bg-white 
+                                                hover:border-emerald-300 transition-colors duration-200
+                                                focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                        <option value="" disabled selected>Pilih</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <label class="floating-label">
+                                        <i class="far fa-clock mr-1 text-xs"></i>Sampai Jam
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -402,6 +442,27 @@
             const selectedBarangName = document.getElementById('selectedBarangName');
             const selectedRuangName = document.getElementById('selectedRuangName');
             const ruangNama = document.getElementById('ruangNama');
+            
+            // Added time range validation
+            const jamDari = document.querySelector('select[name="jam_dari"]');
+            const jamSampai = document.querySelector('select[name="jam_sampai"]');
+            
+            // Time range validation on form submit
+            const form = document.getElementById('peminjamanForm');
+            form.addEventListener('submit', function(e) {
+                const fromTime = parseInt(jamDari.value);
+                const toTime = parseInt(jamSampai.value);
+                
+                if (fromTime >= toTime) {
+                    e.preventDefault();
+                    alert('Waktu "Sampai Jam" harus lebih besar dari "Dari Jam"');
+                    return false;
+                }
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-circle-notch loading-spin mr-2"></i>Mengajukan Permohonan...';
+                submitBtn.disabled = true;
+            });
             
             // Barang data
             const barangData = [
@@ -584,7 +645,7 @@
                             <div class="bg-emerald-50 inline-flex p-3 rounded-full mb-3">
                                 <i class="fas fa-search-minus text-emerald-400 text-xl"></i>
                             </div>
-                            <p class="font-medium">Ruang tidak ditemukan</p>
+                            <p class="font-medium">Ruangan tidak ditemukan</p>
                             <p class="text-xs mt-1">Coba dengan kata kunci lain</p>
                         `;
                         searchRuangResults.appendChild(noResult);
@@ -595,34 +656,37 @@
                 }
             });
             
-            // Close dropdowns when clicking outside
+            // Close search results when clicking outside
             document.addEventListener('click', function(e) {
                 if (!searchBarang.contains(e.target) && !searchBarangResults.contains(e.target)) {
                     searchBarangResults.classList.add('hidden');
                 }
+                
                 if (!searchRuang.contains(e.target) && !searchRuangResults.contains(e.target)) {
                     searchRuangResults.classList.add('hidden');
                 }
             });
             
-            // Form submission animation
-            const form = document.getElementById('peminjamanForm');
-            form.addEventListener('submit', function(e) {
-                const submitBtn = this.querySelector('button[type="submit"]');
-                submitBtn.innerHTML = '<i class="fas fa-circle-notch loading-spin mr-2"></i>Mengajukan Permohonan...';
-                submitBtn.disabled = true;
+            // Close notification if present
+            const notification = document.querySelector('.notification');
+            if (notification) {
+                const closeBtn = notification.querySelector('button');
+                closeBtn.addEventListener('click', function() {
+                    notification.classList.add('animate__animated', 'animate__fadeOut');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                });
                 
-                // Prevent form submission for demo (remove in production)
-                // e.preventDefault();
-                // setTimeout(() => {
-                //     submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Permohonan Terkirim!';
-                //     setTimeout(() => {
-                //         form.submit();
-                //     }, 1000);
-                // }, 1500);
-            });
+                // Auto close after 5 seconds
+                setTimeout(() => {
+                    notification.classList.add('animate__animated', 'animate__fadeOut');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                }, 5000);
+            }
         });
     </script>
 </body>
-
 @endsection
