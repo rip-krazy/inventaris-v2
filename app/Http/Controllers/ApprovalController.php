@@ -28,6 +28,19 @@ class ApprovalController extends Controller
             if (!empty($approval['ruangNama'])) {
                 $pendingApprovals[$key]['ruangNama'] = $approval['ruangNama'];
             }
+            
+            // Make sure the time format is consistent
+            if (!empty($approval['jamMulai']) && !empty($approval['jamSelesai'])) {
+                // Convert to jam_dari and jam_sampai format if needed
+                $pendingApprovals[$key]['jam_dari'] = $approval['jamMulai'];
+                $pendingApprovals[$key]['jam_sampai'] = $approval['jamSelesai'];
+            } elseif (!empty($approval['jam_dari']) && !empty($approval['jam_sampai'])) {
+                // Already in the correct format
+                continue;
+            } elseif (!empty($approval['jam'])) {
+                // Handle single time value if exists
+                $pendingApprovals[$key]['jam_dari'] = $approval['jam'];
+            }
         }
 
         $pendingCount = count($pendingApprovals);
