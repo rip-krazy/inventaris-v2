@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Pengguna;
 use App\Models\Barang;
 use App\Models\History;
 use Illuminate\Support\Facades\Auth;
