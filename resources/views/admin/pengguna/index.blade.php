@@ -56,7 +56,6 @@
                         <th class="py-4 px-8 text-center font-semibold">No</th>
                         <th class="py-4 px-8 text-center font-semibold">Nama</th>
                         <th class="py-4 px-8 text-center font-semibold">Email</th>
-                        <th class="py-4 px-8 text-center font-semibold">Password</th>
                         <th class="py-4 px-8 text-center font-semibold">Mapel</th>
                         <th class="py-4 px-8 text-center font-semibold">Aksi</th>
                     </tr>
@@ -67,21 +66,6 @@
                         <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
                         <td class="py-4 px-8 border-b text-center">{{ $pengguna->name }}</td>
                         <td class="py-4 px-8 border-b text-center">{{ $pengguna->email }}</td>
-                        <td class="py-4 px-8 border-b text-center">
-                          <div class="flex items-center justify-center">
-                              @php
-                                  // Eager load the plaintextPassword relationship 
-                                  $plainPassword = $pengguna->relationLoaded('plaintextPassword') ? 
-                                      ($pengguna->plaintextPassword ? $pengguna->plaintextPassword->password : null) : 
-                                      App\Models\PlaintextPassword::where('user_id', $pengguna->id)->value('password');
-                              @endphp
-                              <span class="hidden-password">{{ str_repeat('*', 8) }}</span>
-                              <span class="visible-password hidden">{{ $plainPassword ?? "Password tidak tersedia" }}</span>
-                              <button type="button" class="toggle-password ml-2 text-gray-500 hover:text-gray-700 focus:outline-none" onclick="togglePassword(this)">
-                                  <i class="fa fa-eye"></i>
-                              </button>
-                          </div>
-                        </td>   
                         <td class="py-4 px-8 border-b text-center">{{ $pengguna->mapel }}</td>
                         <td class="py-4 px-8 border-b text-center">
                             <div class="flex justify-center gap-3">

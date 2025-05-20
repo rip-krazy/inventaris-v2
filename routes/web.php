@@ -65,6 +65,11 @@ Route::get('Service', function () {
     return view('Service');
 });
 
+Route::get('features', function () {
+    return view('features');
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
