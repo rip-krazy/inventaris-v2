@@ -110,7 +110,6 @@
                         @enderror
                     </div>
 
-<<<<<<< HEAD
                     <!-- User Type Field -->
                     <div>
                         <label for="usertype" class="block text-sm font-medium text-gray-700 mb-1">Tipe Pengguna</label>
@@ -121,9 +120,9 @@
                             <select id="usertype" 
                                 class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('usertype') border-red-500 @enderror" 
                                 name="usertype" required>
-                                <option value="" disabled selected>Pilih tipe pengguna</option>
-                                <option value="admin" {{ old('usertype') == 'admin' ? 'selected' : '' }}>Admin</option>
+                               <option value="">Pilih User Type</option>
                                 <option value="user" {{ old('usertype') == 'user' ? 'selected' : '' }}>User</option>
+                                <option value="admin" {{ old('usertype') == 'admin' ? 'selected' : '' }}>Admin</option>
                             </select>
                             @error('usertype')
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -138,10 +137,6 @@
 
                     <!-- Mata Pelajaran Field -->
                     <div>
-=======
-                    <!-- Mata Pelajaran Field (only shown for Guru) -->
-                    <div id="mapel-container">
->>>>>>> bea83def0005363fe6ca8b8e374300f16a464dca
                         <label for="mapel" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
                         <div class="relative rounded-lg shadow-sm">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -232,66 +227,6 @@
         const passwordStrength = document.getElementById('passwordStrength');
         const strengthText = document.getElementById('strengthText');
         
-<<<<<<< HEAD
-=======
-        // Toggle password visibility elements
-        const togglePassword = document.getElementById('togglePassword');
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-        const passwordConfirm = document.getElementById('password-confirm');
-
-        // Password strength checker
-        passwordInput.addEventListener('input', function() {
-            const password = this.value;
-            let strength = 0;
-            
-            // Length check
-            if (password.length > 0) strength += 10;
-            if (password.length >= 4) strength += 10;
-            if (password.length >= 8) strength += 20;
-            if (password.length >= 12) strength += 20;
-            
-            // Character type checks
-            if (/[a-z]/.test(password)) strength += 10; // Lowercase
-            if (/[A-Z]/.test(password)) strength += 10; // Uppercase
-            if (/[0-9]/.test(password)) strength += 10; // Numbers
-            if (/[^A-Za-z0-9]/.test(password)) strength += 10; // Special chars
-            
-            // Cap at 100
-            strength = Math.min(strength, 100);
-            
-            // Update the strength meter
-            passwordStrength.style.width = strength + '%';
-            
-            // Update strength text and color
-            if (password.length === 0) {
-                strengthText.textContent = 'Belum ada';
-                strengthText.className = 'text-gray-500';
-                passwordStrength.className = 'h-1.5 rounded-full bg-gray-200 transition-all duration-300';
-            } else if (strength < 30) {
-                strengthText.textContent = 'Sangat Lemah';
-                strengthText.className = 'text-red-500';
-                passwordStrength.className = 'h-1.5 rounded-full bg-red-500 transition-all duration-300';
-            } else if (strength < 50) {
-                strengthText.textContent = 'Lemah';
-                strengthText.className = 'text-orange-500';
-                passwordStrength.className = 'h-1.5 rounded-full bg-orange-500 transition-all duration-300';
-            } else if (strength < 70) {
-                strengthText.textContent = 'Sedang';
-                strengthText.className = 'text-yellow-500';
-                passwordStrength.className = 'h-1.5 rounded-full bg-yellow-500 transition-all duration-300';
-            } else if (strength < 90) {
-                strengthText.textContent = 'Kuat';
-                strengthText.className = 'text-green-500';
-                passwordStrength.className = 'h-1.5 rounded-full bg-green-500 transition-all duration-300';
-            } else {
-                strengthText.textContent = 'Sangat Kuat';
-                strengthText.className = 'text-green-600';
-                passwordStrength.className = 'h-1.5 rounded-full bg-green-600 transition-all duration-300';
-            }
-        });
-
-        // Toggle password visibility
->>>>>>> bea83def0005363fe6ca8b8e374300f16a464dca
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
@@ -304,6 +239,40 @@
             passwordConfirm.setAttribute('type', type);
             this.querySelector('i').classList.toggle('fa-eye');
             this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+
+        // Password strength meter
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            let color = '';
+            let text = '';
+            
+            if (password.length >= 8) strength += 25;
+            if (password.match(/[a-z]/)) strength += 25;
+            if (password.match(/[A-Z]/)) strength += 25;
+            if (password.match(/[0-9]/)) strength += 25;
+            
+            if (strength === 0) {
+                color = '#gray';
+                text = 'Belum ada';
+            } else if (strength <= 25) {
+                color = '#ef4444';
+                text = 'Lemah';
+            } else if (strength <= 50) {
+                color = '#f97316';
+                text = 'Sedang';
+            } else if (strength <= 75) {
+                color = '#eab308';
+                text = 'Baik';
+            } else {
+                color = '#22c55e';
+                text = 'Kuat';
+            }
+            
+            passwordStrength.style.width = strength + '%';
+            passwordStrength.style.backgroundColor = color;
+            strengthText.textContent = text;
         });
         
         // Validate password match

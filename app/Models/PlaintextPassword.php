@@ -10,7 +10,7 @@ class PlaintextPassword extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'user',
         'password',
     ];
 
