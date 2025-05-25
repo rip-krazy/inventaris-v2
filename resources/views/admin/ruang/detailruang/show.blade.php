@@ -139,21 +139,9 @@
                         <i class="fas fa-cubes text-2xl"></i>
                     </div>
                     <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">Status Barang</h3>
-                    <div class="mt-2">
-                        @if($item->status_barang == 'baik')
-                            <span class="badge px-4 py-1 rounded-full bg-green-100 text-green-800 text-sm font-medium flex items-center">
-                                <i class="fas fa-check-circle mr-1"></i> Baik
-                            </span>
-                        @elseif($item->status_barang == 'rusak')
-                            <span class="badge px-4 py-1 rounded-full bg-red-100 text-red-800 text-sm font-medium flex items-center">
-                                <i class="fas fa-times-circle mr-1"></i> Rusak
-                            </span>
-                        @else
-                            <span class="badge px-4 py-1 rounded-full bg-yellow-100 text-yellow-800 text-sm font-medium flex items-center">
-                                <i class="fas fa-exclamation-circle mr-1"></i> Perlu Perawatan
-                            </span>
-                        @endif
-                    </div>
+                    <p class="text-lg font-bold {{ $item->kondisi_barang === 'Baik' ? 'text-green-600' : 'text-red-600' }} mt-2">
+                        {{ $item->kondisi_barang === 'Baik' ? 'Baik' : 'Perlu Diganti' }}
+                    </p>
                 </div>
             </div>
             
