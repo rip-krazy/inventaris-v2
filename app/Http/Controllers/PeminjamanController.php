@@ -25,7 +25,6 @@ class PeminjamanController extends Controller
     
         // Kirimkan data barang, ruang, dan data user ke view
         return view('user.peminjaman.index', compact('barangs', 'ruangs', 'user'));
-
     }
 
     public function submit(Request $request)
@@ -33,20 +32,23 @@ class PeminjamanController extends Controller
         $request->validate([
             'nama' => 'required|string',
             'mapel' => 'required|string',
-            'jam' => 'required|string',
+            'jam_dari' => 'required|numeric',
+            'jam_sampai' => 'required|numeric|gt:jam_dari', // Memastikan jam_sampai > jam_dari
             'jenis' => 'required|string',
         ]);
     
+        // Format jam menjadi format yang sesuai: "Jam ke-X sampai Jam ke-Y"
+        $jamFormat = "Jam ke-{$request->jam_dari} sampai Jam ke-{$request->jam_sampai}";
+        
         $newEntry = [
             'name' => $request->nama,
             'mapel' => $request->mapel,
-            'jam' => $request->jam,
+            'jam' => $jamFormat, // Menyimpan format jam yang sudah diformat
             'status' => 'Pending',
             'jenis' => $request->jenis,
         ];
         
         $newEntry['catatan'] = $request->catatan;
-
     
         if ($request->jenis === 'barang') {
             $request->validate(['barangtempat' => 'required|exists:barangs,id']);
@@ -63,5 +65,4 @@ class PeminjamanController extends Controller
     
         return redirect()->route('peminjaman.index')->with('notification', 'Peminjaman berhasil diajukan!');
     }
-
 }

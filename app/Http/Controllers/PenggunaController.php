@@ -2,30 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengguna;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // Tambahkan ini
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class PenggunaController extends Controller
 {
     public function index(Request $request)
-{
-    $search = $request->input('search');  // Ambil input pencarian
+    {
+        $search = $request->input('search');
 
-    // Ambil data pengguna dengan pencarian (jika ada) dan selalu mengurutkan berdasarkan 'name'
-    $penggunas = Pengguna::when($search, function ($query, $search) {
-                        $query->where('name', 'like', '%' . $search . '%')
-                              ->orWhere('username', 'like', '%' . $search . '%')
-                              ->orWhere('password', 'like', '%' . $search . '%')
-                              ->orWhere('mapel', 'like', '%' . $search . '%');
-                    })
-                    ->orderBy('name', 'asc') // Urutkan berdasarkan 'name' secara alfabetis
-                    ->paginate(10); // Atur jumlah data per halaman
-    
-    // Kirim data pengguna dan query pencarian ke view
-    return view('admin.pengguna.index', compact('penggunas', 'search'));
-}
-
+        $penggunas = User::when($search, function ($query, $search) {
+                            return $query->where('name', 'like', '%' . $search . '%')
+                                  ->orWhere('email', 'like', '%' . $search . '%')
+                                  ->orWhere('mapel', 'like', '%' . $search . '%');
+                        })
+                        ->orderBy('name', 'asc')
+                        ->paginate(10);
+        
+        return view('admin.pengguna.index', compact('penggunas', 'search'));
+    }
 
     public function create()
     {
@@ -35,51 +32,76 @@ class PenggunaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:penggunas',
-            'password' => 'required|unique:penggunas',
-            'mapel' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'mapel' => 'required|string|max:255',
         ]);
         
-        Pengguna::create($request->all());
-        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil ditambahkan');
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'mapel' => $request->mapel,
+        ]);
+
+        // Simpan password original di database untuk ditampilkan
+        \App\Models\PlaintextPassword::create([
+            'user_id' => $user->id,
+            'password' => $request->password,
+        ]);
+
+        return redirect()->route('pengguna.index')
+               ->with('success', 'Pengguna berhasil ditambahkan');
     }
 
-    public function edit(Pengguna $pengguna)
+    public function edit($id)
     {
+        $pengguna = User::findOrFail($id);
         return view('admin.pengguna.edit', compact('pengguna'));
     }
 
     public function update(Request $request, $id)
     {
-        $pengguna = Pengguna::findOrFail($id);
+        $pengguna = User::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:penggunas,username,'.$id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'mapel' => 'required|string|max:255',
-            'password' => 'nullable|min:6', // Password boleh kosong
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        $pengguna->name = $request->name;
-        $pengguna->username = $request->username;
-        $pengguna->mapel = $request->mapel;
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'mapel' => $request->mapel,
+        ];
 
-        // Hanya update password jika ada input baru
         if ($request->filled('password')) {
-            $pengguna->password = $request->password; // Simpan langsung tanpa Hash
+            $data['password'] = Hash::make($request->password);
+            
+            // Update atau buat record password plaintext di database
+            \App\Models\PlaintextPassword::updateOrCreate(
+                ['user_id' => $pengguna->id],
+                ['password' => $request->password]
+            );
         }
 
+        $pengguna->update($data);
 
-        $pengguna->save();
-
-        return redirect()->route('pengguna.index')->with('success', 'Data pengguna berhasil diperbarui.');
+        return redirect()->route('pengguna.index')
+               ->with('success', 'Data pengguna berhasil diperbarui.');
     }
 
-
-    public function destroy(Pengguna $pengguna)
+    public function destroy(User $pengguna)
     {
+        // Catatan: Tidak perlu menghapus plaintext password
+        // karena sudah ada constraint onDelete('cascade')
+        // pada tabel plaintext_passwords        
         $pengguna->delete();
-        return redirect()->route('pengguna.index')->with('success', 'Pengguna berhasil dihapus');
+        
+        return redirect()->route('pengguna.index')
+               ->with('success', 'Pengguna berhasil dihapus');
     }
 }

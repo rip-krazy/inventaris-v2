@@ -90,9 +90,6 @@
             <a href="{{url('login')}}" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-1 md:py-2 px-3 md:px-6 rounded-full text-sm md:text-base transition duration-300 shadow-md">
                 <i class="fas fa-sign-in-alt mr-1"></i> Login
             </a>
-            <a href="{{url('register')}}" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-1 md:py-2 px-3 md:px-6 rounded-full text-sm md:text-base transition duration-300 shadow-md btn-shine">
-                <i class="fas fa-user-plus mr-1"></i> Register
-            </a>
         </div>
     </header>
 

@@ -203,10 +203,10 @@
                             </td>
                             <td class="px-6 py-4">
                                 @if(isset($entry->status) && $entry->status == 'Rejected')
-                                    <span class="px-3 py-1 text-sm font-medium text-red-800 bg-red-100 rounded-full">
-                                        {{ $entry->status }}
+                                    <span class="px-3 py-1 text-sm font-medium text-red-800 bg-red-100 rounded-full cursor-pointer hover:bg-red-200 transition duration-200 view-rejection-reason" 
+                                          data-reason="{{ $entry->alasan ?? 'Tidak ada alasan' }}">
+                                        Lihat Alasan
                                     </span>
-                                    <div class="mt-1 text-xs text-gray-500 italic">{{ $entry->alasan ?? 'Tidak ada alasan' }}</div>
                                 @else
                                     <span class="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
                                         {{ $entry->status ?? 'Approved' }}
@@ -241,8 +241,9 @@
                         <h3 class="font-semibold text-gray-900">{{ $entry->name }}</h3>
                         <div>
                             @if(isset($entry->status) && $entry->status == 'Rejected')
-                                <span class="px-2 py-1 text-xs font-medium text-red-800 bg-red-100 rounded-full">
-                                    {{ $entry->status }}
+                                <span class="px-2 py-1 text-xs font-medium text-red-800 bg-red-100 rounded-full cursor-pointer hover:bg-red-200 transition duration-200 view-rejection-reason" 
+                                      data-reason="{{ $entry->alasan ?? 'Tidak ada alasan' }}">
+                                    Lihat Alasan
                                 </span>
                             @else
                                 <span class="px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full">
@@ -334,13 +335,69 @@
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Modal Alasan Penolakan -->
+    <div id="rejectionReasonModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="bg-gray-50 px-6 py-4 border-b flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-800">Alasan Penolakan</h3>
+                <button id="closeReasonModal" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <p id="rejectionReasonText" class="text-gray-700"></p>
+            </div>
+            <div class="bg-gray-50 px-6 py-3 border-t flex justify-end">
+                <button id="closeReasonModalBtn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition duration-200">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @push('scripts')
 <script>
-    
     document.addEventListener('DOMContentLoaded', function() {
+        // DOM elements for rejection reason modal
+        const rejectionReasonModal = document.getElementById('rejectionReasonModal');
+        const rejectionReasonText = document.getElementById('rejectionReasonText');
+        const closeReasonModal = document.getElementById('closeReasonModal');
+        const closeReasonModalBtn = document.getElementById('closeReasonModalBtn');
+        const viewRejectionReasonButtons = document.querySelectorAll('.view-rejection-reason');
+
+        // Function to show rejection reason modal
+        function showRejectionReason(reason) {
+            rejectionReasonText.textContent = reason;
+            rejectionReasonModal.classList.remove('hidden');
+        }
+
+        // Function to hide rejection reason modal
+        function hideRejectionReason() {
+            rejectionReasonModal.classList.add('hidden');
+        }
+
+        // Event listeners for rejection reason buttons
+        viewRejectionReasonButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const reason = this.getAttribute('data-reason');
+                showRejectionReason(reason);
+            });
+        });
+
+        // Close modal event listeners
+        closeReasonModal.addEventListener('click', hideRejectionReason);
+        closeReasonModalBtn.addEventListener('click', hideRejectionReason);
+        rejectionReasonModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideRejectionReason();
+            }
+        });
+
+        // Rest of your existing JavaScript code...
         // DOM elements
         const searchInput = document.getElementById('searchInput');
         const filterTanggal = document.getElementById('filterTanggal');

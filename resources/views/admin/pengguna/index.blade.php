@@ -32,7 +32,7 @@
           </form>
 
           <!-- Tombol Tambah Pengguna -->
-          <a href="{{ route('pengguna.create') }}" 
+          <a href="{{ route('admin.register') }}" 
              class="px-6 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 flex items-center gap-2">
               <i class="fas fa-plus"></i>
               Tambah Pengguna
@@ -49,57 +49,47 @@
       @endif
 
       <!-- Tabel Data Pengguna -->
-      <div class="overflow-hidden rounded-xl shadow-lg">
-          <table class="min-w-full bg-white">
-              <thead>
-                  <tr class="bg-green-600 text-white">
-                      <th class="py-4 px-8 text-center font-semibold">No</th>
-                      <th class="py-4 px-8 text-center font-semibold">Nama</th>
-                      <th class="py-4 px-8 text-center font-semibold">Username</th>
-                      <th class="py-4 px-8 text-center font-semibold">Password</th>
-                      <th class="py-4 px-8 text-center font-semibold">Mapel</th>
-                      <th class="py-4 px-8 text-center font-semibold">Aksi</th>
-                  </tr>
-              </thead>
-              <tbody>
-              @foreach($penggunas as $pengguna)
-                  <tr class="hover:bg-green-50 transition duration-150">
-                      <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
-                      <td class="py-4 px-8 border-b text-center">{{ $pengguna->name }}</td>
-                      <td class="py-4 px-8 border-b text-center">{{ $pengguna->username }}</td>
-                      <td class="py-4 px-8 border-b text-center">
-                          <div class="flex items-center justify-center">
-                              <span class="hidden-password mt-2">{{ str_repeat('*', strlen($pengguna->password)) }}</span>
-                              <span class="visible-password hidden">{{ $pengguna->password }}</span>
-                              <button type="button" class="toggle-password ml-2 text-gray-500 hover:text-gray-700 focus:outline-none" onclick="togglePassword(this)">
-                                  <i class="fa fa-eye"></i>
-                              </button>
-                          </div>
-                      </td>                
-                      <td class="py-4 px-8 border-b text-center">{{ $pengguna->mapel }}</td>
-                      <td class="py-4 px-8 border-b text-center">
-                          <div class="flex justify-center gap-3">
-                              <a href="{{ route('pengguna.edit', $pengguna->id) }}" 
-                                 class="text-blue-500 hover:text-blue-700 transition duration-200">
-                                  <i class="fas fa-edit"></i>
-                              </a>
-                              <form action="{{ route('pengguna.destroy', $pengguna->id) }}" 
+        <div class="overflow-hidden rounded-xl shadow-lg">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr class="bg-green-600 text-white">
+                        <th class="py-4 px-8 text-center font-semibold">No</th>
+                        <th class="py-4 px-8 text-center font-semibold">Nama</th>
+                        <th class="py-4 px-8 text-center font-semibold">Email</th>
+                        <th class="py-4 px-8 text-center font-semibold">Mapel</th>
+                        <th class="py-4 px-8 text-center font-semibold">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($penggunas as $pengguna)
+                    <tr class="hover:bg-green-50 transition duration-150">
+                        <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
+                        <td class="py-4 px-8 border-b text-center">{{ $pengguna->name }}</td>
+                        <td class="py-4 px-8 border-b text-center">{{ $pengguna->email }}</td>
+                        <td class="py-4 px-8 border-b text-center">{{ $pengguna->mapel }}</td>
+                        <td class="py-4 px-8 border-b text-center">
+                            <div class="flex justify-center gap-3">
+                                <a href="{{ route('pengguna.edit', $pengguna->id) }}" 
+                                class="text-blue-500 hover:text-blue-700 transition duration-200">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('pengguna.destroy', $pengguna->id) }}" 
                                     method="POST" 
                                     onsubmit="return confirm('Apakah Data Akan Dihapus?')" class="inline">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" 
-                                          class="text-red-500 hover:text-red-700 transition duration-200">
-                                      <i class="fas fa-trash"></i>
-                                  </button>
-                              </form>
-                          </div>
-                      </td>
-                  </tr>
-              @endforeach
-              </tbody>
-          </table>
-      </div>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                            class="text-red-500 hover:text-red-700 transition duration-200">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
 
       <!-- Pagination Controls -->
     <div class="mt-8 flex justify-between items-center bg-white p-4 rounded-lg shadow">

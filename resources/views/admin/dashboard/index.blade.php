@@ -84,7 +84,7 @@
     }
 </style>
 
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-6 mr-24 relative">
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-6 relative">
     <!-- Particle Effect Background -->
     <div id="particles-js" class="absolute inset-0 z-0"></div>
     
@@ -97,7 +97,7 @@
         </div>
         
         <!-- Notification Banner - New Feature -->
-        <div id="notification-banner" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg mb-8 shadow-md flex justify-between animate__animated animate__fadeIn hidden">
+        <div id="notification-banner" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg mb-8 shadow-md flex justify-between animate__animated animate__fadeIn">
             <div class="flex items-center">
                 <i class="fas fa-info-circle text-blue-500 mr-3 text-xl"></i>
                 <span>Selamat datang di dashboard baru! Lihat fitur-fitur baru kami.</span>
@@ -139,55 +139,37 @@
                     <span class="text-sm font-medium text-gray-500">Total Pengguna</span>
                     <div class="text-2xl font-bold text-blue-600 counter" data-target="{{ $jumlahPengguna }}">0</div>
                 </div>
+                
                 <div class="h-16 w-px bg-gray-200"></div>
+                
                 <div class="text-center hover:scale-110 transition-transform duration-300 cursor-pointer" onclick="showItemDetails()">
                     <div class="text-green-600 mb-2"><i class="fas fa-box-open text-3xl"></i></div>
                     <span class="text-sm font-medium text-gray-500">Barang Aktif</span>
                     <div class="text-2xl font-bold text-green-600 counter" data-target="{{ $totalbarang }}">0</div>
                 </div>
+                
                 <div class="h-16 w-px bg-gray-200"></div>
+                
                 <div class="text-center hover:scale-110 transition-transform duration-300 cursor-pointer pulse" onclick="showPendingReturns()">
                     <div class="text-red-600 mb-2"><i class="fas fa-exclamation-circle text-3xl"></i></div>
                     <span class="text-sm font-medium text-gray-500">Pengembalian Tertunda</span>
-                    <div class="text-2xl font-bold text-red-600 counter" data-target="5">0</div>
+                    <div class="text-2xl font-bold text-red-600 counter" data-target="{{ $jumlahPengembalianTertunda }}">0</div>
                 </div>
-               <!-- admin/dashboard.blade.php atau layout yang sesuai -->
-<div class="h-16 w-px bg-gray-200"></div>
-<div class="text-center hover:scale-110 transition-transform duration-300 cursor-pointer">
-    <div class="text-yellow-600 mb-2"><i class="fas fa-hourglass-half text-3xl"></i></div>
-    <span class="text-sm font-medium text-gray-500">Menunggu Persetujuan</span>
-    <div class="text-2xl font-bold text-yellow-600 counter" data-target="{{ count(Session::get('pending_approvals', [])) }}">0</div>
-</div>
-</div>
-
-<!-- Tambahkan script JavaScript untuk animasi counter -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const counters = document.querySelectorAll('.counter');
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const count = 0;
-        const increment = target > 0 ? Math.ceil(target / 20) : 0;
-        
-        function updateCount() {
-            const currentCount = parseInt(counter.innerText);
-            if (currentCount < target) {
-                counter.innerText = Math.min(currentCount + increment, target);
-                setTimeout(updateCount, 50);
-            }
-        }
-        
-        updateCount();
-    });
-});
-</script>
+                
+                <div class="h-16 w-px bg-gray-200"></div>
+                
+                <div class="text-center hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    <div class="text-yellow-600 mb-2"><i class="fas fa-hourglass-half text-3xl"></i></div>
+                    <span class="text-sm font-medium text-gray-500">Menunggu Persetujuan</span>
+                    <div class="text-2xl font-bold text-yellow-600 counter" data-target="{{ count(Session::get('pending_approvals', [])) }}">0</div>
+                </div>
+            </div>
         </div>
 
-        <!-- Stats Grid with enhanced styling -->
+        <!-- Stats Grid with enhanced styling - FIXED ALIGNMENT -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <!-- User Card with glass morphism effect -->
-            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate_animated animate_fadeIn">
                 <div class="p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500 opacity-10 rounded-full transform translate-x-20 -translate-y-20"></div>
                     <div class="flex items-center">
@@ -196,12 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="ml-4">
                             <h2 class="text-xl font-semibold text-gray-800">Total Pengguna</h2>
-                            <p class="text-3xl font-bold text-blue-600 mt-1 counter">{{ $jumlahPengguna }}</p>
+                            <p class="text-3xl font-bold text-blue-600 mt-1 counter" data-target="{{ $jumlahPengguna }}">0</p>
                         </div>
-
                     </div>
                     <div class="mt-4">
-                        <div class="flex justify-between items-center mb-1">
+                        <div class="flex justify-between mb-1">
                             <span class="text-sm font-medium text-gray-700">Aktivitas Bulan Ini</span>
                             <span class="text-sm font-medium text-blue-600">87%</span>
                         </div>
@@ -215,9 +196,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             </div>
-
+            
             <!-- Returned Items Card -->
-            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate_animated animate_fadeIn">
                 <div class="p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-green-500 opacity-10 rounded-full transform translate-x-20 -translate-y-20"></div>
                     <div class="flex items-center">
@@ -248,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <!-- Unreturned Items Card with new design -->
-            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate_animated animate_fadeIn">
                 <div class="p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-red-500 opacity-10 rounded-full transform translate-x-20 -translate-y-20"></div>
                     <div class="flex items-center">
@@ -277,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <!-- Total Items Card with 3D effect -->
-            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate_animated animate_fadeIn">
                 <div class="p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-purple-500 opacity-10 rounded-full transform translate-x-20 -translate-y-20"></div>
                     <div class="flex items-center">
@@ -306,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <!-- Approval Status Card -->
-            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate_animated animate_fadeIn">
                 <div class="p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-yellow-500 opacity-10 rounded-full transform translate-x-20 -translate-y-20"></div>
                     <div class="flex items-center">
@@ -335,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <!-- Item Condition Summary Card -->
-            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate__animated animate__fadeIn">
+            <div class="glass-card rounded-xl shadow-lg overflow-hidden card-hover transition-all duration-300 animate_animated animate_fadeIn">
                 <div class="p-6 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-indigo-500 opacity-10 rounded-full transform translate-x-20 -translate-y-20"></div>
                     <div class="flex items-center justify-between">
@@ -363,20 +344,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </div>
-        
-     
-        
-        <!-- Footer - New Feature -->
+
+        <!-- Footer -->
         <div class="mt-12 text-center text-gray-500 text-sm mb-6">
             <p>© 2025 Sistem Manajemen Inventaris. Semua hak dilindungi.</p>
         </div>
     </div>
 </div>
-
 <!-- ParticleJS for background effects -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
+      @if($jumlahPengembalianTertunda > 0)
+    document.addEventListener('DOMContentLoaded', function() {
+        const pulseElement = document.querySelector('.pulse');
+        if (pulseElement) {
+            setInterval(() => {
+                pulseElement.classList.add('animate-pulse');
+                setTimeout(() => {
+                    pulseElement.classList.remove('animate-pulse');
+                }, 1000);
+            }, 2000);
+        }
+    });
+    @endif
+
     // Show notification banner
     setTimeout(() => {
         document.getElementById('notification-banner').classList.remove('hidden');
@@ -471,48 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     });
     
-    
-    // Settings Button Action
-    document.getElementById('settings-btn').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Pengaturan',
-            html: `
-                <div class="text-left">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Mode Tampilan</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>Light Mode</option>
-                            <option>Dark Mode</option>
-                            <option>System Default</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Notifikasi</label>
-                        <div class="flex items-center">
-                            <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded mr-2" checked>
-                            <span class="text-sm text-gray-700">Aktivasi notifikasi email</span>
-                        </div>
-                        <div class="flex items-center mt-2">
-                            <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded mr-2" checked>
-                            <span class="text-sm text-gray-700">Notifikasi dalam aplikasi</span>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Bahasa</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>Indonesia</option>
-                            <option>English</option>
-                        </select>
-                    </div>
-                </div>
-            `,
-            showCancelButton: true,
-            confirmButtonText: 'Simpan',
-            cancelButtonText: 'Batal',
-            confirmButtonColor: '#3b82f6'
-        });
-    });
-    
- 
+    // Settings Button Action (removed settings-btn as it's not defined in the HTML)
 </script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
 @endsection
