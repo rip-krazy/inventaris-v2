@@ -128,8 +128,7 @@
                                 name="usertype" required>
                                 <option value="" disabled selected>Pilih tipe pengguna</option>
                                 <option value="admin" {{ old('usertype') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="guru" {{ old('usertype') == 'guru' ? 'selected' : '' }}>Guru</option>
-                                <option value="siswa" {{ old('usertype') == 'siswa' ? 'selected' : '' }}>Siswa</option>
+                                <option value="user" {{ old('usertype') == 'user' ? 'selected' : '' }}>User</option>
                             </select>
                             @error('usertype')
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -142,8 +141,8 @@
                         @enderror
                     </div>
 
-                    <!-- Mata Pelajaran Field (only shown for Guru) -->
-                    <div id="mapel-container">
+                    <!-- Mata Pelajaran Field -->
+                    <div>
                         <label for="mapel" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
                         <div class="relative rounded-lg shadow-sm">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -151,7 +150,7 @@
                             </div>
                             <input id="mapel" type="text" 
                                 class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('mapel') border-red-500 @enderror" 
-                                name="mapel" value="{{ old('mapel') }}"  
+                                name="mapel" value="{{ old('mapel') }}" required 
                                 placeholder="Matematika, Bahasa Indonesia, dll">
                             @error('mapel')
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -160,28 +159,6 @@
                             @enderror
                         </div>
                         @error('mapel')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Kelas Field (only shown for Siswa) -->
-                    <div id="kelas-container" style="display: none;">
-                        <label for="kelas" class="block text-sm font-medium text-gray-700 mb-1">Kelas</label>
-                        <div class="relative rounded-lg shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-school text-gray-400"></i>
-                            </div>
-                            <input id="kelas" type="text" 
-                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('kelas') border-red-500 @enderror" 
-                                name="kelas" value="{{ old('kelas') }}"  
-                                placeholder="10A, 11B, 12C, dll">
-                            @error('kelas')
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-exclamation-circle text-red-500"></i>
-                                </div>
-                            @enderror
-                        </div>
-                        @error('kelas')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -258,38 +235,6 @@
         const passwordConfirm = document.getElementById('password-confirm');
         const passwordStrength = document.getElementById('passwordStrength');
         const strengthText = document.getElementById('strengthText');
-        const userType = document.getElementById('usertype');
-        const mapelContainer = document.getElementById('mapel-container');
-        const kelasContainer = document.getElementById('kelas-container');
-        
-        // Toggle fields based on user type
-        userType.addEventListener('change', function() {
-            if (this.value === 'guru') {
-                mapelContainer.style.display = 'block';
-                kelasContainer.style.display = 'none';
-                document.getElementById('mapel').setAttribute('required', 'required');
-                document.getElementById('kelas').removeAttribute('required');
-            } else if (this.value === 'siswa') {
-                mapelContainer.style.display = 'none';
-                kelasContainer.style.display = 'block';
-                document.getElementById('mapel').removeAttribute('required');
-                document.getElementById('kelas').setAttribute('required', 'required');
-            } else {
-                mapelContainer.style.display = 'none';
-                kelasContainer.style.display = 'none';
-                document.getElementById('mapel').removeAttribute('required');
-                document.getElementById('kelas').removeAttribute('required');
-            }
-        });
-        
-        // Initial state check if form has been submitted and returned with errors
-        if (userType.value === 'guru') {
-            mapelContainer.style.display = 'block';
-            kelasContainer.style.display = 'none';
-        } else if (userType.value === 'siswa') {
-            mapelContainer.style.display = 'none';
-            kelasContainer.style.display = 'block';
-        }
         
         togglePassword.addEventListener('click', function() {
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
