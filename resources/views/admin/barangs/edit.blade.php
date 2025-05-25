@@ -26,6 +26,14 @@
             @csrf
             @method('PUT')
             
+            <!-- Current Code Display -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg mb-6">
+                <div class="flex items-center">
+                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    <span class="text-blue-700">Kode barang saat ini: <strong>{{ $barang->kode_barang }}</strong></span>
+                </div>
+            </div>
+            
             <!-- Form Container -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <!-- Nama Barang Field -->
@@ -44,20 +52,26 @@
                     </div>
                 </div>
 
-                <!-- Kode Barang Field -->
+                <!-- Nomor Urut Field -->
                 <div class="space-y-3">
                     <label class="block text-lg font-semibold text-gray-700">
-                        <i class="fas fa-barcode mr-2 text-green-600"></i>Kode Barang
+                        <i class="fas fa-sort-numeric-up mr-2 text-green-600"></i>Nomor Urut
                     </label>
                     <div class="relative">
-                        <input type="text" 
-                               name="kode_barang" 
-                               value="{{ old('kode_barang', $barang->kode_barang) }}"
+                        <input type="number" 
+                               name="nomor_urut" 
+                               value="{{ old('nomor_urut', $nomor_urut) }}"
                                class="w-full border-2 border-gray-300 rounded-xl p-4 pl-12 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
-                               placeholder="Masukkan kode barang"
+                               placeholder="0-999"
+                               min="0"
+                               max="999"
                                required>
-                        <i class="fas fa-qrcode absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <i class="fas fa-hashtag absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     </div>
+                    <p class="text-sm text-gray-500 mt-1" id="preview-text">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Kode barang akan diperbarui otomatis berdasarkan nama dan nomor urut
+                    </p>
                 </div>
             </div>
 
@@ -131,6 +145,39 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Preview kode barang
+    const namaBarangInput = document.querySelector('input[name="nama_barang"]');
+    const nomorUrutInput = document.querySelector('input[name="nomor_urut"]');
+    const previewText = document.getElementById('preview-text');
+    
+    function updatePreview() {
+        const namaBarang = namaBarangInput.value;
+        const nomorUrut = nomorUrutInput.value;
+        
+        if (namaBarang && nomorUrut) {
+            // Ambil 3 huruf depan nama barang (huruf saja)
+            const prefix = namaBarang.replace(/[^a-zA-Z]/g, '').toLowerCase().substring(0, 3);
+            // Format nomor urut dengan leading zero
+            const nomorFormatted = nomorUrut.toString().padStart(3, '0');
+            const kodePreview = prefix + '-' + nomorFormatted;
+            
+            // Update info text
+            if (prefix.length >= 3) {
+                previewText.innerHTML = '<i class="fas fa-sync mr-1"></i>Kode barang baru: <strong>' + kodePreview + '</strong>';
+                previewText.className = 'text-sm text-green-600 mt-1';
+            } else {
+                previewText.innerHTML = '<i class="fas fa-info-circle mr-1"></i>Kode barang akan diperbarui otomatis berdasarkan nama dan nomor urut';
+                previewText.className = 'text-sm text-gray-500 mt-1';
+            }
+        }
+    }
+    
+    // Initial preview update
+    updatePreview();
+    
+    namaBarangInput.addEventListener('input', updatePreview);
+    nomorUrutInput.addEventListener('input', updatePreview);
 });
 </script>
 @endsection

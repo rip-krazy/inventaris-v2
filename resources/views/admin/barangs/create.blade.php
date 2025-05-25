@@ -34,6 +34,7 @@
                     <div class="relative">
                         <input type="text" 
                                name="nama_barang" 
+                               id="nama_barang"
                                class="w-full border-2 border-gray-300 rounded-xl p-4 pl-12 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
                                placeholder="Masukkan nama barang"
                                value="{{ old('nama_barang') }}"
@@ -42,21 +43,45 @@
                     </div>
                 </div>
 
-                <!-- Kode Barang Field -->
+                <!-- Nomor Urut Field -->
                 <div class="space-y-3">
                     <label class="block text-lg font-semibold text-gray-700">
-                        <i class="fas fa-barcode mr-2 text-green-600"></i>Kode Barang
+                        <i class="fas fa-sort-numeric-up mr-2 text-green-600"></i>Nomor Urut
                     </label>
                     <div class="relative">
-                        <input type="text" 
-                               name="kode_barang" 
+                        <input type="number" 
+                               name="nomor_urut" 
+                               id="nomor_urut"
                                class="w-full border-2 border-gray-300 rounded-xl p-4 pl-12 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
-                               placeholder="Masukkan kode barang"
-                               value="{{ old('kode_barang') }}"
+                               placeholder="0-999"
+                               value="{{ old('nomor_urut') }}"
+                               min="0"
+                               max="999"
                                required>
-                        <i class="fas fa-qrcode absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <i class="fas fa-hashtag absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     </div>
                 </div>
+            </div>
+
+            <!-- Code Preview Section -->
+            <div id="code-preview-section" class="hidden">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200 rounded-xl p-6">
+                    <div class="flex items-center justify-center space-x-3">
+                        <i class="fas fa-qrcode text-2xl text-green-600"></i>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600 mb-1">Preview Kode Barang:</p>
+                            <p id="code-preview" class="text-2xl font-bold text-green-700 bg-white px-4 py-2 rounded-lg border border-green-300"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Text -->
+            <div class="text-center">
+                <p id="info-text" class="text-sm text-gray-500">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Kode barang akan dibuat otomatis: 3 huruf nama + nomor urut (contoh: lem-001)
+                </p>
             </div>
 
             <!-- Kondisi Barang Field -->
@@ -107,9 +132,16 @@
     </div>
 </div>
 
-<!-- Add this script at the bottom of your form -->
+<!-- Enhanced JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const namaBarangInput = document.getElementById('nama_barang');
+    const nomorUrutInput = document.getElementById('nomor_urut');
+    const codePreviewSection = document.getElementById('code-preview-section');
+    const codePreview = document.getElementById('code-preview');
+    const infoText = document.getElementById('info-text');
+
     // Add active states to radio buttons
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(radio => {
@@ -129,6 +161,149 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Function to generate code preview
+    function generateKodeBarang(namaBarang, nomorUrut) {
+        // Remove non-alphabetic characters and take first 3 characters
+        const prefix = namaBarang.replace(/[^a-zA-Z]/g, '').toLowerCase().substring(0, 3);
+        
+        // Format number with leading zeros (3 digits)
+        const nomorFormatted = nomorUrut.toString().padStart(3, '0');
+        
+        return prefix + '-' + nomorFormatted;
+    }
+
+    // Function to update preview
+    function updatePreview() {
+        const namaBarang = namaBarangInput.value.trim();
+        const nomorUrut = nomorUrutInput.value.trim();
+        
+        // Reset states
+        codePreviewSection.classList.add('hidden');
+        infoText.className = 'text-sm text-gray-500';
+        infoText.innerHTML = '<i class="fas fa-info-circle mr-1"></i>Kode barang akan dibuat otomatis: 3 huruf nama + nomor urut (contoh: lem-001)';
+
+        // Check if both fields have values
+        if (namaBarang && nomorUrut) {
+            const alphabeticChars = namaBarang.replace(/[^a-zA-Z]/g, '');
+            
+            // Check if name has at least 3 alphabetic characters
+            if (alphabeticChars.length >= 3) {
+                const kodePreview = generateKodeBarang(namaBarang, nomorUrut);
+                
+                // Show preview section with animation
+                codePreviewSection.classList.remove('hidden');
+                codePreview.textContent = kodePreview.toUpperCase();
+                
+                // Update info text
+                infoText.className = 'text-sm text-green-600';
+                infoText.innerHTML = '<i class="fas fa-check-circle mr-1"></i>Kode barang siap: <strong>' + kodePreview.toUpperCase() + '</strong>';
+                
+                // Add animation effect
+                codePreview.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    codePreview.style.transform = 'scale(1)';
+                }, 100);
+                
+            } else if (alphabeticChars.length > 0) {
+                infoText.className = 'text-sm text-yellow-600';
+                infoText.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i>Nama barang perlu minimal 3 huruf untuk membuat kode (saat ini: ' + alphabeticChars.length + ' huruf)';
+            }
+        }
+    }
+
+    // Function to validate inputs
+    function validateInputs() {
+        const namaBarang = namaBarangInput.value.trim();
+        const nomorUrut = nomorUrutInput.value.trim();
+        
+        // Validate nama barang
+        if (namaBarang) {
+            const alphabeticChars = namaBarang.replace(/[^a-zA-Z]/g, '');
+            if (alphabeticChars.length < 3) {
+                namaBarangInput.classList.add('border-yellow-400');
+                namaBarangInput.classList.remove('border-green-500');
+            } else {
+                namaBarangInput.classList.add('border-green-500');
+                namaBarangInput.classList.remove('border-yellow-400');
+            }
+        } else {
+            namaBarangInput.classList.remove('border-green-500', 'border-yellow-400');
+        }
+
+        // Validate nomor urut
+        if (nomorUrut && nomorUrut >= 0 && nomorUrut <= 999) {
+            nomorUrutInput.classList.add('border-green-500');
+            nomorUrutInput.classList.remove('border-red-400');
+        } else if (nomorUrut) {
+            nomorUrutInput.classList.add('border-red-400');
+            nomorUrutInput.classList.remove('border-green-500');
+        } else {
+            nomorUrutInput.classList.remove('border-green-500', 'border-red-400');
+        }
+    }
+
+    // Event listeners with debouncing
+    let timeout;
+    function debounceUpdate() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            updatePreview();
+            validateInputs();
+        }, 300);
+    }
+
+    namaBarangInput.addEventListener('input', debounceUpdate);
+    nomorUrutInput.addEventListener('input', debounceUpdate);
+
+    // Immediate update on focus
+    namaBarangInput.addEventListener('focus', updatePreview);
+    nomorUrutInput.addEventListener('focus', updatePreview);
+
+    // Initialize if there are old values
+    if (namaBarangInput.value || nomorUrutInput.value) {
+        updatePreview();
+        validateInputs();
+    }
+
+    // Form submission validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const namaBarang = namaBarangInput.value.trim();
+        const alphabeticChars = namaBarang.replace(/[^a-zA-Z]/g, '');
+        
+        if (alphabeticChars.length < 3) {
+            e.preventDefault();
+            alert('Nama barang harus mengandung minimal 3 huruf untuk membuat kode barang!');
+            namaBarangInput.focus();
+            return false;
+        }
+    });
 });
 </script>
+
+<style>
+/* Custom animations */
+#code-preview-section {
+    transition: all 0.3s ease-in-out;
+}
+
+#code-preview {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Input focus effects */
+input:focus {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+/* Custom border colors */
+.border-yellow-400 {
+    border-color: #fbbf24 !important;
+}
+
+.border-red-400 {
+    border-color: #f87171 !important;
+}
+</style>
 @endsection
