@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 
 class AdminUserController extends Controller
 {
+<<<<<<< HEAD
+=======
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -30,12 +32,14 @@ class AdminUserController extends Controller
         return view('admin.users.create');
     }
 
+>>>>>>> bea83def0005363fe6ca8b8e374300f16a464dca
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'usertype' => 'required|string|in:admin,user',
             'mapel' => 'required|string|max:255',
         ]);
 
@@ -43,6 +47,7 @@ class AdminUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'usertype' => $request->usertype,
             'mapel' => $request->mapel,
             'is_admin' => $request->has('is_admin') ? true : false,
         ]);
@@ -68,18 +73,23 @@ class AdminUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'usertype' => 'required|string|in:admin,user',
             'mapel' => 'required|string|max:255',
         ]);
 
+<<<<<<< HEAD
+        User::create([
+=======
         $userCount = User::count();
         $isAdmin = ($userCount == 0);
 
         $user = User::create([
+>>>>>>> bea83def0005363fe6ca8b8e374300f16a464dca
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'usertype' => $request->usertype,
             'mapel' => $request->mapel,
-            'is_admin' => $isAdmin,
         ]);
 
         // Simpan password asli di database untuk ditampilkan

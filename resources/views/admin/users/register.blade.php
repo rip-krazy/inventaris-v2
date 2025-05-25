@@ -110,8 +110,38 @@
                         @enderror
                     </div>
 
+<<<<<<< HEAD
+                    <!-- User Type Field -->
+                    <div>
+                        <label for="usertype" class="block text-sm font-medium text-gray-700 mb-1">Tipe Pengguna</label>
+                        <div class="relative rounded-lg shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-users-cog text-gray-400"></i>
+                            </div>
+                            <select id="usertype" 
+                                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('usertype') border-red-500 @enderror" 
+                                name="usertype" required>
+                                <option value="" disabled selected>Pilih tipe pengguna</option>
+                                <option value="admin" {{ old('usertype') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="user" {{ old('usertype') == 'user' ? 'selected' : '' }}>User</option>
+                            </select>
+                            @error('usertype')
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                                </div>
+                            @enderror
+                        </div>
+                        @error('usertype')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Mata Pelajaran Field -->
+                    <div>
+=======
                     <!-- Mata Pelajaran Field (only shown for Guru) -->
                     <div id="mapel-container">
+>>>>>>> bea83def0005363fe6ca8b8e374300f16a464dca
                         <label for="mapel" class="block text-sm font-medium text-gray-700 mb-1">Mata Pelajaran</label>
                         <div class="relative rounded-lg shadow-sm">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -119,7 +149,7 @@
                             </div>
                             <input id="mapel" type="text" 
                                 class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 @error('mapel') border-red-500 @enderror" 
-                                name="mapel" value="{{ old('mapel') }}"  
+                                name="mapel" value="{{ old('mapel') }}" required 
                                 placeholder="Matematika, Bahasa Indonesia, dll">
                             @error('mapel')
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -202,6 +232,8 @@
         const passwordStrength = document.getElementById('passwordStrength');
         const strengthText = document.getElementById('strengthText');
         
+<<<<<<< HEAD
+=======
         // Toggle password visibility elements
         const togglePassword = document.getElementById('togglePassword');
         const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
@@ -259,6 +291,7 @@
         });
 
         // Toggle password visibility
+>>>>>>> bea83def0005363fe6ca8b8e374300f16a464dca
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
