@@ -3,7 +3,7 @@
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-<div class="max-w-2xl mt-10 mx-auto">
+<div class="max-w-4xl mt-10 mx-auto">
     <div class="bg-gradient-to-br from-white to-green-50 rounded-2xl shadow-2xl p-12 my-10 animate__animated animate__fadeIn">
         <!-- Header Section -->
         <div class="text-center mb-12">
@@ -24,8 +24,9 @@
 
         <form action="{{ route('barangs.store') }}" method="POST" class="space-y-8">
             @csrf
+            
             <!-- Form Container -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Nama Barang Field -->
                 <div class="space-y-3">
                     <label class="block text-lg font-semibold text-gray-700">
@@ -41,6 +42,9 @@
                                required>
                         <i class="fas fa-box absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     </div>
+                    @error('nama_barang')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Nomor Urut Field -->
@@ -60,6 +64,45 @@
                                required>
                         <i class="fas fa-hashtag absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     </div>
+                    @error('nomor_urut')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                    <small class="text-gray-500">Nomor urut akan menjadi bagian dari kode barang</small>
+                </div>
+
+                <!-- Kondisi Barang Field -->
+                <div class="space-y-3">
+                    <label class="block text-lg font-semibold text-gray-700">
+                        <i class="fas fa-clipboard-check mr-2 text-green-600"></i>Kondisi Barang
+                    </label>
+                    <select name="kondisi_barang" id="kondisi_barang" 
+                            class="w-full border-2 border-gray-300 rounded-xl p-4 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300" required>
+                        <option value="">-- Pilih Kondisi --</option>
+                        <option value="Baik" {{ old('kondisi_barang') == 'Baik' ? 'selected' : '' }}>Baik</option>
+                        <option value="Rusak" {{ old('kondisi_barang') == 'Rusak' ? 'selected' : '' }}>Rusak</option>
+                    </select>
+                    @error('kondisi_barang')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Lokasi Ruang -->
+                <div class="space-y-3">
+                    <label class="block text-lg font-semibold text-gray-700">
+                        <i class="fas fa-map-marker-alt mr-2 text-green-600"></i>Lokasi Ruang
+                    </label>
+                    <select name="ruang_id" id="ruang_id" 
+                            class="w-full border-2 border-gray-300 rounded-xl p-4 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300" required>
+                        <option value="">-- Pilih Ruang --</option>
+                        @foreach($ruangs as $ruang)
+                            <option value="{{ $ruang->id }}" {{ old('ruang_id') == $ruang->id ? 'selected' : '' }}>
+                                {{ $ruang->name }} - {{ $ruang->description }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('ruang_id')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
@@ -82,39 +125,6 @@
                     <i class="fas fa-info-circle mr-1"></i>
                     Kode barang akan dibuat otomatis: 3 huruf nama + nomor urut (contoh: lem-001)
                 </p>
-            </div>
-
-            <!-- Kondisi Barang Field -->
-            <div class="space-y-3">
-                <label class="block text-lg font-semibold text-gray-700">
-                    <i class="fas fa-clipboard-check mr-2 text-green-600"></i>Kondisi Barang
-                </label>
-                <div class="grid grid-cols-2 gap-4 mt-2">
-                    <label class="relative flex items-center justify-center p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:border-green-500 transition-all duration-300">
-                        <input type="radio" 
-                               name="kondisi_barang" 
-                               value="Baik" 
-                               class="absolute opacity-0"
-                               {{ old('kondisi_barang') == 'Baik' ? 'checked' : '' }}
-                               required>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-check-circle text-2xl text-green-600"></i>
-                            <span class="text-lg font-medium">Baik</span>
-                        </div>
-                    </label>
-                    <label class="relative flex items-center justify-center p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:border-red-500 transition-all duration-300">
-                        <input type="radio" 
-                               name="kondisi_barang" 
-                               value="Rusak" 
-                               class="absolute opacity-0"
-                               {{ old('kondisi_barang') == 'Rusak' ? 'checked' : '' }}
-                               required>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-times-circle text-2xl text-red-600"></i>
-                            <span class="text-lg font-medium">Rusak</span>
-                        </div>
-                    </label>
-                </div>
             </div>
 
             <!-- Action Buttons -->
@@ -141,26 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const codePreviewSection = document.getElementById('code-preview-section');
     const codePreview = document.getElementById('code-preview');
     const infoText = document.getElementById('info-text');
-
-    // Add active states to radio buttons
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', function() {
-            // Remove active state from all labels
-            document.querySelectorAll('input[type="radio"]').forEach(r => {
-                r.parentElement.classList.remove('border-green-500', 'border-red-500');
-                r.parentElement.classList.add('border-gray-300');
-            });
-            
-            // Add active state to selected label
-            if (this.checked) {
-                this.parentElement.classList.remove('border-gray-300');
-                this.parentElement.classList.add(
-                    this.value === 'Baik' ? 'border-green-500' : 'border-red-500'
-                );
-            }
-        });
-    });
 
     // Function to generate code preview
     function generateKodeBarang(namaBarang, nomorUrut) {
@@ -293,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 /* Input focus effects */
-input:focus {
+input:focus, select:focus {
     box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
 
