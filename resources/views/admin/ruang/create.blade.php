@@ -48,12 +48,15 @@
                         <i class="fas fa-info-circle mr-2 text-green-600"></i>Keterangan
                     </label>
                     <div class="relative">
-                        <input type="text" 
-                               name="description" 
-                               class="w-full border-2 border-gray-300 rounded-xl p-4 pl-12 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
-                               placeholder="Masukkan keterangan ruangan"
-                               value="{{ old('description') }}">
+                        <select name="description" 
+                                class="w-full border-2 border-gray-300 rounded-xl p-4 pl-12 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 bg-white appearance-none cursor-pointer"
+                                required>
+                            <option value="" disabled {{ old('description') == '' ? 'selected' : '' }}>Pilih status ruangan</option>
+                            <option value="Isi" {{ old('description') == 'Isi' ? 'selected' : '' }}>Isi</option>
+                            <option value="Kosong" {{ old('description') == 'Kosong' ? 'selected' : '' }}>Kosong</option>
+                        </select>
                         <i class="fas fa-comment-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                     </div>
                 </div>
             </div>

@@ -5,129 +5,221 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-<title>Daftar ruang</title>
+<title>Daftar Ruang Sekolah</title>
 
-<div class="w-100 mx-24 bg-gradient-to-br from-white to-green-50 rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn">
-    <h1 class="text-4xl font-bold mb-8 text-center text-gray-800 border-b pb-4">
-        <i class="fas fa-door-open mr-2 text-green-600"></i> Daftar Ruang Sekolah
-    </h1>
-
-    <!-- Form Pencarian -->
-    <div class="mb-8 flex justify-between items-center gap-4">
-        <!-- Form Pencarian -->
-        <form action="{{ route('ru.index') }}" method="GET" class="flex items-center space-x-4 flex-1">
-            <div class="relative flex-1">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                <input type="text" 
-                    name="search" 
-                    value="{{ old('search', $search) }}" 
-                    placeholder="Cari Ruang..." 
-                    class="pl-10 pr-4 py-2 border-2 border-green-200 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200" />
-            </div>
-            <button type="submit" 
-                    class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 flex items-center gap-2">
-                <i class="fas fa-search"></i>
-                Cari
-            </button>
-        </form>
-    </div>
-
-    @if(session('success'))
-        <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 animate__animated animate__fadeIn">
-            <div class="flex items-center">
-                <i class="fas fa-check-circle mr-2"></i>
-                {{ session('success') }}
+<div class="w-100 mx-16 bg-white rounded-xl shadow-2xl p-10 my-10 animate__animated animate__fadeIn">
+    <!-- Header Section -->
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8 animate__animated animate__fadeIn">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">
+                <i class="fas fa-door-open text-green-600 mr-3"></i>Daftar Ruang Sekolah
+            </h1>
+            
+            <!-- Search Section -->
+            <div class="mt-4 md:mt-0 flex flex-col sm:flex-row gap-4">
+                <form action="{{ route('ru.index') }}" method="GET" class="flex-1 flex">
+                    <div class="relative flex-grow">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" 
+                               name="search" 
+                               value="{{ old('search', $search) }}" 
+                               placeholder="Cari ruangan..." 
+                               class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200">
+                    </div>
+                    <button type="submit" 
+                            class="ml-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+                        <i class="fas fa-search mr-2"></i>Cari
+                    </button>
+                </form>
             </div>
         </div>
-    @endif
 
-    <!-- Statistik Total Ruang -->
-    <div class="mb-6 bg-white p-4 rounded-lg shadow">
-        <div class="flex items-center justify-center">
-            <i class="fas fa-door-open mr-2 text-green-600"></i>
-            <span class="text-lg font-semibold text-gray-700">Total Ruang: {{ $ruangs->total() }}</span>
+        @if(session('success'))
+            <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded animate__animated animate__fadeIn">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-3"></i>
+                    <span>{{ session('success') }}</span>
+                </div>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded animate__animated animate__fadeIn">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle mr-3"></i>
+                    <span>{{ session('error') }}</span>
+                </div>
+            </div>
+        @endif
+
+        <!-- Search Results Info -->
+        @if($search)
+            <div class="mb-6 p-4 bg-blue-100 border-l-4 border-blue-500 text-blue-700 rounded">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-search mr-2"></i>
+                        <span>
+                            Menampilkan hasil pencarian untuk: <strong>"{{ $search }}"</strong> 
+                            ({{ $ruangs->total() }} ruangan ditemukan)
+                        </span>
+                    </div>
+                    <a href="{{ route('ru.index') }}" class="text-blue-600 hover:text-blue-800 flex items-center">
+                        <i class="fas fa-times-circle mr-1"></i>Hapus Filter
+                    </a>
+                </div>
+            </div>
+        @endif
+
+        <!-- Summary Cards -->
+        <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg shadow-inner border border-green-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex items-center justify-center">
+                    <div class="p-3 rounded-full bg-green-200 text-green-700 mr-3">
+                        <i class="fas fa-door-open text-xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Total Ruangan</p>
+                        <p class="text-2xl font-bold text-gray-800">{{ $ruangs->total() }}</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-center">
+                    <div class="p-3 rounded-full bg-blue-200 text-blue-700 mr-3">
+                        <i class="fas fa-clipboard-list text-xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Dengan Keterangan</p>
+                        <p class="text-2xl font-bold text-gray-800">{{ $ruangs->where('description', '!=', '')->where('description', '!=', null)->count() }}</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-center">
+                    <div class="p-3 rounded-full bg-purple-200 text-purple-700 mr-3">
+                        <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Ditampilkan</p>
+                        <p class="text-2xl font-bold text-gray-800">{{ $ruangs->count() }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Table -->
-    <div class="overflow-hidden rounded-xl shadow-lg">
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr class="bg-green-600 text-white">
-                    <th class="py-4 px-6 text-center font-semibold">No</th>
-                    <th class="py-4 px-6 text-center font-semibold">Ruang</th>
-                    <th class="py-4 px-6 text-center font-semibold">Keterangan</th>
-                    <th class="py-4 px-6 text-center font-semibold">Detail</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($ruangs as $index => $ruang)
-                    <tr class="hover:bg-green-50 transition duration-150">
-                        <td class="py-4 px-6 border-b text-center">{{ $ruangs->firstItem() + $index }}</td>
-                        <td class="py-4 px-6 border-b text-center font-medium">{{ $ruang->name }}</td>
-                        <td class="py-4 px-6 border-b text-center">
-                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                                {{ $ruang->description }}
-                            </span>
-                        </td>
-                        <td class="py-4 px-6 border-b text-center">
-                            <div class="flex justify-center gap-2">
+    <!-- Empty State -->
+    @if($ruangs->count() == 0)
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden animate__animated animate__fadeInUp">
+            <div class="px-6 py-8 text-center">
+                <div class="flex flex-col items-center justify-center text-gray-500">
+                    <i class="fas fa-door-open text-4xl mb-4 text-gray-300"></i>
+                    <p class="text-lg">
+                        @if($search)
+                            Tidak ada ruangan yang ditemukan
+                        @else
+                            Belum ada data ruangan
+                        @endif
+                    </p>
+                    <p class="text-gray-500 mb-6">
+                        @if($search)
+                            Coba gunakan kata kunci pencarian yang berbeda
+                        @else
+                            Belum ada ruangan yang terdaftar dalam sistem
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+    @else
+        <!-- Main Table Section -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden animate__animated animate__fadeInUp">
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-green-600 text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Ruang</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Keterangan</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($ruangs as $ruang)
+                        <tr class="hover:bg-green-50 transition-colors duration-150">
+                            <!-- Row Number -->
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">
+                                {{ ($ruangs->currentPage() - 1) * $ruangs->perPage() + $loop->iteration }}
+                            </td>
+                            
+                            <!-- Room Name -->
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-semibold text-gray-800">
+                                <div class="flex items-center justify-left ml-12">
+                                    <div class="p-2 rounded-full bg-green-100 text-green-600 mr-3">
+                                        <i class="fas fa-door-open"></i>
+                                    </div>
+                                    {{ $ruang->name }}
+                                </div>
+                            </td>
+                            
+                            <!-- Description -->
+                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                @if($ruang->description && $ruang->description != '')
+                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                        <i class="fas fa-check-circle mr-1"></i>
+                                        {{ Str::limit($ruang->description, 30) }}
+                                    </span>
+                                @else
+                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                                        Belum ada keterangan
+                                    </span>
+                                @endif
+                            </td>
+                            
+                            <!-- Detail Button -->
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                 <a href="{{ url('dr') }}" 
-                                   class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none transition duration-200 flex items-center gap-2">
-                                    <i class="fas fa-info-circle"></i>
+                                   class="text-blue-600 hover:text-blue-900 bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-lg transition-colors duration-200 flex items-center mx-auto justify-center">
+                                    <i class="fas fa-eye mr-2"></i>
                                     Detail
                                 </a>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4" class="py-8 px-6 text-center text-gray-500">
-                            <i class="fas fa-door-closed text-4xl mb-4 text-gray-300"></i>
-                            <div>Tidak ada data ruang ditemukan</div>
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            @if($ruangs->count() > 0)
+            <div class="mt-8 flex justify-between items-center bg-white p-4 rounded-lg shadow">
+                <a href="{{ $ruangs->appends(request()->query())->previousPageUrl() }}"
+                   class="px-4 py-2 {{ $ruangs->onFirstPage() ? 'text-gray-400 cursor-not-allowed pointer-events-none' : 'text-green-600 hover:text-green-700' }} transition duration-200">
+                    <i class="fas fa-chevron-left mr-1"></i>Previous
+                </a>
 
-    <!-- Pagination Controls -->
-    @if($ruangs->hasPages())
-    <div class="mt-8 flex justify-between items-center bg-white p-4 rounded-lg shadow">
-        @if($ruangs->onFirstPage())
-            <span class="px-4 py-2 text-gray-400 cursor-not-allowed">
-                <i class="fas fa-chevron-left mr-1"></i>
-                Previous
-            </span>
-        @else
-            <a href="{{ $ruangs->previousPageUrl() }}" 
-               class="px-4 py-2 text-green-600 hover:text-green-700 transition duration-200">
-                <i class="fas fa-chevron-left mr-1"></i>
-                Previous
-            </a>
-        @endif
+                <div class="flex items-center">
+                    <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg">
+                        Page {{ $ruangs->currentPage() }} of {{ $ruangs->lastPage() }}
+                    </span>
+                </div>
 
-        <div class="flex items-center">
-            <span class="px-4 py-2 bg-green-100 text-green-700 rounded-lg">
-                Page {{ $ruangs->currentPage() }} of {{ $ruangs->lastPage() }}
-            </span>
+                <a href="{{ $ruangs->appends(request()->query())->nextPageUrl() }}"
+                   class="px-4 py-2 {{ !$ruangs->hasMorePages() ? 'text-gray-400 cursor-not-allowed pointer-events-none' : 'text-green-600 hover:text-green-700' }} transition duration-200">
+                    Next<i class="fas fa-chevron-right ml-1"></i>
+                </a>
+            </div>
+            @endif
         </div>
-
-        @if($ruangs->hasMorePages())
-            <a href="{{ $ruangs->nextPageUrl() }}" 
-               class="px-4 py-2 text-green-600 hover:text-green-700 transition duration-200">
-                Next
-                <i class="fas fa-chevron-right ml-1"></i>
-            </a>
-        @else
-            <span class="px-4 py-2 text-gray-400 cursor-not-allowed">
-                Next
-                <i class="fas fa-chevron-right ml-1"></i>
-            </span>
-        @endif
-    </div>
     @endif
+
+    <!-- Footer Info -->
+    <div class="mt-8 text-center text-gray-500 text-sm">
+        <i class="fas fa-info-circle mr-1"></i>
+        Sistem Manajemen Ruang Sekolah - Diperbarui {{ now()->format('d M Y H:i') }}
+    </div>
 </div>
 
 @endsection
