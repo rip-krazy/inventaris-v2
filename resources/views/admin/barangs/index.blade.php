@@ -149,50 +149,50 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Item Cards -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    @foreach($groupedBarang['items'] as $item)
-                                    <div class="border border-gray-200 rounded-lg p-4 hover:border-green-300 hover:shadow-md transition-all duration-200">
-                                        <!-- Location -->
-                                        <div class="flex items-center mb-2">
-                                            <i class="fas fa-map-marker-alt text-purple-500 mr-2"></i>
-                                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
-                                {{ count($groupedBarang['lokasi_list']) }} lokasi
-                            </span>
-                                        </div>
-                                        
-                                        <!-- Item Code -->
-                                        <div class="font-mono font-bold text-gray-800 text-lg mb-2">
-                                            {{ $item->kode_barang }}
-                                        </div>
-                                        
-                                        <!-- Condition -->
-                                        <div class="flex items-center mb-4">
-                                            <i class="fas {{ $item->kondisi_barang === 'Baik' ? 'fa-check-circle text-green-500' : 'fa-times-circle text-red-500' }} mr-2"></i>
-                                            <span class="text-sm font-medium {{ $item->kondisi_barang === 'Baik' ? 'text-green-700' : 'text-red-700' }}">
-                                                {{ $item->kondisi_barang }}
-                                            </span>
-                                        </div>
-                                        
-                                        <!-- Action Buttons -->
-                                        <div class="flex space-x-2 border-t pt-3">
-                                            <a href="{{ route('barangs.edit', $item) }}" 
-                                               class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded flex items-center justify-center transition-colors duration-200">
-                                                <i class="fas fa-edit mr-2"></i>Edit
-                                            </a>
-                                            <form action="{{ route('barangs.destroy', $item) }}" method="POST" class="flex-1">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" 
-                                                        onclick="return confirm('Apakah yakin ingin menghapus {{ $item->kode_barang }}?')"
-                                                        class="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded flex items-center justify-center transition-colors duration-200">
-                                                    <i class="fas fa-trash mr-2"></i>Hapus
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                </div>
+                              <!-- Item Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    @foreach($groupedBarang['items'] as $item)
+    <div class="border border-gray-200 rounded-lg p-4 hover:border-green-300 hover:shadow-md transition-all duration-200">
+        <!-- Location -->
+        <div class="flex items-center mb-2">
+            <i class="fas fa-map-marker-alt text-purple-500 mr-2"></i>
+            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                {{ $item->ruang->name ?? $item->lokasi ?? 'Lokasi tidak tersedia' }}
+            </span>
+        </div>
+        
+        <!-- Item Code -->
+        <div class="font-mono font-bold text-gray-800 text-lg mb-2">
+            {{ $item->kode_barang }}
+        </div>
+        
+        <!-- Condition -->
+        <div class="flex items-center mb-4">
+            <i class="fas {{ $item->kondisi_barang === 'Baik' ? 'fa-check-circle text-green-500' : 'fa-times-circle text-red-500' }} mr-2"></i>
+            <span class="text-sm font-medium {{ $item->kondisi_barang === 'Baik' ? 'text-green-700' : 'text-red-700' }}">
+                {{ $item->kondisi_barang }}
+            </span>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex space-x-2 border-t pt-3">
+            <a href="{{ route('barangs.edit', $item) }}" 
+               class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded flex items-center justify-center transition-colors duration-200">
+                <i class="fas fa-edit mr-2"></i>Edit
+            </a>
+            <form action="{{ route('barangs.destroy', $item) }}" method="POST" class="flex-1">
+                @csrf
+                @method('DELETE')
+                <button type="submit" 
+                        onclick="return confirm('Apakah yakin ingin menghapus {{ $item->kode_barang }}?')"
+                        class="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded flex items-center justify-center transition-colors duration-200">
+                    <i class="fas fa-trash mr-2"></i>Hapus
+                </button>
+            </form>
+        </div>
+    </div>
+    @endforeach
+</div>
                                 
                                 <!-- Summary Footer -->
                                 <div class="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-600">
