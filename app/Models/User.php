@@ -19,7 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
         'mapel',
-        'is_admin',
+        'usertype',
     ];
 
     /**
@@ -39,7 +39,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean',
     ];
 
     /**

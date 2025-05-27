@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+// Import the necessary classes
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Ilya',
             'email' => 'ilya12@gmail.com',
-            'password' => Hash::make('12345678'), // Menggunakan Hash::make untuk password
+            'password' => Hash::make('12345678'),
             'usertype' => 'admin',
             'mapel' => 'pepeleg',
         ]);

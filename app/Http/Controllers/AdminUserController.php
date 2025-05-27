@@ -10,51 +10,42 @@ use Illuminate\Support\Str;
 
 class AdminUserController extends Controller
 {
-    public function index(Request $request)
-    {
-        $search = $request->input('search');
-        
-        $users = User::when($search, function($query) use ($search) {
-                    return $query->where('name', 'like', "%{$search}%")
-                                 ->orWhere('email', 'like', "%{$search}%")
-                                 ->orWhere('mapel', 'like', "%{$search}%");
-                })
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-
-        return view('admin.users.index', compact('users', 'search'));
-    }
-
-    public function create()
-    {
-        return view('admin.users.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'usertype' => 'required|string|in:admin,user',
             'mapel' => 'required|string|max:255',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mapel' => $request->mapel,
-            'is_admin' => $request->has('is_admin') ? true : false,
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'usertype' => $request->usertype,
+                'mapel' => $request->mapel,
+            ]);
 
-        // Simpan password asli di database untuk ditampilkan
-        \App\Models\PlaintextPassword::create([
-            'user_id' => $user->id,
-            'password' => $request->password,
-        ]);
+            // Pastikan user berhasil dibuat sebelum menyimpan plaintext password
+            if ($user && $user->id) {
+                // Simpan password asli di database untuk ditampilkan
+                \App\Models\PlaintextPassword::create([
+                    'user_id' => $user->id,
+                    'password' => $request->password,
+                ]);
+            }
 
-        return redirect()->route('admin.users.index')
-             ->with('success', 'User created successfully');
+            return redirect()->route('pengguna.index')
+                 ->with('success', 'User created successfully');
+                 
+        } catch (\Exception $e) {
+            return redirect()->back()
+                   ->withInput()
+                   ->with('error', 'Terjadi kesalahan saat membuat pengguna: ' . $e->getMessage());
+        }
     }
     
     public function registerForm()
@@ -68,33 +59,41 @@ class AdminUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'usertype' => 'required|string|in:admin,user',
             'mapel' => 'required|string|max:255',
         ]);
 
-        $userCount = User::count();
-        $isAdmin = ($userCount == 0);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'usertype' => $request->usertype,
+                'mapel' => $request->mapel,
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mapel' => $request->mapel,
-            'is_admin' => $isAdmin,
-        ]);
+            // Pastikan user berhasil dibuat sebelum menyimpan plaintext password
+            if ($user && $user->id) {
+                // Simpan password asli di database untuk ditampilkan
+                \App\Models\PlaintextPassword::create([
+                    'user_id' => $user->id,
+                    'password' => $request->password,
+                ]);
+            }
 
-        // Simpan password asli di database untuk ditampilkan
-        \App\Models\PlaintextPassword::create([
-            'user_id' => $user->id,
-            'password' => $request->password,
-        ]);
-
-        return redirect()->route('pengguna.index')
-             ->with('success', 'User created successfully');
+            return redirect()->route('pengguna.index')
+                 ->with('success', 'User created successfully');
+                 
+        } catch (\Exception $e) {
+            return redirect()->back()
+                   ->withInput()
+                   ->with('error', 'Terjadi kesalahan saat membuat pengguna: ' . $e->getMessage());
+        }
     }
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        return view('admin.pengguna.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -103,40 +102,58 @@ class AdminUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'mapel' => 'required|string|max:255',
+            'usertype' => 'required|string|in:admin,user',
         ]);
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'mapel' => $request->mapel,
-            'is_admin' => $request->has('is_admin') ? true : false,
-        ];
+        try {
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'mapel' => $request->mapel,
+                'usertype' => $request->usertype,
+            ];
 
-        // Jika password diisi, update password
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-            
-            // Update atau buat record password plaintext di database
-            \App\Models\PlaintextPassword::updateOrCreate(
-                ['user_id' => $user->id],
-                ['password' => $request->password]
-            );
+            // Jika password diisi, update password
+            if ($request->filled('password')) {
+                $request->validate([
+                    'password' => 'required|string|min:8|confirmed',
+                ]);
+                
+                $data['password'] = Hash::make($request->password);
+                
+                // Update atau buat record password plaintext di database
+                \App\Models\PlaintextPassword::updateOrCreate(
+                    ['user_id' => $user->id],
+                    ['password' => $request->password]
+                );
+            }
+
+            $user->update($data);
+
+            return redirect()->route('pengguna.index')
+                 ->with('success', 'User updated successfully');
+                 
+        } catch (\Exception $e) {
+            return redirect()->back()
+                   ->withInput()
+                   ->with('error', 'Terjadi kesalahan saat mengupdate pengguna: ' . $e->getMessage());
         }
-
-        $user->update($data);
-
-        return redirect()->route('admin.users.index')
-             ->with('success', 'User updated successfully');
     }
 
     public function destroy(User $user)
     {
-        $user->delete();
-        
-        // Hapus juga password yang tersimpan di session jika ada
-        session()->forget('generated_passwords.'.$user->id);
+        try {
+            $user->delete();
+            
+            // Hapus juga password yang tersimpan di session jika ada
+            session()->forget('generated_passwords.'.$user->id);
 
-        return redirect()->route('admin.users.index')
-             ->with('success', 'User deleted successfully');
+            return redirect()->route('pengguna.index')
+                 ->with('success', 'User deleted successfully');
+                 
+        } catch (\Exception $e) {
+            return redirect()->back()
+                   ->with('error', 'Terjadi kesalahan saat menghapus pengguna: ' . $e->getMessage());
+        }
     }
 }

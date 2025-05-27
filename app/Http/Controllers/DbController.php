@@ -11,18 +11,32 @@ class DbController extends Controller
     {
         $search = $request->input('search');  // Ambil input pencarian
     
-        // Ambil data barang berdasarkan pencarian dan urutkan nama_barang
+        // Group barang berdasarkan nama_barang dan urutkan
         $barangs = Barang::when($search, function ($query, $search) {
-                        $query->where('nama_barang', 'like', '%' . $search . '%')
-                              ->orWhere('kode_barang', 'like', '%' . $search . '%')
-                              ->orWhere('kondisi_barang', 'like', '%' . $search . '%');
-                    })
-                    ->orderBy('nama_barang', 'asc') // Urutkan berdasarkan nama_barang secara alfabetis
-                    ->paginate(10); // Atur jumlah barang per halaman
-    
+                $query->where('nama_barang', 'like', '%' . $search . '%')
+                      ->orWhere('kode_barang', 'like', '%' . $search . '%')
+                      ->orWhere('kondisi_barang', 'like', '%' . $search . '%');
+            })
+            ->orderBy('kode_barang', 'asc') // Urutkan berdasarkan kode_barang
+            ->get()
+            ->groupBy('nama_barang')
+            ->map(function ($items) {
+                return [
+                    'nama_barang' => $items->first()->nama_barang,
+                    'total_barang' => $items->count(),
+                    'baik_count' => $items->where('kondisi_barang', 'Baik')->count(),
+                    'rusak_count' => $items->where('kondisi_barang', 'Rusak')->count(),
+                    'items' => $items->sortBy('kode_barang') // Pastikan items sudah terurut
+                ];
+            });
+
+        // Convert back to paginated collection if needed
+        $currentPage = request()->get('page', 1);
+        $perPage = 10;
+        $currentItems = $barangs->slice(($currentPage - 1) * $perPage, $perPage);
+        
         $totalBarang = Barang::count();
         
-        // Kirim data barang dan query pencarian ke view
-        return view('user.db.index', compact('barangs', 'search'));
+        return view('user.db.index', compact('currentItems', 'search', 'totalBarang', 'barangs'));
     }
 }

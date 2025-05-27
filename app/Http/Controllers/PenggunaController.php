@@ -16,17 +16,13 @@ class PenggunaController extends Controller
         $penggunas = User::when($search, function ($query, $search) {
                             return $query->where('name', 'like', '%' . $search . '%')
                                   ->orWhere('email', 'like', '%' . $search . '%')
-                                  ->orWhere('mapel', 'like', '%' . $search . '%');
+                                  ->orWhere('mapel', 'like', '%' . $search . '%')
+                                  ->orWhere('usertype', 'like', '%' . $search . '%');
                         })
                         ->orderBy('name', 'asc')
                         ->paginate(10);
         
         return view('admin.pengguna.index', compact('penggunas', 'search'));
-    }
-
-    public function create()
-    {
-        return view('admin.pengguna.create');
     }
 
     public function store(Request $request)
@@ -36,23 +32,35 @@ class PenggunaController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'mapel' => 'required|string|max:255',
+            'usertype' => 'required|in:admin,user',
         ]);
         
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mapel' => $request->mapel,
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'mapel' => $request->mapel,
+                'usertype' => $request->usertype,
+            ]);
 
-        // Simpan password original di database untuk ditampilkan
-        \App\Models\PlaintextPassword::create([
-            'user_id' => $user->id,
-            'password' => $request->password,
-        ]);
+            // Pastikan user berhasil dibuat sebelum menyimpan plaintext password
+            if ($user && $user->id) {
+                // Simpan password original di database untuk ditampilkan
+                \App\Models\PlaintextPassword::create([
+                    'user_id' => $user->id,
+                    'password' => $request->password,
+                ]);
+            }
 
-        return redirect()->route('pengguna.index')
-               ->with('success', 'Pengguna berhasil ditambahkan');
+            return redirect()->route('pengguna.index')
+                   ->with('success', 'Pengguna berhasil ditambahkan');
+                   
+        } catch (\Exception $e) {
+            return redirect()->back()
+                   ->withInput()
+                   ->with('error', 'Terjadi kesalahan saat membuat pengguna: ' . $e->getMessage());
+        }
     }
 
     public function edit($id)
@@ -69,6 +77,7 @@ class PenggunaController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$id,
             'mapel' => 'required|string|max:255',
+            'usertype' => 'required|in:admin,user',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
@@ -76,6 +85,7 @@ class PenggunaController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'mapel' => $request->mapel,
+            'usertype' => $request->usertype,
         ];
 
         if ($request->filled('password')) {

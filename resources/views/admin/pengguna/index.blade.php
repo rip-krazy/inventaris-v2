@@ -53,34 +53,51 @@
             <table class="min-w-full bg-white">
                 <thead>
                     <tr class="bg-green-600 text-white">
-                        <th class="py-4 px-8 text-center font-semibold">No</th>
-                        <th class="py-4 px-8 text-center font-semibold">Nama</th>
-                        <th class="py-4 px-8 text-center font-semibold">Email</th>
-                        <th class="py-4 px-8 text-center font-semibold">Mapel</th>
-                        <th class="py-4 px-8 text-center font-semibold">Aksi</th>
+                        <th class="py-4 px-6 text-center font-semibold">No</th>
+                        <th class="py-4 px-6 text-center font-semibold">Nama</th>
+                        <th class="py-4 px-6 text-center font-semibold">Email</th>
+                        <th class="py-4 px-6 text-center font-semibold">Role</th>
+                        <th class="py-4 px-6 text-center font-semibold">Mapel</th>
+                        <th class="py-4 px-6 text-center font-semibold">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($penggunas as $pengguna)
                     <tr class="hover:bg-green-50 transition duration-150">
-                        <td class="py-4 px-8 border-b text-center">{{ $loop->iteration }}</td>
-                        <td class="py-4 px-8 border-b text-center">{{ $pengguna->name }}</td>
-                        <td class="py-4 px-8 border-b text-center">{{ $pengguna->email }}</td>
-                        <td class="py-4 px-8 border-b text-center">{{ $pengguna->mapel }}</td>
-                        <td class="py-4 px-8 border-b text-center">
+                        <td class="py-4 px-6 border-b text-center">{{ $loop->iteration }}</td>
+                        <td class="py-4 px-6 border-b text-center">{{ $pengguna->name }}</td>
+                        <td class="py-4 px-6 border-b text-center">{{ $pengguna->email }}</td>
+                        <td class="py-4 px-6 border-b text-center">
+                            @if($pengguna->usertype == 'admin')
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                                    <i class="fas fa-crown mr-1"></i>
+                                    Admin
+                                </span>
+                            @else
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                                    <i class="fas fa-user mr-1"></i>
+                                    User
+                                </span>
+                            @endif
+                        </td>
+                        <td class="py-4 px-6 border-b text-center">{{ $pengguna->mapel }}</td>
+                        <td class="py-4 px-6 border-b text-center">
                             <div class="flex justify-center gap-3">
                                 <a href="{{ route('pengguna.edit', $pengguna->id) }}" 
-                                class="text-blue-500 hover:text-blue-700 transition duration-200">
-                                    <i class="fas fa-edit"></i>
+                                   class="inline-flex items-center px-3 py-1.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition duration-200">
+                                    <i class="fas fa-edit mr-1"></i>
+                                    Edit
                                 </a>
                                 <form action="{{ route('pengguna.destroy', $pengguna->id) }}" 
-                                    method="POST" 
-                                    onsubmit="return confirm('Apakah Data Akan Dihapus?')" class="inline">
+                                      method="POST" 
+                                      onsubmit="return confirm('Apakah Data Akan Dihapus?')" 
+                                      class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" 
-                                            class="text-red-500 hover:text-red-700 transition duration-200">
-                                        <i class="fas fa-trash"></i>
+                                            class="inline-flex items-center px-3 py-1.5 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition duration-200">
+                                        <i class="fas fa-trash mr-1"></i>
+                                        Hapus
                                     </button>
                                 </form>
                             </div>

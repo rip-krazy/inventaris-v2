@@ -17,4 +17,9 @@ class Ruang extends Model
     return $this->hasMany(DetailRuang::class);
 }
 
+public function barangs()
+    {
+        return $this->hasMany(Barang::class);
+    }
+
 }

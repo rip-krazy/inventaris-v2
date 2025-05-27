@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('usertype')->default('user');
+            $table->enum('usertype', ['admin', 'user'])->default('user');
             $table->string('mapel')->nullable(); // Add the mapel field
             $table->rememberToken();
             $table->timestamps();
