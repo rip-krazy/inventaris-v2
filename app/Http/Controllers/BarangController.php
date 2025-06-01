@@ -1,48 +1,76 @@
 <?php
 
+// app/Http/Controllers/BarangController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->input('search');  // Ambil input pencarian
+        $search = $request->input('search');
     
-        // Group barang berdasarkan nama_barang dan urutkan
-        $barangs = Barang::when($search, function ($query, $search) {
+        $barangs = Barang::with('ruang')
+            ->when($search, function ($query, $search) {
                 $query->where('nama_barang', 'like', '%' . $search . '%')
                       ->orWhere('kode_barang', 'like', '%' . $search . '%')
-                      ->orWhere('kondisi_barang', 'like', '%' . $search . '%');
+                      ->orWhere('kondisi_barang', 'like', '%' . $search . '%')
+                      ->orWhereHas('ruang', function($q) use ($search) {
+                          $q->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('description', 'like', '%' . $search . '%');
+                      });
             })
-            ->orderBy('kode_barang', 'asc') // Urutkan berdasarkan kode_barang
+            ->orderBy('kode_barang', 'asc')
             ->get()
             ->groupBy('nama_barang')
             ->map(function ($items) {
+                $lokasiCount = $items->groupBy('ruang.name')->map(function ($lokasiItems) {
+                    return $lokasiItems->count();
+                });
+
                 return [
                     'nama_barang' => $items->first()->nama_barang,
                     'total_barang' => $items->count(),
                     'baik_count' => $items->where('kondisi_barang', 'Baik')->count(),
                     'rusak_count' => $items->where('kondisi_barang', 'Rusak')->count(),
-                    'items' => $items->sortBy('kode_barang') // Pastikan items sudah terurut
+                    'lokasi_list' => $lokasiCount->toArray(),
+                    'items' => $items->sortBy('kode_barang')
                 ];
             });
 
-        // Convert back to paginated collection if needed
         $currentPage = request()->get('page', 1);
         $perPage = 10;
         $currentItems = $barangs->slice(($currentPage - 1) * $perPage, $perPage);
         
         $totalBarang = Barang::count();
+        $ruangs = Ruang::all(); // Untuk dropdown jika diperlukan
         
-        return view('admin.barangs.index', compact('currentItems', 'search', 'totalBarang', 'barangs'));
+        return view('admin.barangs.index', compact('currentItems', 'search', 'totalBarang', 'barangs', 'ruangs'));
+    }
+
+    // Di BarangController.php, tambahkan method untuk mendapatkan barang yang tersedia
+    public function getAvailableBarang(Request $request)
+    {
+        $search = $request->get('search', '');
+        
+        $availableBarang = Barang::where('kondisi_barang', 'Baik')
+            ->when($search, function ($query, $search) {
+                $query->where('nama_barang', 'like', '%' . $search . '%')
+                    ->orWhere('kode_barang', 'like', '%' . $search . '%');
+            })
+            ->get(['id', 'nama_barang', 'kode_barang', 'kondisi_barang']);
+        
+        return response()->json($availableBarang);
     }
 
     public function create()
     {
-        return view('admin.barangs.create');
+        $ruangs = Ruang::orderBy('name', 'asc')->get();
+        return view('admin.barangs.create', compact('ruangs'));
     }
 
     public function store(Request $request)
@@ -51,12 +79,11 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'nomor_urut' => 'required|numeric|min:0|max:999',
             'kondisi_barang' => 'required',
+            'ruang_id' => 'required|exists:ruangs,id',
         ]);
 
-        // Generate kode barang otomatis
         $kode_barang = $this->generateKodeBarang($request->nama_barang, $request->nomor_urut);
         
-        // Cek apakah kode barang sudah ada
         if (Barang::where('kode_barang', $kode_barang)->exists()) {
             return back()->withErrors(['nomor_urut' => 'Kode barang ' . $kode_barang . ' sudah ada. Silakan gunakan nomor urut yang berbeda.'])->withInput();
         }
@@ -65,6 +92,8 @@ class BarangController extends Controller
             'nama_barang' => $request->nama_barang,
             'kode_barang' => $kode_barang,
             'kondisi_barang' => $request->kondisi_barang,
+            'lokasi' => $request->lokasi ?? '', // Lokasi bisa diisi atau dibiarkan kosong
+            'ruang_id' => $request->ruang_id,
         ]);
 
         return redirect()->route('barangs.index')->with('success', 'Data Barang berhasil ditambahkan dengan kode: ' . $kode_barang);
@@ -72,9 +101,9 @@ class BarangController extends Controller
 
     public function edit(Barang $barang)
     {
-        // Extract nomor urut dari kode barang yang ada
+        $ruangs = Ruang::orderBy('name', 'asc')->get();
         $nomor_urut = $this->extractNomorUrut($barang->kode_barang);
-        return view('admin.barangs.edit', compact('barang', 'nomor_urut'));
+        return view('admin.barangs.edit', compact('barang', 'nomor_urut', 'ruangs'));
     }
 
     public function update(Request $request, Barang $barang)
@@ -83,12 +112,11 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'nomor_urut' => 'required|numeric|min:0|max:999',
             'kondisi_barang' => 'required',
+            'ruang_id' => 'required|exists:ruangs,id',
         ]);
 
-        // Generate kode barang baru
         $kode_barang_baru = $this->generateKodeBarang($request->nama_barang, $request->nomor_urut);
         
-        // Cek apakah kode barang baru sudah ada (kecuali untuk barang yang sedang di-update)
         if (Barang::where('kode_barang', $kode_barang_baru)->where('id', '!=', $barang->id)->exists()) {
             return back()->withErrors(['nomor_urut' => 'Kode barang ' . $kode_barang_baru . ' sudah ada. Silakan gunakan nomor urut yang berbeda.'])->withInput();
         }
@@ -97,10 +125,14 @@ class BarangController extends Controller
             'nama_barang' => $request->nama_barang,
             'kode_barang' => $kode_barang_baru,
             'kondisi_barang' => $request->kondisi_barang,
+            'ruang_id' => $request->ruang_id,
         ]);
 
         return redirect()->route('barangs.index')->with('success', 'Data Barang berhasil diperbarui dengan kode: ' . $kode_barang_baru);
     }
+
+    // ... (method lainnya tetap sama seperti sebelumnya)
+
 
     public function destroy(Barang $barang)
     {
@@ -161,9 +193,29 @@ class BarangController extends Controller
 
         $existingBarang = Barang::where('nama_barang', $nama_barang)
                                ->orderBy('kode_barang', 'asc')
-                               ->get(['id', 'kode_barang', 'kondisi_barang']);
+                               ->get(['id', 'kode_barang', 'kondisi_barang', 'lokasi']);
 
         return response()->json($existingBarang);
+    }
+
+    /**
+     * Get unique locations from database
+     */
+    public function getLocations(Request $request)
+    {
+        $search = $request->get('search', '');
+        
+        $locations = Barang::select('lokasi')
+                          ->distinct()
+                          ->when($search, function ($query, $search) {
+                              return $query->where('lokasi', 'like', '%' . $search . '%');
+                          })
+                          ->orderBy('lokasi', 'asc')
+                          ->pluck('lokasi')
+                          ->filter()
+                          ->values();
+
+        return response()->json($locations);
     }
 
     /**

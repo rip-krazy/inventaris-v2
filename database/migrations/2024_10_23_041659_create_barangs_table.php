@@ -13,17 +13,22 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('ruang_id');
             $table->string('nama_barang');
             $table->string('kode_barang')->unique();
             $table->string('kondisi_barang');
+            $table->string('lokasi');
             $table->timestamps();
+            
+            // Foreign key constraint removed temporarily
+            // Will add it after confirming ruangs table structure
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('barangs');
     }

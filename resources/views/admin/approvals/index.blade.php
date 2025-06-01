@@ -101,7 +101,7 @@
                                             </div>
                                             <p class="text-gray-800 font-medium">
                                                 @if (!empty($entry['jam_dari']) && !empty($entry['jam_sampai']))
-                                                    Jam ke-{{ $entry['jam_dari'] }} - Jam ke-{{ $entry['jam_sampai'] }}
+                                                    Jam ke-{{ $entry['jam_dari'] }} - {{ $entry['jam_sampai'] }}
                                                 @elseif (!empty($entry['jam']))
                                                     {{ $entry['jam'] }}
                                                 @else

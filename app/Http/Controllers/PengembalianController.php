@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Log; // Add this for logging
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\Pengembalian;
 use App\Models\History;
@@ -40,6 +40,7 @@ class PengembalianController extends Controller
         return view('admin.pengembalian.index', compact('pengembalianTertunda', 'pengembalianHistory'));
     }
 
+    // app/Http/Controllers/PengembalianController.php
     public function approve($index)
     {
         // Mengambil data pengembalian tertunda dari session
@@ -47,9 +48,11 @@ class PengembalianController extends Controller
         
         if (isset($pengembalianTertunda[$index])) {
             $entry = $pengembalianTertunda[$index];
-    
+
             // Get the item ID (either barangTempat or ruangTempat)
             $itemId = null;
+            $isRuang = false;
+            
             if (isset($entry['barangTempat']) && is_numeric($entry['barangTempat'])) {
                 $itemId = $entry['barangTempat'];
                 $barangTempat = $this->getNamaBarangAtauRuang($entry['barangTempat']);
@@ -58,14 +61,20 @@ class PengembalianController extends Controller
                 $itemId = $entry['ruangTempat'];
                 $ruangTempat = $this->getNamaBarangAtauRuang($entry['ruangTempat']);
                 $barangTempat = null;
+                $isRuang = true;
+                
+                // Update status ruangan menjadi tersedia
+                $ruang = Ruang::find($entry['ruangTempat']);
+                if ($ruang) {
+                    $ruang->updateStatus('Tersedia');
+                }
             } else {
                 // Handle case when both are not available or not numeric
                 $barangTempat = $entry['barangTempat'] ?? null;
                 $ruangTempat = $entry['ruangTempat'] ?? null;
-                // You might want to set a default itemId or handle this case differently
-                $itemId = 0; // Or some other appropriate default
+                $itemId = 0;
             }
-    
+
             // Create new history record in database
             $history = new History();
             $history->name = $entry['name'];
@@ -76,12 +85,10 @@ class PengembalianController extends Controller
             $history->status = 'Approved';
             $history->alasan = null;
             $history->type = 'pengembalian';
-            
-            // Add required fields from migration
             $history->item_id = $itemId;
-            $history->action = 'return'; // "pengembalian" action
-            $history->admin_id = auth()->id() ?? 1; // Use authenticated admin ID or default to 1
-            $history->notes = 'Approved via pengembalian system'; // Optional notes
+            $history->action = 'return';
+            $history->admin_id = auth()->id() ?? 1;
+            $history->notes = $isRuang ? 'Ruangan telah dikembalikan dan tersedia' : 'Barang telah dikembalikan';
             
             $history->save();
             
@@ -89,14 +96,13 @@ class PengembalianController extends Controller
             unset($pengembalianTertunda[$index]);
             
             // Menyimpan kembali data pengembalian tertunda ke session
-            Session::put('pengembalian_tertunda', $pengembalianTertunda);
+            Session::put('pengembalian_tertunda', array_values($pengembalianTertunda)); // Gunakan array_values untuk reindex
         }
         
         return redirect()->route('pengembalian.index')
             ->with('status', 'success')
-            ->with('message', 'Permintaan pengembalian telah disetujui dan disimpan ke database!');
+            ->with('message', 'Permintaan pengembalian telah disetujui dan status ruangan diperbarui!');
     }
-    
     public function history(Request $request)
     {
         // Query dasar untuk mendapatkan data history dari database

@@ -33,36 +33,59 @@ class PeminjamanController extends Controller
             'nama' => 'required|string',
             'mapel' => 'required|string',
             'jam_dari' => 'required|numeric',
-            'jam_sampai' => 'required|numeric|gt:jam_dari', // Memastikan jam_sampai > jam_dari
+            'jam_sampai' => 'required|numeric|gt:jam_dari',
             'jenis' => 'required|string',
         ]);
-    
-        // Format jam menjadi format yang sesuai: "Jam ke-X sampai Jam ke-Y"
+
+        if ($request->jenis === 'barang') {
+            $request->validate(['barangtempat' => 'required|exists:barangs,id']);
+            $barang = Barang::find($request->barangtempat);
+            if ($barang->kondisi_barang !== 'Baik') {
+                return back()->withErrors(['barangtempat' => 'Barang dalam kondisi rusak tidak dapat dipinjam'])->withInput();
+            }
+        } else {
+            $request->validate([
+                'ruangtempat' => 'required|exists:ruangs,id',
+                'ruang_nama' => 'required|string'
+            ]);
+            
+            // Cek ketersediaan ruangan
+            $ruang = Ruang::find($request->ruangtempat);
+            
+            // Jika ruangan sudah dipinjam (ada di description)
+            if ($ruang->description && str_contains($ruang->description, 'Dipinjam')) {
+                return back()->withErrors(['ruangtempat' => 'Ruangan ini sedang tidak tersedia'])->withInput();
+            }
+        }
+
         $jamFormat = "Jam ke-{$request->jam_dari} sampai Jam ke-{$request->jam_sampai}";
-        
+
         $newEntry = [
             'name' => $request->nama,
             'mapel' => $request->mapel,
-            'jam' => $jamFormat, // Menyimpan format jam yang sudah diformat
+            'jam' => $jamFormat,
             'status' => 'Pending',
             'jenis' => $request->jenis,
+            'catatan' => $request->catatan,
         ];
-        
-        $newEntry['catatan'] = $request->catatan;
-    
+
         if ($request->jenis === 'barang') {
-            $request->validate(['barangtempat' => 'required|exists:barangs,id']);
             $newEntry['barangTempat'] = $request->barangtempat;
         } else {
-            $request->validate(['ruangtempat' => 'required|exists:ruangs,id']);
             $newEntry['ruangTempat'] = $request->ruangtempat;
-            $newEntry['ruangNama'] = $request->ruang_nama; // Simpan nama ruangan
+            $newEntry['ruangNama'] = $request->ruang_nama;
+            
+            // Update keterangan ruangan
+            $ruang = Ruang::find($request->ruangtempat);
+            $ruang->update([
+                'description' => "Dipinjam oleh {$request->nama} untuk {$request->mapel} ({$jamFormat})"
+            ]);
         }
-    
+
         $pendingApprovals = Session::get('pending_approvals', []);
         $pendingApprovals[] = $newEntry;
         Session::put('pending_approvals', $pendingApprovals);
-    
+
         return redirect()->route('peminjaman.index')->with('notification', 'Peminjaman berhasil diajukan!');
     }
 }
