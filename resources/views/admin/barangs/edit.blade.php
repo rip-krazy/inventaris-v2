@@ -77,25 +77,27 @@
                 </div>
             </div>
 
-            <!-- Lokasi Field -->
+            <!-- Lokasi Ruang Field -->
             <div class="space-y-3">
                 <label class="block text-lg font-semibold text-gray-700">
-                    <i class="fas fa-map-marker-alt mr-2 text-green-600"></i>Lokasi Barang
+                    <i class="fas fa-map-marker-alt mr-2 text-green-600"></i>Lokasi Ruang
                 </label>
-                <div class="relative">
-                    <input type="text" 
-                           name="lokasi" 
-                           id="lokasi"
-                           value="{{ old('lokasi', $barang->lokasi ?? '') }}"
-                           class="w-full border-2 border-gray-300 rounded-xl p-4 pl-12 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
-                           placeholder="Masukkan lokasi barang (contoh: Gudang A, Ruang 101, dll)"
-                           required>
-                    <i class="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                </div>
+                <select name="ruang_id" id="ruang_id" 
+                        class="w-full border-2 border-gray-300 rounded-xl p-4 text-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300" required>
+                    <option value="">-- Pilih Ruang --</option>
+                    @foreach($ruangs as $ruang)
+                        <option value="{{ $ruang->id }}" {{ old('ruang_id', $barang->ruang_id) == $ruang->id ? 'selected' : '' }}>
+                            {{ $ruang->name }} - {{ $ruang->description }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('ruang_id')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
                 <div class="flex items-center mt-2">
                     <i class="fas fa-info-circle text-blue-500 mr-2"></i>
                     <span class="text-sm text-blue-600">
-                        Lokasi saat ini: <strong>{{ $barang->lokasi ?? 'Belum diset' }}</strong>
+                        Ruang saat ini: <strong>{{ $barang->ruang ? $barang->ruang->name . ' - ' . $barang->ruang->description : 'Belum diset' }}</strong>
                     </span>
                 </div>
             </div>
@@ -154,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const namaBarangInput = document.getElementById('nama_barang');
     const nomorUrutInput = document.getElementById('nomor_urut');
-    const lokasiInput = document.getElementById('lokasi');
+    const ruangSelect = document.getElementById('ruang_id');
     const previewText = document.getElementById('preview-text');
 
     // Add active states to radio buttons
@@ -204,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateInputs() {
         const namaBarang = namaBarangInput.value.trim();
         const nomorUrut = nomorUrutInput.value.trim();
-        const lokasi = lokasiInput.value.trim();
+        const ruangId = ruangSelect.value.trim();
         
         // Validate nama barang
         if (namaBarang) {
@@ -234,15 +236,12 @@ document.addEventListener('DOMContentLoaded', function() {
             nomorUrutInput.classList.remove('border-green-500', 'border-red-500');
         }
         
-        // Validate lokasi
-        if (lokasi && lokasi.length >= 3) {
-            lokasiInput.classList.add('border-green-500');
-            lokasiInput.classList.remove('border-red-500');
-        } else if (lokasi && lokasi.length > 0) {
-            lokasiInput.classList.add('border-yellow-400');
-            lokasiInput.classList.remove('border-green-500', 'border-red-500');
+        // Validate ruang selection
+        if (ruangId) {
+            ruangSelect.classList.add('border-green-500');
+            ruangSelect.classList.remove('border-red-500');
         } else {
-            lokasiInput.classList.remove('border-green-500', 'border-yellow-400', 'border-red-500');
+            ruangSelect.classList.remove('border-green-500', 'border-red-500');
         }
     }
 
@@ -257,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
         validateInputs();
     });
 
-    lokasiInput.addEventListener('input', function() {
+    ruangSelect.addEventListener('change', function() {
         validateInputs();
     });
 
@@ -266,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         const namaBarang = namaBarangInput.value.trim();
         const nomorUrut = nomorUrutInput.value.trim();
-        const lokasi = lokasiInput.value.trim();
+        const ruangId = ruangSelect.value.trim();
         
         let hasError = false;
         let errorMessages = [];
@@ -299,15 +298,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Validate lokasi
-        if (!lokasi) {
+        // Validate ruang selection
+        if (!ruangId) {
             hasError = true;
-            errorMessages.push('Lokasi barang harus diisi');
-            lokasiInput.classList.add('border-red-500');
-        } else if (lokasi.length < 3) {
-            hasError = true;
-            errorMessages.push('Lokasi barang harus minimal 3 karakter');
-            lokasiInput.classList.add('border-red-500');
+            errorMessages.push('Lokasi ruang harus dipilih');
+            ruangSelect.classList.add('border-red-500');
         }
         
         // Validate kondisi barang
@@ -350,17 +345,33 @@ document.addEventListener('DOMContentLoaded', function() {
     updatePreview();
     
     // Add smooth focus transitions
-    const inputs = [namaBarangInput, nomorUrutInput, lokasiInput];
+    const inputs = [namaBarangInput, nomorUrutInput, ruangSelect];
     inputs.forEach(input => {
         input.addEventListener('focus', function() {
-            this.parentElement.classList.add('transform', 'scale-105');
+            this.classList.add('transform', 'scale-105');
         });
         
         input.addEventListener('blur', function() {
-            this.parentElement.classList.remove('transform', 'scale-105');
+            this.classList.remove('transform', 'scale-105');
         });
     });
 });
 </script>
+
+<style>
+/* Custom border colors */
+.border-yellow-400 {
+    border-color: #fbbf24 !important;
+}
+
+.border-red-400 {
+    border-color: #f87171 !important;
+}
+
+/* Input focus effects */
+input:focus, select:focus {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+</style>
 
 @endsection
