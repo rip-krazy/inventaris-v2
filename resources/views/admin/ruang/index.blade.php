@@ -184,13 +184,36 @@
                                 </div>
                             </td>
                             
-                            <!-- Description -->
+                            <!-- Di bagian Description -->
                             <td class="px-6 py-4 whitespace-nowrap text-center">
-                                @if($ruang->description && $ruang->description != '')
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                        <i class="fas fa-check-circle mr-1"></i>
-                                        {{ Str::limit($ruang->description, 30) }}
+                                @if(str_contains($ruang->description, 'Dipinjam'))
+                                    @php
+                                        // Ekstrak informasi peminjaman dari description
+                                        $descParts = explode('(', $ruang->description);
+                                        $peminjamInfo = trim($descParts[0] ?? '');
+                                        $waktuInfo = isset($descParts[1]) ? '('.trim($descParts[1]) : '';
+                                    @endphp
+                                    <div class="flex flex-col items-center space-y-1">
+                                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                            <i class="fas fa-door-closed mr-1"></i>
+                                            Sedang Dipinjam
+                                        </span>
+                                        <span class="text-xs text-gray-600">{{ Str::limit($peminjamInfo, 25) }}</span>
+                                        <span class="text-xs text-gray-500">{{ $waktuInfo }}</span>
+                                    </div>
+                                @elseif(str_contains($ruang->description, 'Tersedia'))
+                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        <i class="fas fa-door-open mr-1"></i>
+                                        Tersedia
                                     </span>
+                                @elseif($ruang->description && $ruang->description != '')
+                                    <div class="flex flex-col items-center space-y-1">
+                                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                            <i class="fas fa-info-circle mr-1"></i>
+                                            Keterangan
+                                        </span>
+                                        <span class="text-xs text-gray-600">{{ Str::limit($ruang->description, 30) }}</span>
+                                    </div>
                                 @else
                                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                         <i class="fas fa-exclamation-triangle mr-1"></i>

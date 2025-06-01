@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ruang;
+use App\Models\Peminjaman;
 use App\Models\DetailRuang;
 use Illuminate\Http\Request;
 
@@ -99,12 +100,14 @@ class RuangController extends Controller
 
     public function show($id)
     {
-        // Pastikan kita mengambil ruang beserta detail barangnya
         $ruang = Ruang::findOrFail($id);
-    
-        // Ambil detail barang terkait dengan ruang ini
         $detailruangs = DetailRuang::where('ruang_id', $id)->get();
-    
-        return view('admin.ruang.detailruang.index', compact('ruang', 'detailruangs'));
+        
+        // Tambahkan informasi peminjaman aktif
+        $activeBookings = Peminjaman::where('ruangTempat', $id)
+            ->where('status', 'Approved')
+            ->get();
+            
+        return view('admin.ruang.detailruang.index', compact('ruang', 'detailruangs', 'activeBookings'));
     }
 }

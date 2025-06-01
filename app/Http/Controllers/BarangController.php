@@ -52,6 +52,21 @@ class BarangController extends Controller
         return view('admin.barangs.index', compact('currentItems', 'search', 'totalBarang', 'barangs', 'ruangs'));
     }
 
+    // Di BarangController.php, tambahkan method untuk mendapatkan barang yang tersedia
+    public function getAvailableBarang(Request $request)
+    {
+        $search = $request->get('search', '');
+        
+        $availableBarang = Barang::where('kondisi_barang', 'Baik')
+            ->when($search, function ($query, $search) {
+                $query->where('nama_barang', 'like', '%' . $search . '%')
+                    ->orWhere('kode_barang', 'like', '%' . $search . '%');
+            })
+            ->get(['id', 'nama_barang', 'kode_barang', 'kondisi_barang']);
+        
+        return response()->json($availableBarang);
+    }
+
     public function create()
     {
         $ruangs = Ruang::orderBy('name', 'asc')->get();

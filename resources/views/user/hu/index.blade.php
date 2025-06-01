@@ -10,67 +10,34 @@
 
     <!-- Stat Cards -->
     <div class="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Total Pengembalian Card -->
-        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-6 border-l-4 border-green-500 overflow-hidden relative group">
+        @php
+            $statsData = [
+                ['title' => 'Total Pengembalian', 'value' => $pengembalianHistory->count(), 'color' => 'green', 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['title' => 'Bulan Ini', 'value' => $pengembalianHistory->filter(fn($entry) => \Carbon\Carbon::parse($entry->tanggal_pengembalian)->isCurrentMonth())->count(), 'color' => 'blue', 'icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
+                ['title' => 'Total Pengguna', 'value' => 1, 'color' => 'purple', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z']
+            ];
+        @endphp
+        
+        @foreach($statsData as $stat)
+        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-6 border-l-4 border-{{ $stat['color'] }}-500 overflow-hidden relative group">
             <div class="flex items-center">
-                <div class="p-3 rounded-full bg-green-100 mr-4 group-hover:bg-green-200 transition-all">
-                    <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <div class="p-3 rounded-full bg-{{ $stat['color'] }}-100 mr-4 group-hover:bg-{{ $stat['color'] }}-200 transition-all">
+                    <svg class="w-7 h-7 text-{{ $stat['color'] }}-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}"/>
                     </svg>
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-500">Total Pengembalian</p>
-                    <p class="text-2xl font-bold text-gray-800">{{ $pengembalianHistory->count() }}</p>
+                    <p class="text-sm font-medium text-gray-500">{{ $stat['title'] }}</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $stat['value'] }}</p>
                 </div>
             </div>
             <div class="absolute -right-2 -bottom-3 opacity-5 group-hover:opacity-10 transition-opacity">
-                <svg class="w-24 h-24 text-green-800" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <svg class="w-24 h-24 text-{{ $stat['color'] }}-800" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="{{ $stat['icon'] }}"/>
                 </svg>
             </div>
         </div>
-
-        <!-- Bulan Ini Card -->
-        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-6 border-l-4 border-blue-500 overflow-hidden relative group">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-blue-100 mr-4 group-hover:bg-blue-200 transition-all">
-                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-500">Bulan Ini</p>
-                    <p class="text-2xl font-bold text-gray-800">{{ $pengembalianHistory->filter(function($entry) {
-                        return \Carbon\Carbon::parse($entry->tanggal_pengembalian)->isCurrentMonth();
-                    })->count() }}</p>
-                </div>
-            </div>
-            <div class="absolute -right-2 -bottom-3 opacity-5 group-hover:opacity-10 transition-opacity">
-                <svg class="w-24 h-24 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-            </div>
-        </div>
-
-        <!-- Total Pengguna Card -->
-        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-6 border-l-4 border-purple-500 overflow-hidden relative group">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-purple-100 mr-4 group-hover:bg-purple-200 transition-all">
-                    <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-500">Total Pengguna</p>
-                    <p class="text-2xl font-bold text-gray-800">1</p>
-                </div>
-            </div>
-            <div class="absolute -right-2 -bottom-3 opacity-5 group-hover:opacity-10 transition-opacity">
-                <svg class="w-24 h-24 text-purple-800" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-            </div>
-        </div>
+        @endforeach
     </div>
 
     <!-- Main Content -->
@@ -82,23 +49,28 @@
                 <p class="text-green-100 mt-1">Daftar lengkap history pengembalian barang dan tempat</p>
             </div>
             
-           <!-- Dropdown Button dan Menu Hapus Riwayat -->
-            <div class="relative inline-block text-left ">
-                <!-- Dropdown Button -->
+            <!-- Dropdown Delete History -->
+            <div class="relative">
                 <button id="deleteHistoryDropdownButton" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="toggleDeleteDropdown()">
                     Hapus Riwayat
-                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                 </button>
 
-                 <!-- Dropdown Menu (Hidden by default) dengan z-index tinggi -->
                 <div id="deleteHistoryDropdown" class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-30">
-                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="deleteHistoryDropdownButton">
-                        <button onclick="openDeleteModal('24jam')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hapus riwayat 24 jam terakhir</button>
-                        <button onclick="openDeleteModal('7hari')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hapus riwayat 7 hari terakhir</button>
-                        <button onclick="openDeleteModal('30hari')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hapus riwayat 30 hari terakhir</button>
-                        <button onclick="openDeleteModal('semua')" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem">Hapus semua riwayat</button>
+                    <div class="py-1">
+                        @php
+                            $deleteOptions = [
+                                ['key' => '24jam', 'label' => 'Hapus riwayat 24 jam terakhir', 'class' => 'text-gray-700 hover:bg-gray-100'],
+                                ['key' => '7hari', 'label' => 'Hapus riwayat 7 hari terakhir', 'class' => 'text-gray-700 hover:bg-gray-100'],
+                                ['key' => '30hari', 'label' => 'Hapus riwayat 30 hari terakhir', 'class' => 'text-gray-700 hover:bg-gray-100'],
+                                ['key' => 'semua', 'label' => 'Hapus semua riwayat', 'class' => 'text-red-600 hover:bg-red-50']
+                            ];
+                        @endphp
+                        @foreach($deleteOptions as $option)
+                        <button onclick="openDeleteModal('{{ $option['key'] }}')" class="block w-full text-left px-4 py-2 text-sm {{ $option['class'] }}">{{ $option['label'] }}</button>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -111,23 +83,15 @@
                     <svg class="absolute left-3 top-3 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <input type="text" 
-                           name="search"
-                           placeholder="Cari nama barang, tempat, atau mapel..." 
-                           value="{{ isset($filters['search']) ? $filters['search'] : '' }}"
-                           class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    <input type="text" name="search" placeholder="Cari nama barang, tempat, atau mapel..." value="{{ $filters['search'] ?? '' }}" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
                 </div>
                 
                 <div class="flex flex-wrap gap-3 items-center">
                     <div class="relative">
-                        <div class="flex items-center absolute left-3 top-2.5">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <input type="date" id="filterTanggal" name="tanggal" 
-                               value="{{ isset($filters['tanggal']) ? $filters['tanggal'] : '' }}"
-                               class="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <input type="date" name="tanggal" value="{{ $filters['tanggal'] ?? '' }}" class="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                     </div>
                     
                     <div class="relative">
@@ -136,11 +100,9 @@
                             <option value="Approved" {{ isset($filters['status']) && $filters['status'] == 'Approved' ? 'selected' : '' }}>Selesai</option>
                             <option value="Rejected" {{ isset($filters['status']) && $filters['status'] == 'Rejected' ? 'selected' : '' }}>Ditolak</option>
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
+                        <svg class="pointer-events-none absolute right-2 top-3 w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </div>
                     
                     <button type="submit" class="px-5 py-2.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center justify-center min-w-[80px] font-medium">
@@ -165,12 +127,12 @@
             <table class="min-w-full table-auto border-collapse">
                 <thead>
                     <tr class="bg-gray-50">
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">No</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">Tanggal Pengembalian</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">Nama Barang/Tempat</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">Mapel</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">Alasan (jika ditolak)</th>
+                        @php
+                            $headers = ['No', 'Tanggal Pengembalian', 'Nama Barang/Tempat', 'Mapel', 'Status', 'Alasan (jika ditolak)'];
+                        @endphp
+                        @foreach($headers as $header)
+                        <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase text-xs tracking-wider">{{ $header }}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100" id="tableBody">
@@ -210,11 +172,7 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-red-600">
                             @if($entry->status == 'Rejected' && $entry->alasan)
-                                <button 
-                                    type="button" 
-                                    class="text-red-500 underline decoration-dotted hover:text-red-700 focus:outline-none text-sm"
-                                    onclick="openAlasanModal('{{ $entry->id }}', '{{ htmlspecialchars($entry->alasan) }}')"
-                                >
+                                <button type="button" class="text-red-500 underline decoration-dotted hover:text-red-700 focus:outline-none text-sm" onclick="openAlasanModal('{{ $entry->id }}', '{{ htmlspecialchars($entry->alasan) }}')">
                                     Lihat alasan
                                 </button>
                             @else
@@ -244,15 +202,8 @@
             </table>
         </div>
         
-        <!-- Pagination or Information -->
         <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
-            <div class="flex items-center justify-between">
-                <p class="text-sm text-gray-600">
-                    Menampilkan {{ $pengembalianHistory->count() }} data
-                </p>
-                
-                <!-- You can add pagination here if needed -->
-            </div>
+            <p class="text-sm text-gray-600">Menampilkan {{ $pengembalianHistory->count() }} data</p>
         </div>
     </div>
 </div>
@@ -260,12 +211,9 @@
 <!-- Modal for "Lihat alasan" -->
 <div id="alasanModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Background overlay -->
-        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div class="absolute inset-0 bg-gray-500 opacity-75" onclick="closeAlasanModal()"></div>
+        <div class="fixed inset-0 transition-opacity" onclick="closeAlasanModal()">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-
-        <!-- Modal panel -->
         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
@@ -275,13 +223,9 @@
                         </svg>
                     </div>
                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                            Alasan Penolakan
-                        </h3>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Alasan Penolakan</h3>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500" id="modal-content">
-                                <!-- Content will be inserted here by JavaScript -->
-                            </p>
+                            <p class="text-sm text-gray-500" id="modal-content"></p>
                         </div>
                     </div>
                 </div>
@@ -298,12 +242,9 @@
 <!-- Modal for Delete History Confirmation -->
 <div id="deleteHistoryModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Background overlay -->
-        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div class="absolute inset-0 bg-gray-500 opacity-75" onclick="closeDeleteModal()"></div>
+        <div class="fixed inset-0 transition-opacity" onclick="closeDeleteModal()">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-
-        <!-- Modal panel -->
         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
@@ -313,136 +254,87 @@
                         </svg>
                     </div>
                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="delete-modal-title">
-                            Konfirmasi Hapus Riwayat
-                        </h3>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="delete-modal-title">Konfirmasi Hapus Riwayat</h3>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500" id="delete-modal-content">
-                                <!-- Content will be inserted here by JavaScript -->
-                            </p>
+                            <p class="text-sm text-gray-500" id="delete-modal-content"></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <form id="deleteHistoryForm" action="{{ route('hu.deleteHistory') }}" method="POST">
+                <form id="deleteHistoryForm" action="{{ route('hu.deleteHistory') }}" method="POST" class="inline">
                     @csrf
                     <input type="hidden" name="time_range" id="deleteTimeRange" value="">
                     <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                         Hapus
                     </button>
                 </form>
-                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeDeleteModal()">
-                        Batal
-                    </button>
-                </div>
+                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeDeleteModal()">
+                    Batal
+                </button>
             </div>
         </div>
     </div>
-    
-    <script>
-        // Function to open the Alasan modal
-        function openAlasanModal(id, alasan) {
+</div>
+
+<script>
+    const modalFunctions = {
+        openAlasanModal(id, alasan) {
             document.getElementById('modal-content').innerText = alasan;
             document.getElementById('alasanModal').classList.remove('hidden');
-        }
-    
-        // Function to close the Alasan modal
-        function closeAlasanModal() {
+        },
+        closeAlasanModal() {
             document.getElementById('alasanModal').classList.add('hidden');
+        },
+        toggleDeleteDropdown() {
+            document.getElementById('deleteHistoryDropdown').classList.toggle('hidden');
+        },
+        openDeleteModal(timeRange) {
+            const modalTitle = document.getElementById('delete-modal-title');
+            const modalContent = document.getElementById('delete-modal-content');
+            const deleteTimeRange = document.getElementById('deleteTimeRange');
+            
+            deleteTimeRange.value = timeRange;
+            
+            const messages = {
+                '24jam': 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 24 jam terakhir? Tindakan ini tidak dapat dibatalkan.',
+                '7hari': 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 7 hari terakhir? Tindakan ini tidak dapat dibatalkan.',
+                '30hari': 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 30 hari terakhir? Tindakan ini tidak dapat dibatalkan.',
+                'semua': 'Apakah Anda yakin ingin menghapus SEMUA riwayat pengembalian? Tindakan ini tidak dapat dibatalkan dan akan menghapus seluruh data pengembalian.'
+            };
+            
+            modalTitle.innerText = timeRange === 'semua' ? 'Hapus Semua Riwayat?' : 'Konfirmasi Hapus Riwayat';
+            modalContent.innerText = messages[timeRange];
+            document.getElementById('deleteHistoryModal').classList.remove('hidden');
+            document.getElementById('deleteHistoryDropdown').classList.add('hidden');
+        },
+        closeDeleteModal() {
+            document.getElementById('deleteHistoryModal').classList.add('hidden');
         }
-    
-        // Toggle dropdown function
-    function toggleDeleteDropdown() {
-        const dropdown = document.getElementById('deleteHistoryDropdown');
-        dropdown.classList.toggle('hidden');
-    }
+    };
 
-    // Close the dropdown when clicking outside
-    window.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('deleteHistoryDropdown');
-        const dropdownButton = document.getElementById('deleteHistoryDropdownButton');
-        
-        if (!dropdown.contains(event.target) && !dropdownButton.contains(event.target)) {
-            dropdown.classList.add('hidden');
-        }
-    });
+    // Assign functions to window
+    Object.assign(window, modalFunctions);
 
-    // Function untuk open Delete History modal tetap sama
-    function openDeleteModal(timeRange) {
-        const modalTitle = document.getElementById('delete-modal-title');
-        const modalContent = document.getElementById('delete-modal-content');
-        const deleteTimeRange = document.getElementById('deleteTimeRange');
-        
-        deleteTimeRange.value = timeRange;
-        
-        let title = 'Konfirmasi Hapus Riwayat';
-        let content = '';
-        
-        switch(timeRange) {
-            case '24jam':
-                content = 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 24 jam terakhir? Tindakan ini tidak dapat dibatalkan.';
-                break;
-            case '7hari':
-                content = 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 7 hari terakhir? Tindakan ini tidak dapat dibatalkan.';
-                break;
-            case '30hari':
-                content = 'Apakah Anda yakin ingin menghapus semua riwayat pengembalian dari 30 hari terakhir? Tindakan ini tidak dapat dibatalkan.';
-                break;
-            case 'semua':
-                title = 'Hapus Semua Riwayat?';
-                content = 'Apakah Anda yakin ingin menghapus SEMUA riwayat pengembalian? Tindakan ini tidak dapat dibatalkan dan akan menghapus seluruh data pengembalian.';
-                break;
-        }
-        
-        modalTitle.innerText = title;
-        modalContent.innerText = content;
-        document.getElementById('deleteHistoryModal').classList.remove('hidden');
-        
-        // Tutup dropdown setelah opsi dipilih
-        document.getElementById('deleteHistoryDropdown').classList.add('hidden');
-    }
-    
-    // Function untuk close modal tetap sama
-    function closeDeleteModal() {
-        document.getElementById('deleteHistoryModal').classList.add('hidden');
-    }
-
-    // Function untuk Alasan modal tetap sama
-    function openAlasanModal(id, alasan) {
-        document.getElementById('modal-content').innerText = alasan;
-        document.getElementById('alasanModal').classList.remove('hidden');
-    }
-    
-    function closeAlasanModal() {
-        document.getElementById('alasanModal').classList.add('hidden');
-    }
-    
-        // Add event listeners when document is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Escape key handler for modals
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                    closeAlasanModal();
-                    closeDeleteModal();
-                }
-            });
-    
-            // Initialize Alpine.js if needed
-            if (typeof Alpine !== 'undefined') {
-                Alpine.start();
-            }
-    
-            // Add animation effect when filtering
-            const filterForm = document.querySelector('form[action="{{ route("hu.filter") }}"]');
-            if (filterForm) {
-                filterForm.addEventListener('submit', function() {
-                    const tableRows = document.querySelectorAll('#tableBody tr');
-                    tableRows.forEach(row => {
-                        row.classList.add('animate__fadeOut');
-                    });
-                });
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('deleteHistoryDropdown');
+            const dropdownButton = document.getElementById('deleteHistoryDropdownButton');
+            
+            if (!dropdown.contains(event.target) && !dropdownButton.contains(event.target)) {
+                dropdown.classList.add('hidden');
             }
         });
-    </script>
-    @endsection
+
+        // Escape key handler for modals
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                modalFunctions.closeAlasanModal();
+                modalFunctions.closeDeleteModal();
+            }
+        });
+    });
+</script>
+@endsection
