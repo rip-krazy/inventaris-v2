@@ -91,17 +91,23 @@ class PenggunaController extends Controller
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
             
-            // Update atau buat record password plaintext di database
-            \App\Models\PlaintextPassword::updateOrCreate(
-                ['user_id' => $pengguna->id],
-                ['password' => $request->password]
-            );
+            // Update plaintext password if exists, or create new
+            $plaintextPassword = \App\Models\PlaintextPassword::where('user_id', $pengguna->id)->first();
+            
+            if ($plaintextPassword) {
+                $plaintextPassword->update(['password' => $request->password]);
+            } else {
+                \App\Models\PlaintextPassword::create([
+                    'user_id' => $pengguna->id,
+                    'password' => $request->password
+                ]);
+            }
         }
 
         $pengguna->update($data);
 
         return redirect()->route('pengguna.index')
-               ->with('success', 'Data pengguna berhasil diperbarui.');
+            ->with('success', 'Data pengguna berhasil diperbarui.');
     }
 
     public function destroy(User $pengguna)
